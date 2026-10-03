@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ciudadanía en Red</title>
+<meta name="description" content="Un blog para entender la cultura digital que habitamos y usarla con criterio: cibercultura, alfabetización digital y ética digital.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F2F5F8; --surface:#FFFFFF; --ink:#16203A; --muted:#55617A; --line:#D3DAE4;
+  --accent:#1D6A86; --accent-ink:#FFFFFF; --signal:#E39A2D; --soft:#E3EDF2;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Literata", Georgia, "Times New Roman", serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1524; --surface:#152035; --ink:#E5EAF2; --muted:#9BA7BA; --line:#27344C;
+    --accent:#5DB4D2; --accent-ink:#0E1524; --signal:#F0B455; --soft:#1A2A40;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1524; --surface:#152035; --ink:#E5EAF2; --muted:#9BA7BA; --line:#27344C;
+  --accent:#5DB4D2; --accent-ink:#0E1524; --signal:#F0B455; --soft:#1A2A40;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px); scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto} *{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.7}
+img,svg{max-width:100%}
+a{color:var(--accent);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--signal);outline-offset:3px;border-radius:4px}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.1;margin:0 0 .5em;letter-spacing:-.01em}
+.wrap{max-width:1080px;margin:0 auto;padding:0 1.25rem}
+.read{max-width:680px}
+
+/* Barra superior */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:1rem;min-height:60px}
+.brand{font-family:var(--display);font-weight:800;font-size:1.1rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:.5rem}
+.brand svg{width:26px;height:26px}
+.nav{margin-left:auto;display:flex;gap:1.1rem;flex-wrap:wrap;font-family:var(--display);font-size:.95rem}
+.nav a{color:var(--muted);text-decoration:none}
+.nav a:hover{color:var(--ink)}
+.theme-btn{background:none;border:1px solid var(--line);color:var(--ink);border-radius:99px;width:36px;height:36px;cursor:pointer;font-size:1rem}
+@media (max-width:760px){.nav{display:none}}
+
+/* Portada */
+.hero{position:relative;padding:4.5rem 0 3.5rem;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:2rem;align-items:center}
+.hero h1{font-size:clamp(3rem,9vw,6.4rem);font-weight:800;line-height:.92;letter-spacing:-.035em;margin-bottom:1.5rem}
+.hero h1 span{display:block}
+.hero p.lead{font-size:1.25rem;max-width:30ch;color:var(--muted);margin:0 0 2rem}
+.btn{display:inline-block;font-family:var(--display);font-weight:600;background:var(--accent);color:var(--accent-ink);padding:.8rem 1.3rem;border-radius:10px;text-decoration:none;border:0;cursor:pointer;font-size:1rem}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);margin-left:.5rem}
+.net{width:100%;height:auto}
+.net line{stroke:var(--line);stroke-width:2;stroke-dasharray:400;stroke-dashoffset:400;animation:draw 1.6s ease-out forwards}
+.net line.hot{stroke:var(--accent)}
+.net circle{fill:var(--surface);stroke:var(--ink);stroke-width:2.5}
+.net circle.on{fill:var(--signal);stroke:var(--signal)}
+.net circle.off{fill:var(--paper);stroke:var(--muted);stroke-dasharray:4 4}
+@keyframes draw{to{stroke-dashoffset:0}}
+.net-legend{display:flex;gap:1.2rem;flex-wrap:wrap;font-family:var(--display);font-size:.85rem;color:var(--muted);margin-top:.5rem}
+.net-legend i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:.4rem;vertical-align:-1px}
+@media (max-width:820px){.hero-grid{grid-template-columns:1fr}.hero{padding-top:3rem}}
+
+section{padding:4rem 0;border-bottom:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:2rem}
+.sec-head h2{font-size:clamp(1.9rem,4vw,2.6rem);margin:0}
+.sec-head p{margin:0;color:var(--muted);max-width:46ch}
+
+/* Por qué */
+.why{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
+.why h3{font-size:1.35rem}
+.why p{margin:0 0 1rem}
+.question{margin-top:2.5rem;padding:1.5rem 1.75rem;border-left:5px solid var(--signal);background:var(--surface);font-size:1.2rem;font-style:italic}
+@media (max-width:760px){.why{grid-template-columns:1fr}}
+
+/* Índice de entradas */
+.posts{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
+.posts li{border-bottom:1px solid var(--line)}
+.posts a{display:grid;grid-template-columns:3.5rem 1fr auto;gap:1rem;padding:1.4rem .25rem;text-decoration:none;color:var(--ink);align-items:start}
+.posts a:hover h3{color:var(--accent)}
+.posts .n{font-family:var(--display);font-weight:800;font-size:1.6rem;color:var(--signal);line-height:1}
+.posts h3{font-size:1.4rem;margin:0 0 .35rem;transition:color .15s}
+.posts p{margin:0;color:var(--muted);font-size:1rem}
+.posts .min{font-family:var(--display);font-size:.85rem;color:var(--muted);white-space:nowrap;padding-top:.3rem}
+.tag{display:inline-block;font-family:var(--display);font-size:.8rem;background:var(--soft);color:var(--ink);padding:.15rem .6rem;border-radius:99px;margin-bottom:.5rem}
+@media (max-width:600px){.posts a{grid-template-columns:2.5rem 1fr}.posts .min{display:none}}
+
+/* Autoevaluación */
+.quiz{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:1.5rem}
+.q{padding:1rem 0;border-bottom:1px solid var(--line)}
+.q:last-of-type{border-bottom:0}
+.q p{margin:0 0 .6rem}
+.opts{display:flex;gap:.5rem;flex-wrap:wrap}
+.opts label{font-family:var(--display);font-size:.95rem;border:1px solid var(--line);padding:.4rem .9rem;border-radius:99px;cursor:pointer;user-select:none}
+.opts input{position:absolute;opacity:0;pointer-events:none}
+.opts input:checked + span{color:var(--accent-ink)}
+.opts label:has(input:checked){background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.opts label:has(input:focus-visible){outline:3px solid var(--signal);outline-offset:2px}
+.result{margin-top:1.25rem;padding:1.25rem 1.5rem;border-radius:12px;background:var(--soft);display:none}
+.result.show{display:block}
+.result h3{font-size:1.3rem}
+.result p{margin:.3rem 0}
+.meter{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin:.6rem 0 1rem}
+.meter b{display:block;height:100%;background:var(--signal);width:0;transition:width .6s ease}
+.err{color:#B3261E;font-family:var(--display);font-size:.95rem;margin-top:.75rem;display:none}
+:root[data-theme="dark"] .err{color:#FF8A80}
+
+/* Herramientas */
+.tools{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.tool h3{font-size:1.25rem;padding-bottom:.6rem;border-bottom:2px solid var(--ink)}
+.tool ul{list-style:none;margin:0;padding:0}
+.tool li{padding:.55rem 0;border-bottom:1px dashed var(--line);font-size:.98rem}
+.tool label{display:flex;gap:.65rem;cursor:pointer;align-items:flex-start}
+.tool input{margin-top:.35rem;width:18px;height:18px;accent-color:var(--accent);flex:none}
+.tool input:checked + span{color:var(--muted);text-decoration:line-through}
+.progress{font-family:var(--display);font-size:.85rem;color:var(--muted);margin-top:.6rem}
+@media (max-width:900px){.tools{grid-template-columns:1fr}}
+
+/* Glosario */
+.search{width:100%;max-width:420px;font:inherit;font-family:var(--display);padding:.7rem 1rem;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);margin-bottom:1.5rem}
+.gloss{display:grid;grid-template-columns:repeat(2,1fr);gap:0 2.5rem}
+.gloss dt{font-family:var(--display);font-weight:600;font-size:1.08rem;margin-top:1rem}
+.gloss dd{margin:.2rem 0 0;color:var(--muted);font-size:.98rem;padding-bottom:1rem;border-bottom:1px solid var(--line)}
+.gloss .item.hide{display:none}
+.empty{color:var(--muted);display:none}
+@media (max-width:700px){.gloss{grid-template-columns:1fr}}
+
+/* Referencias */
+.refs{padding-left:0;list-style:none;font-size:.95rem}
+.refs li{padding-left:2em;text-indent:-2em;margin-bottom:.7rem}
+
+footer{padding:3rem 0 4rem;color:var(--muted);font-size:.95rem}
+footer .brand{margin-bottom:.5rem}
+
+/* Vista de entrada */
+#post{display:none;padding:3rem 0 4rem}
+body.reading #home{display:none}
+body.reading #post{display:block}
+.back{font-family:var(--display);text-decoration:none;display:inline-block;margin-bottom:2rem}
+.post-head h1{font-size:clamp(2.2rem,6vw,3.6rem);letter-spacing:-.025em}
+.post-meta{font-family:var(--display);color:var(--muted);font-size:.95rem;display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.post-body h2{font-size:1.5rem;margin-top:2.2rem}
+.post-body p{margin:0 0 1.2rem}
+.post-body ul{padding-left:1.2rem;margin:0 0 1.2rem}
+.post-body li{margin-bottom:.4rem}
+.post-body blockquote{margin:1.8rem 0;padding:0 0 0 1.25rem;border-left:4px solid var(--accent);font-size:1.15rem;font-style:italic}
+.think{margin:2.5rem 0;padding:1.5rem 1.75rem;background:var(--surface);border:1px solid var(--line);border-top:5px solid var(--signal);border-radius:4px 4px 12px 12px}
+.think h3{font-size:1.15rem}
+.think p{margin:0}
+.pager{display:flex;justify-content:space-between;gap:1rem;border-top:2px solid var(--ink);padding-top:1.25rem;margin-top:2rem;font-family:var(--display)}
+.pager a{text-decoration:none;max-width:48%}
+.pager small{display:block;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="Ciudadanía en Red, inicio">
+      <svg viewBox="0 0 26 26" aria-hidden="true"><line x1="6" y1="7" x2="19" y2="9" stroke="currentColor" stroke-width="2"/><line x1="6" y1="7" x2="11" y2="20" stroke="currentColor" stroke-width="2"/><line x1="19" y1="9" x2="11" y2="20" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="7" r="3.5" fill="var(--signal)"/><circle cx="19" cy="9" r="3.5" fill="var(--accent)"/><circle cx="11" cy="20" r="3.5" fill="currentColor"/></svg>
+      Ciudadanía en Red
+    </a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#entradas">Entradas</a>
+      <a href="#autoevaluacion">Autoevaluación</a>
+      <a href="#herramientas">Herramientas</a>
+      <a href="#glosario">Glosario</a>
+      <a href="#referencias">Referencias</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" aria-label="Cambiar entre modo claro y oscuro">◐</button>
+  </div>
+</header>
+
+<main>
+<div id="home">
+  <div class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <h1><span>Ciudadanía</span><span>en Red</span></h1>
+        <p class="lead">Un blog para entender la cultura digital que habitamos y usarla con criterio.</p>
+        <a class="btn" href="#entrada-1">Empezar a leer</a>
+        <a class="btn ghost" href="#autoevaluacion">Hacer la autoevaluación</a>
+        <p style="margin:2rem 0 0;font-family:var(--display);font-size:.95rem;color:var(--muted)">Por Jenny Parra, Laura Daza, María José García y Diana Chipiz</p>
+      </div>
+      <div>
+        <svg class="net" viewBox="0 0 420 340" role="img" aria-label="Una red de personas: algunas conectadas con criterio, otras conectadas sin entender el sistema y otras por fuera de la red">
+          <line class="hot" x1="80" y1="70" x2="200" y2="40"/>
+          <line class="hot" x1="200" y1="40" x2="320" y2="90"/>
+          <line class="hot" x1="80" y1="70" x2="150" y2="160"/>
+          <line x1="150" y1="160" x2="270" y2="175"/>
+          <line class="hot" x1="320" y1="90" x2="270" y2="175"/>
+          <line x1="200" y1="40" x2="150" y2="160"/>
+          <line x1="270" y1="175" x2="350" y2="250"/>
+          <line x1="150" y1="160" x2="110" y2="260"/>
+          <line x1="270" y1="175" x2="210" y2="270"/>
+          <line x1="110" y1="260" x2="210" y2="270"/>
+          <circle class="on" cx="80" cy="70" r="13"/>
+          <circle class="on" cx="200" cy="40" r="15"/>
+          <circle class="on" cx="320" cy="90" r="13"/>
+          <circle cx="150" cy="160" r="14"/>
+          <circle class="on" cx="270" cy="175" r="16"/>
+          <circle cx="350" cy="250" r="12"/>
+          <circle cx="110" cy="260" r="12"/>
+          <circle cx="210" cy="270" r="13"/>
+          <circle class="off" cx="40" cy="190" r="11"/>
+          <circle class="off" cx="390" cy="170" r="10"/>
+          <circle class="off" cx="300" cy="315" r="11"/>
+        </svg>
+        <div class="net-legend">
+          <span><i style="background:var(--signal)"></i>Usa y entiende</span>
+          <span><i style="border:2px solid var(--ink)"></i>Usa sin entender</span>
+          <span><i style="border:2px dashed var(--muted)"></i>Queda por fuera</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="por-que">
+    <div class="wrap">
+      <div class="sec-head"><h2>Por qué existe este blog</h2></div>
+      <div class="why">
+        <div>
+          <h3>Usamos mucho, entendemos poco</h3>
+          <p>Abrimos aplicaciones, aceptamos términos y condiciones, compartimos noticias y le pedimos respuestas a la inteligencia artificial todos los días. Pocas veces nos preguntamos cómo funcionan esos sistemas, qué hacen con nuestros datos o por qué vemos unos contenidos y no otros.</p>
+          <p>Estar conectado no nos convierte en ciudadanos digitales. Usar una herramienta no es lo mismo que ser competente en su uso.</p>
+        </div>
+        <div>
+          <h3>Y muchos se quedan por fuera</h3>
+          <p>Al otro lado están quienes casi no usan la tecnología: por falta de acceso, de formación o de confianza. Estudiantes, docentes, familias y comunidades enteras pierden oportunidades de aprender, participar y defender sus derechos en la red.</p>
+          <p>Ciudadanía en Red explica la cibercultura en palabras sencillas y propone una ética digital práctica para ambos casos.</p>
+        </div>
+      </div>
+      <p class="question">¿Cómo pasamos de ser usuarios que consumen a ciudadanos que entienden, participan y deciden en la red?</p>
+    </div>
+  </section>
+
+  <section id="entradas">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Entradas</h2>
+        <p>Una ruta de seis lecturas cortas. Puedes seguirlas en orden o empezar por la que más te interese.</p>
+      </div>
+      <ol class="posts" id="postList"></ol>
+    </div>
+  </section>
+
+  <section id="autoevaluacion">
+    <div class="wrap read">
+      <div class="sec-head">
+        <h2>¿Qué tan alfabetizado digitalmente estás?</h2>
+        <p>Responde con sinceridad. Nadie más verá tus respuestas; al final te sugerimos por dónde empezar.</p>
+      </div>
+      <form class="quiz" id="quiz"></form>
+    </div>
+  </section>
+
+  <section id="herramientas">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Caja de herramientas</h2>
+        <p>Listas de chequeo para llevar la teoría a la práctica. Marca lo que ya haces; tu progreso se guarda en este navegador.</p>
+      </div>
+      <div class="tools" id="tools"></div>
+    </div>
+  </section>
+
+  <section id="glosario">
+    <div class="wrap">
+      <div class="sec-head"><h2>Glosario</h2><p>Los conceptos clave del blog, explicados en una o dos frases.</p></div>
+      <label for="gq" class="sr" style="position:absolute;left:-9999px">Buscar en el glosario</label>
+      <input class="search" id="gq" type="search" placeholder="Buscar un término, por ejemplo: algoritmo">
+      <dl class="gloss" id="gloss"></dl>
+      <p class="empty" id="gEmpty">No hay términos con esa palabra. Prueba con otra búsqueda.</p>
+    </div>
+  </section>
+
+  <section id="referencias">
+    <div class="wrap read">
+      <div class="sec-head"><h2>Referencias</h2></div>
+      <ul class="refs">
+        <li>Carr, N. (2011). <i>Superficiales: ¿Qué está haciendo Internet con nuestras mentes?</i> Taurus.</li>
+        <li>Castells, M. (2001). <i>La era de la información: economía, sociedad y cultura</i>. Alianza Editorial.</li>
+        <li>Cobo, C. (2016). <i>La innovación pendiente: Reflexiones (y provocaciones) sobre la educación, el futuro y sus posibles derivas</i>. Ceibal.</li>
+        <li>Gilster, P. (1997). <i>Digital literacy</i>. Wiley.</li>
+        <li>Kirschner, P. A., &amp; De Bruyckere, P. (2017). The myths of the digital native and the multitasker. <i>Teaching and Teacher Education, 67</i>, 135–142.</li>
+        <li>Lévy, P. (2007). <i>Cibercultura: La cultura de la sociedad digital</i>. Anthropos.</li>
+        <li>Martín-Barbero, J. (2006). A Latin American perspective on communication/cultural mediation. <i>Global Media and Communication, 2</i>(3), 279–297.</li>
+        <li>Moulier-Boutang, Y. (2011). <i>Cognitive capitalism</i>. Polity Press.</li>
+        <li>Nissenbaum, H. (2010). <i>Privacy in context: Technology, policy, and the integrity of social life</i>. Stanford University Press.</li>
+        <li>O'Neil, C. (2016). <i>Weapons of math destruction</i>. Crown.</li>
+        <li>Pariser, E. (2011). <i>The filter bubble: What the Internet is hiding from you</i>. Penguin Press.</li>
+        <li>Prensky, M. (2001). Digital natives, digital immigrants. <i>On the Horizon, 9</i>(5), 1–6.</li>
+        <li>Ribble, M. (2015). <i>Digital citizenship in schools: Nine elements all students should know</i> (3.ª ed.). ISTE.</li>
+        <li>Sibilia, P. (2012). <i>¿Redes o paredes? La escuela en tiempos de la dispersión</i>. Tinta Fresca.</li>
+        <li>Turkle, S. (2011). <i>Alone together: Why we expect more from technology and less from each other</i>. Basic Books.</li>
+        <li>UNESCO. (2023). <i>Informe de seguimiento de la educación en el mundo 2023: Tecnología en la educación: ¿una herramienta en los términos de quién?</i> https://doi.org/10.54676/idqe8212</li>
+        <li>van Deursen, A. J. A. M., &amp; Helsper, E. J. (2015). The third-level digital divide: Who benefits most from being online? <i>Communication and Information Technologies Annual</i> (Studies in Media and Communications, Vol. 10), 29–52. Emerald.</li>
+        <li>Vuorikari, R., Kluzer, S., &amp; Punie, Y. (2022). <i>DigComp 2.2: The digital competence framework for citizens</i>. Publications Office of the European Union.</li>
+        <li>White, D. S., &amp; Le Cornu, A. (2011). Visitors and residents: A new typology for online engagement. <i>First Monday, 16</i>(9).</li>
+        <li>Wineburg, S., &amp; McGrew, S. (2019). Lateral reading and the nature of expertise. <i>Teachers College Record, 121</i>(11), 1–40.</li>
+        <li>Zuboff, S. (2019). <i>The age of surveillance capitalism</i>. PublicAffairs.</li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<article id="post" class="wrap read" aria-live="polite"></article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="brand">Ciudadanía en Red</div>
+    <p>Blog educativo sobre cibercultura, alfabetización digital y ética digital. Proyecto académico del Seminario de Fundamentación en Educación y Cibercultura.</p>
+    <p>Creado por Jenny Parra, Laura Daza, María José García y Diana Chipiz.</p>
+  </div>
+</footer>
+
+<script>
+const POSTS = [
+{ id:1, tag:"Cibercultura", min:4,
+  title:"¿Qué es la cibercultura? (Y por qué ya vives en ella)",
+  sum:"No es solo internet: son las prácticas, valores y formas de pensar que surgen cuando convivimos con la tecnología.",
+  body:`<p>Cuando buscas un tutorial para arreglar algo, comentas en un grupo de WhatsApp de la clase o editas un documento compartido, estás participando en la cibercultura. Pierre Lévy (2007) la define como el conjunto de prácticas, valores, actitudes y formas de pensamiento que se desarrollan junto con el ciberespacio.</p>
+<h2>Inteligencia colectiva</h2>
+<p>La idea central de Lévy es la <b>inteligencia colectiva</b>: nadie lo sabe todo, pero todos saben algo, y la red permite juntar esos saberes. Wikipedia, los foros de ayuda o los repositorios de recursos educativos son ejemplos de conocimiento construido entre muchas personas, no solo por las instituciones tradicionales.</p>
+<h2>La sociedad red</h2>
+<p>Manuel Castells (2001) añade que vivimos en una <b>sociedad red</b>: el conocimiento ya no es un recurso escaso guardado en bibliotecas, sino un flujo que circula y se transforma. Eso cambia quién tiene poder, quién participa y quién se queda por fuera.</p>
+<h2>La cibercultura también nos moldea</h2>
+<p>La tecnología no es una simple herramienta neutral. Paula Sibilia (2012) habla de <b>subjetividades mediáticas</b>: formas de pensar, sentir y actuar que se construyen <i>con</i> los dispositivos. Las redes sociales, por ejemplo, influyen en cómo nos mostramos, qué esperamos de los demás e incluso en cómo prestamos atención.</p>
+<blockquote>Entender la cibercultura no es aprender a usar aplicaciones; es entender cómo esas aplicaciones cambian nuestra manera de aprender, relacionarnos y participar.</blockquote>`,
+  think:"Piensa en un día normal. ¿En qué momentos participaste en la inteligencia colectiva y en cuáles solo consumiste contenido?" },
+{ id:2, tag:"Alfabetización digital", min:4,
+  title:"Usar no es lo mismo que saber",
+  sum:"El mito del nativo digital y por qué manejar el celular no basta para ser competente en la red.",
+  body:`<p>Marc Prensky (2001) popularizó la idea de los <b>nativos digitales</b>: jóvenes que, por haber crecido con la tecnología, la dominarían de manera natural. La investigación posterior desmontó ese mito. Kirschner y De Bruyckere (2017) mostraron que nacer rodeado de pantallas no garantiza saber buscar, evaluar ni crear información con criterio, y que la famosa multitarea en realidad perjudica el aprendizaje.</p>
+<p>David White y Alison Le Cornu (2011) propusieron otra mirada: más que la edad, importa <i>cómo</i> usamos la red. Hay <b>visitantes</b>, que entran a la red para resolver algo puntual y salen, y <b>residentes</b>, que viven parte de su vida social e intelectual allí. Una misma persona puede ser visitante en lo académico y residente en lo social.</p>
+<h2>Entonces, ¿qué es la alfabetización digital?</h2>
+<p>Paul Gilster (1997), quien acuñó el término, la describió como la capacidad de comprender y usar información en múltiples formatos a través de los computadores. Hoy el marco europeo DigComp 2.2 (Vuorikari et al., 2022) la organiza en cinco áreas:</p>
+<ul><li>Búsqueda y evaluación de información y datos.</li><li>Comunicación y colaboración.</li><li>Creación de contenido digital.</li><li>Seguridad, que incluye proteger los datos y el bienestar.</li><li>Resolución de problemas.</li></ul>
+<h2>La otra cara: no usar</h2>
+<p>La brecha no solo afecta a quien usa sin entender. También hay docentes, adultos y estudiantes que evitan la tecnología por miedo a equivocarse o porque nadie les enseñó. Ambos casos son falta de alfabetización digital, y ambos tienen solución.</p>`,
+  think:"¿Eres más visitante o residente? ¿En qué áreas de DigComp te sientes fuerte y en cuál necesitas aprender más?" },
+{ id:3, tag:"Sistemas digitales", min:5,
+  title:"Cómo deciden los algoritmos lo que ves",
+  sum:"Tu inicio en redes no es una ventana neutral al mundo: es una selección hecha para mantenerte conectado.",
+  body:`<p>Un <b>algoritmo</b> es un conjunto de instrucciones que procesa datos para tomar una decisión. En las redes sociales, los algoritmos deciden qué publicaciones aparecen primero en tu inicio. Para hacerlo usan señales como lo que miras, cuánto tiempo te detienes, lo que te gusta, lo que compartes y lo que hacen personas parecidas a ti.</p>
+<h2>¿Para qué están diseñados?</h2>
+<p>La mayoría de plataformas gratuitas viven de la publicidad, así que su objetivo es que pases el mayor tiempo posible en ellas. Yann Moulier-Boutang (2011) llama <b>capitalismo cognitivo</b> a este modelo, en el que la atención, el conocimiento y la creatividad de los usuarios se convierten en valor económico. El scroll infinito y la reproducción automática no son accidentes de diseño.</p>
+<h2>La burbuja de filtro</h2>
+<p>Eli Pariser (2011) advirtió que, al mostrarnos lo que ya nos gusta, los algoritmos nos encierran en una <b>burbuja de filtro</b>: vemos cada vez más de lo mismo y menos de lo que piensa distinto. Eso facilita las ecocámaras, donde solo escuchamos opiniones que confirman las nuestras.</p>
+<h2>¿Y la inteligencia artificial?</h2>
+<p>Los chatbots de IA generativa funcionan prediciendo cuál es la respuesta más probable según los textos con los que fueron entrenados. Por eso pueden escribir con mucha seguridad datos falsos o referencias que no existen. Además, como señala Cathy O'Neil (2016), los sistemas automatizados pueden reproducir los sesgos de los datos con los que se construyen.</p>
+<h2>Qué puedes hacer</h2>
+<ul><li>Busca el mismo tema en fuentes distintas, no solo en tu red favorita.</li><li>Sigue a personas e instituciones que piensen diferente a ti.</li><li>Revisa la opción "por qué veo este anuncio" en tus redes.</li><li>Verifica siempre lo que te responde una IA antes de usarlo.</li></ul>`,
+  think:"Abre tu red social más usada y mira las primeras diez publicaciones. ¿Qué crees que sabe el algoritmo de ti?" },
+{ id:4, tag:"Privacidad", min:4,
+  title:"Tus datos valen: privacidad en la vida cotidiana",
+  sum:"Si no pagas por un servicio, probablemente estás pagando con tus datos. Qué entregas y cómo cuidarlo.",
+  body:`<p>Cada vez que usas una aplicación dejas una <b>huella digital</b>: tu ubicación, tus contactos, tus búsquedas, las horas en que te conectas y hasta cuánto tardas en leer algo. Muchos de esos datos son <b>metadatos</b>, información sobre tu información, y dicen mucho más de lo que parece.</p>
+<h2>Un mercado de comportamientos</h2>
+<p>Shoshana Zuboff (2019) describe el <b>capitalismo de la vigilancia</b>: un modelo de negocio que recoge datos sobre nuestro comportamiento para predecirlo y venderlo. No es un problema solo de grandes empresas lejanas; también ocurre con aplicaciones educativas, juegos y plataformas que usamos a diario.</p>
+<h2>La privacidad depende del contexto</h2>
+<p>Helen Nissenbaum (2010) propone la idea de <b>integridad contextual</b>: compartir información no es malo en sí mismo; el problema aparece cuando un dato sale del contexto en el que lo entregamos. Contarle al médico un diagnóstico es apropiado; que ese diagnóstico termine en manos de una aseguradora o un empleador, no.</p>
+<p>En Colombia, la Ley Estatutaria 1581 de 2012 protege los datos personales y reconoce el derecho de las personas a conocer, actualizar y rectificar la información que se recoge sobre ellas.</p>
+<h2>Prácticas básicas de cuidado</h2>
+<ul><li>Revisa qué permisos tienen tus aplicaciones (cámara, micrófono, ubicación, contactos).</li><li>Usa contraseñas distintas para cada servicio y, si puedes, un gestor de contraseñas.</li><li>Activa la verificación en dos pasos en tu correo y tus redes.</li><li>Piensa antes de publicar fotos o datos de otras personas, en especial de menores de edad.</li></ul>`,
+  think:"¿Cuántas aplicaciones de tu celular tienen acceso a tu ubicación? ¿Todas lo necesitan?" },
+{ id:5, tag:"Ética digital", min:5,
+  title:"Ética digital en la práctica",
+  sum:"Autoría, inteligencia artificial, desinformación y ciberacoso: decisiones éticas que tomamos con cada clic.",
+  body:`<p>La ética digital no es un tema abstracto. Mike Ribble (2015) describe la ciudadanía digital como un conjunto de normas de comportamiento responsable en la red, que incluye el acceso, la comunicación, la seguridad, los derechos y las responsabilidades. Estas son cuatro situaciones cotidianas donde se pone a prueba.</p>
+<h2>Respetar la autoría</h2>
+<p>Que algo esté en internet no significa que sea libre de usar. Cita siempre la fuente de textos, imágenes y videos. Busca recursos con <b>licencias Creative Commons</b>, que indican cómo puedes reutilizar una obra y a quién debes reconocer.</p>
+<h2>Usar la IA con honestidad</h2>
+<p>La inteligencia artificial puede ayudarte a entender un tema, organizar ideas o revisar un texto. Entregar como propio un trabajo hecho por una IA, en cambio, es una forma de plagio. Declara cuándo y cómo la usaste, verifica sus respuestas y no le entregues datos personales o confidenciales.</p>
+<h2>Verificar antes de compartir</h2>
+<p>La desinformación se propaga porque la compartimos sin revisar. Sam Wineburg y Sarah McGrew (2019) estudiaron cómo trabajan los verificadores profesionales y encontraron que usan la <b>lectura lateral</b>: en lugar de quedarse leyendo la página sospechosa, abren otras pestañas para averiguar quién está detrás y qué dicen otras fuentes.</p>
+<h2>No ser espectador del ciberacoso</h2>
+<p>El anonimato y la distancia facilitan el acoso y los discursos de odio. Si lo ves, no lo compartas ni lo celebres. Apoya a la persona afectada, guarda evidencia con capturas, usa las herramientas de denuncia de la plataforma y busca ayuda de un adulto o una institución cuando se trate de menores.</p>`,
+  think:"¿Alguna vez compartiste algo que luego resultó falso? ¿Qué te habría ayudado a detectarlo a tiempo?" },
+{ id:6, tag:"Brecha digital", min:4,
+  title:"La brecha digital: quién se queda por fuera",
+  sum:"Tener internet no basta. La brecha también está en lo que sabemos hacer con él y en lo que logramos gracias a él.",
+  body:`<p>Solemos pensar la brecha digital como la diferencia entre quien tiene computador e internet y quien no. Esa es solo la primera capa. Los investigadores Alexander van Deursen y Ellen Helsper (2015) describen tres niveles:</p>
+<ul><li><b>Acceso:</b> tener o no dispositivos y conectividad de calidad.</li><li><b>Uso y habilidades:</b> saber o no aprovechar la tecnología para estudiar, trabajar o participar.</li><li><b>Resultados:</b> obtener o no beneficios reales, como un empleo, un trámite resuelto o un aprendizaje.</li></ul>
+<p>Dos personas con el mismo celular pueden vivir realidades muy distintas: una lo usa para aprender, crear y defender sus derechos; otra solo para entretenerse, o casi no lo usa porque nadie le enseñó.</p>
+<h2>No basta con repartir equipos</h2>
+<p>El informe de la UNESCO (2023) sobre tecnología en la educación recuerda que la tecnología no mejora el aprendizaje por sí sola: depende de cómo se usa, de la formación docente y del contexto. Cristóbal Cobo (2016) lo resume en una idea: adoptar tecnología no es lo mismo que innovar.</p>
+<h2>Una mirada desde América Latina</h2>
+<p>Jesús Martín-Barbero (2006) insistió en que los medios y las tecnologías deben pensarse desde las culturas y realidades locales, no como una copia de modelos del norte global. En zonas rurales o con baja conectividad, la alfabetización digital puede empezar con recursos sin conexión, aprendizaje entre generaciones y proyectos ligados a los problemas de la comunidad.</p>
+<blockquote>Cerrar la brecha digital no es poner a todos frente a una pantalla, sino lograr que todos puedan decidir qué hacer con ella.</blockquote>`,
+  think:"En tu entorno, ¿quién se está quedando por fuera de la red? ¿Qué podrías enseñarle tú?" }
+];
+
+const QUIZ = [
+"Antes de compartir una noticia, reviso quién la publica y si otros medios la confirman.",
+"Entiendo por qué una red social me muestra unos contenidos y no otros.",
+"Reviso los permisos que les doy a las aplicaciones de mi celular.",
+"Uso contraseñas distintas y verificación en dos pasos en mis cuentas importantes.",
+"Cito la fuente cuando uso imágenes o textos de otras personas.",
+"Cuando uso inteligencia artificial, verifico lo que responde y aclaro que la usé.",
+"Me animo a probar herramientas digitales nuevas para estudiar o trabajar.",
+"Sé qué hacer si veo a alguien sufriendo acoso en línea."
+];
+
+const TOOLS = [
+{ key:"verificar", title:"Antes de compartir una noticia", items:[
+ "Leí la noticia completa, no solo el titular.",
+ "Averigüé quién la publica y si es un medio o autor confiable.",
+ "Busqué si otras fuentes serias informan lo mismo.",
+ "Revisé la fecha: puede ser una noticia vieja que circula como nueva.",
+ "Comprobé que las imágenes no estén sacadas de contexto (búsqueda inversa de imágenes).",
+ "Me pregunté si me provoca una emoción fuerte a propósito."]},
+{ key:"privacidad", title:"Revisión de privacidad en 15 minutos", items:[
+ "Revisé los permisos de ubicación, cámara y micrófono de mis aplicaciones.",
+ "Activé la verificación en dos pasos en mi correo.",
+ "Cambié las contraseñas repetidas por contraseñas únicas.",
+ "Revisé quién puede ver mis publicaciones en redes sociales.",
+ "Eliminé aplicaciones que ya no uso.",
+ "Busqué mi nombre en internet para ver qué información aparece."]},
+{ key:"ia", title:"Usar la IA con ética", items:[
+ "Uso la IA para entender y mejorar, no para que haga el trabajo por mí.",
+ "Verifico datos, cifras y referencias en fuentes reales.",
+ "Declaro cuándo y cómo usé la IA en mis trabajos.",
+ "No comparto datos personales ni información confidencial.",
+ "Reviso las normas de mi institución sobre el uso de IA."]}
+];
+
+const GLOSS = [
+["Algoritmo","Conjunto de instrucciones que procesa datos para tomar decisiones, como qué contenido mostrarte en una red social."],
+["Alfabetización digital","Capacidad de buscar, evaluar, crear y compartir información digital de forma crítica, segura y ética."],
+["Alfabetización mediática","Capacidad de comprender, analizar y producir mensajes en distintos medios, distinguiendo fuentes confiables de cuestionables."],
+["Brecha digital","Desigualdad en el acceso a la tecnología, en las habilidades para usarla y en los beneficios que se obtienen de ella."],
+["Burbuja de filtro","Efecto de los algoritmos que nos muestran sobre todo lo que ya nos gusta y nos aíslan de otras perspectivas (Pariser, 2011)."],
+["Capitalismo cognitivo","Modelo económico en el que el conocimiento, la creatividad y la atención de las personas se convierten en fuente de valor."],
+["Cibercultura","Prácticas, valores y formas de pensar que surgen de la interacción humana con las tecnologías digitales (Lévy, 2007)."],
+["Ciudadanía digital","Participación responsable, crítica y ética en los entornos digitales, con conciencia de derechos y deberes."],
+["Creative Commons","Licencias que indican cómo se puede reutilizar una obra y cómo reconocer a su autor."],
+["Desinformación","Información falsa o engañosa difundida, a veces de forma intencional, para confundir o manipular."],
+["Ecocámara","Espacio digital donde solo circulan opiniones que confirman las propias creencias."],
+["Huella digital","Rastro de datos que dejamos al usar internet: publicaciones, búsquedas, ubicaciones y registros de actividad."],
+["IA generativa","Inteligencia artificial que produce textos, imágenes o audio prediciendo resultados a partir de grandes cantidades de datos."],
+["Inteligencia colectiva","Capacidad de una comunidad para construir conocimiento colaborando en red (Lévy, 2007)."],
+["Lectura lateral","Estrategia de verificación que consiste en salir de la página y consultar otras fuentes sobre quién publica y qué se dice."],
+["Metadatos","Datos sobre los datos: hora, lugar, dispositivo o duración de una actividad digital."],
+["Privacidad contextual","Idea de que la privacidad se respeta cuando la información circula según las normas del contexto en que se compartió (Nissenbaum, 2010)."],
+["Verificación en dos pasos","Método de seguridad que pide un segundo código o confirmación además de la contraseña."]
+];
+
+/* Índice de entradas */
+const list = document.getElementById('postList');
+list.innerHTML = POSTS.map(p=>`<li><a href="#entrada-${p.id}"><span class="n">${p.id}</span><span><span class="tag">${p.tag}</span><h3>${p.title}</h3><p>${p.sum}</p></span><span class="min">${p.min} min de lectura</span></a></li>`).join('');
+
+/* Vista de entrada */
+const postEl = document.getElementById('post');
+function showPost(id){
+  const i = POSTS.findIndex(p=>p.id===id); if(i<0) return showHome();
+  const p = POSTS[i], prev = POSTS[i-1], next = POSTS[i+1];
+  postEl.innerHTML = `<a class="back" href="#entradas">Volver al blog</a>
+  <header class="post-head"><span class="tag">${p.tag}</span><h1>${p.title}</h1>
+  <div class="post-meta"><span>Entrada ${p.id} de ${POSTS.length}</span><span>${p.min} min de lectura</span></div></header>
+  <div class="post-body">${p.body}</div>
+  <aside class="think"><h3>Para pensar</h3><p>${p.think}</p></aside>
+  <nav class="pager" aria-label="Otras entradas">
+    ${prev?`<a href="#entrada-${prev.id}"><small>Anterior</small>${prev.title}</a>`:'<span></span>'}
+    ${next?`<a href="#entrada-${next.id}" style="text-align:right"><small>Siguiente</small>${next.title}</a>`:`<a href="#autoevaluacion" style="text-align:right"><small>Terminaste la ruta</small>Haz la autoevaluación</a>`}
+  </nav>`;
+  document.body.classList.add('reading');
+  document.title = p.title + ' | Ciudadanía en Red';
+  window.scrollTo(0,0);
+}
+function showHome(){
+  document.body.classList.remove('reading');
+  document.title = 'Ciudadanía en Red';
+}
+function route(){
+  const h = location.hash.slice(1);
+  const m = h.match(/^entrada-(\d+)$/);
+  if(m){ showPost(+m[1]); return; }
+  const wasReading = document.body.classList.contains('reading');
+  showHome();
+  if(h){ const t = document.getElementById(h); if(t && wasReading) requestAnimationFrame(()=>t.scrollIntoView()); }
+}
+window.addEventListener('hashchange', route); route();
+
+/* Autoevaluación */
+const quiz = document.getElementById('quiz');
+quiz.innerHTML = QUIZ.map((q,i)=>`<fieldset class="q" style="border:0;margin:0;padding:1rem 0"><legend style="padding:0"><p>${i+1}. ${q}</p></legend><div class="opts">
+  ${[["Sí",2],["A veces",1],["Todavía no",0]].map(([t,v])=>`<label><input type="radio" name="q${i}" value="${v}"><span>${t}</span></label>`).join('')}
+  </div></fieldset>`).join('') +
+  `<button class="btn" type="submit" style="margin-top:1rem">Ver mi resultado</button>
+  <p class="err" id="qErr">Responde las ${QUIZ.length} afirmaciones para ver tu resultado.</p>
+  <div class="result" id="qRes" role="status"></div>`;
+quiz.addEventListener('submit', e=>{
+  e.preventDefault();
+  const fd = new FormData(quiz); let s=0, n=0;
+  for(let i=0;i<QUIZ.length;i++){ const v=fd.get('q'+i); if(v!==null){n++; s+=+v;} }
+  const err=document.getElementById('qErr'), res=document.getElementById('qRes');
+  if(n<QUIZ.length){ err.style.display='block'; res.classList.remove('show'); return; }
+  err.style.display='none';
+  const max=QUIZ.length*2; let lvl;
+  if(s<=6) lvl={t:"Punto de partida",d:"Usas la tecnología, pero todavía hay mucho por descubrir sobre cómo funciona. Es el mejor momento para empezar.",r:[2,3]};
+  else if(s<=12) lvl={t:"En camino",d:"Tienes buenas prácticas, aunque hay áreas que puedes fortalecer, sobre todo en privacidad y ética.",r:[4,5]};
+  else lvl={t:"Ciudadano en red",d:"Usas la red con criterio. Ahora puedes ayudar a otras personas a dar el mismo paso.",r:[6,1]};
+  res.innerHTML = `<h3>${lvl.t}</h3><div class="meter" aria-hidden="true"><b></b></div><p>Obtuviste ${s} de ${max} puntos. ${lvl.d}</p>
+  <p>Te recomendamos leer: ${lvl.r.map(id=>{const p=POSTS.find(x=>x.id===id);return `<a href="#entrada-${id}">${p.title}</a>`}).join(' y ')}.</p>`;
+  res.classList.add('show');
+  requestAnimationFrame(()=>{ res.querySelector('.meter b').style.width = (s/max*100)+'%'; });
+});
+
+/* Caja de herramientas con progreso guardado */
+function load(k){ try{ return JSON.parse(localStorage.getItem('cer-'+k)) || []; }catch(e){ return []; } }
+function save(k,v){ try{ localStorage.setItem('cer-'+k, JSON.stringify(v)); }catch(e){} }
+const toolsEl = document.getElementById('tools');
+toolsEl.innerHTML = TOOLS.map(t=>{
+  const done = load(t.key);
+  return `<div class="tool" data-key="${t.key}"><h3>${t.title}</h3><ul>
+  ${t.items.map((it,i)=>`<li><label><input type="checkbox" data-i="${i}" ${done.includes(i)?'checked':''}><span>${it}</span></label></li>`).join('')}
+  </ul><p class="progress"></p></div>`;
+}).join('');
+function updateProgress(box){
+  const cbs=[...box.querySelectorAll('input')], c=cbs.filter(x=>x.checked).length;
+  box.querySelector('.progress').textContent = c===cbs.length ? 'Completaste esta lista.' : `${c} de ${cbs.length} prácticas marcadas.`;
+}
+document.querySelectorAll('.tool').forEach(box=>{
+  updateProgress(box);
+  box.addEventListener('change',()=>{
+    save(box.dataset.key,[...box.querySelectorAll('input')].filter(x=>x.checked).map(x=>+x.dataset.i));
+    updateProgress(box);
+  });
+});
+
+/* Glosario con búsqueda */
+const gl = document.getElementById('gloss');
+gl.innerHTML = GLOSS.map(([t,d])=>`<div class="item"><dt>${t}</dt><dd>${d}</dd></div>`).join('');
+const norm = s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+document.getElementById('gq').addEventListener('input', e=>{
+  const q=norm(e.target.value.trim()); let shown=0;
+  gl.querySelectorAll('.item').forEach(it=>{ const ok=!q||norm(it.textContent).includes(q); it.classList.toggle('hide',!ok); if(ok)shown++; });
+  document.getElementById('gEmpty').style.display = shown?'none':'block';
+});
+
+/* Modo claro / oscuro */
+const root=document.documentElement;
+try{ const t=localStorage.getItem('cer-theme'); if(t) root.dataset.theme=t; }catch(e){}
+document.getElementById('themeBtn').addEventListener('click',()=>{
+  const dark = root.dataset.theme ? root.dataset.theme==='dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  root.dataset.theme = dark?'light':'dark';
+  try{ localStorage.setItem('cer-theme', root.dataset.theme); }catch(e){}
+});
+</script>
+</body>
+</html>
