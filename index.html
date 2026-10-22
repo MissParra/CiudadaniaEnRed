@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ciudadanía en Red</title>
-<meta name="description" content="Un blog para entender la cultura digital que habitamos y usarla con criterio.">
+<title>Wiki Ciudadanía en Red</title>
+<meta name="description" content="Wiki participativa de Ciudadanía en Red: las ideas del blog, trabajadas por el curso en tableros Kanban.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:ital,wght@0,400;0,700;0,800;1,400&display=swap" rel="stylesheet">
@@ -12,563 +12,637 @@
 :root{
   --bg:#F5F0FF; --card:#FFFFFF; --ink:#22124A; --muted:#5E5285; --line:#22124A;
   --violet:#7B4DFF; --sky:#2FA8FF; --pink:#FF4F9A; --mint:#19C98A; --sun:#FFC83D; --coral:#FF7A45;
-  --tint-violet:#E9E0FF; --tint-sky:#DCF0FF; --tint-pink:#FFE0EE; --tint-mint:#D6F7EA; --tint-sun:#FFF2CC; --tint-coral:#FFE5D9;
+  --t-violet:#E9E0FF; --t-sky:#DCF0FF; --t-pink:#FFE0EE; --t-mint:#D6F7EA; --t-sun:#FFF2CC; --t-coral:#FFE5D9;
   --display:"Fredoka","Trebuchet MS",system-ui,sans-serif;
   --body:"Nunito","Segoe UI",system-ui,sans-serif;
   --shadow:5px 5px 0 var(--line);
+  --link:#6A3BF0; --hl:#FFE27A;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --bg:#160D33; --card:#231650; --ink:#F3EEFF; --muted:#BDB2E6; --line:#0A0520;
-    --tint-violet:#33246B; --tint-sky:#163A5C; --tint-pink:#4A1A3A; --tint-mint:#123F33; --tint-sun:#4A3A12; --tint-coral:#4A2416;
+    --t-violet:#33246B; --t-sky:#163A5C; --t-pink:#4A1A3A; --t-mint:#123F33; --t-sun:#4A3A12; --t-coral:#4A2416;
+    --link:#B79BFF; --hl:#6B4FD8;
   }
 }
 :root[data-theme="dark"]{
   --bg:#160D33; --card:#231650; --ink:#F3EEFF; --muted:#BDB2E6; --line:#0A0520;
-  --tint-violet:#33246B; --tint-sky:#163A5C; --tint-pink:#4A1A3A; --tint-mint:#123F33; --tint-sun:#4A3A12; --tint-coral:#4A2416;
+  --t-violet:#33246B; --t-sky:#163A5C; --t-pink:#4A1A3A; --t-mint:#123F33; --t-sun:#4A3A12; --t-coral:#4A2416;
+  --link:#B79BFF; --hl:#6B4FD8;
 }
 *,*::before,*::after{box-sizing:inherit}
-html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 80px);scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.08rem;line-height:1.7;
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 130px);scroll-behavior:smooth}
+body{margin:0;background-color:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.08rem;line-height:1.7;
   background-image:radial-gradient(color-mix(in srgb,var(--violet) 18%,transparent) 1.5px,transparent 1.5px);background-size:26px 26px}
-a{color:var(--violet);font-weight:700}
-:root[data-theme="dark"] a{color:#B79BFF}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) a{color:#B79BFF}}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--violet);z-index:30}
+a{color:var(--link);font-weight:700}
 :focus-visible{outline:4px solid var(--sun);outline-offset:3px;border-radius:8px}
-h1,h2,h3{font-family:var(--display);line-height:1.1;margin:0 0 .5em;font-weight:700}
-.wrap{max-width:1120px;margin:0 auto;padding:0 1.25rem}
-.read{max-width:760px}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.12;margin:0 0 .5em;font-weight:700}
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+.wrap{max-width:1180px;margin:0 auto;padding:0 1.25rem}
 
 /* Barra */
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--violet);border-bottom:3px solid var(--line)}
-.top .wrap{display:flex;align-items:center;gap:1rem;min-height:64px}
-.brand{font-family:var(--display);font-weight:700;font-size:1.2rem;color:#fff!important;text-decoration:none;display:flex;align-items:center;gap:.5rem}
+.top .wrap{display:flex;align-items:center;gap:.8rem;min-height:62px}
+.brand{font-family:var(--display);font-weight:700;font-size:1.2rem;color:#fff!important;text-decoration:none;display:flex;align-items:center;gap:.5rem;white-space:nowrap}
 .brand .logo{background:var(--sun);border:3px solid var(--line);border-radius:12px;width:38px;height:38px;display:grid;place-items:center;font-size:1.2rem;transform:rotate(-6deg)}
-.nav{margin-left:auto;display:flex;gap:.4rem;flex-wrap:wrap}
-.nav a{color:#fff!important;text-decoration:none;font-family:var(--display);font-weight:600;padding:.35rem .8rem;border-radius:99px}
-.nav a:hover{background:rgba(255,255,255,.18)}
+.pass{margin-left:auto;display:flex;gap:.3rem;align-items:center;background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.5);border-radius:99px;padding:.15rem .6rem}
+.pass span{font-size:1.15rem;filter:grayscale(1);opacity:.45;transition:.2s}
+.pass span.on{filter:none;opacity:1}
 .theme-btn{background:var(--sun);border:3px solid var(--line);border-radius:12px;width:42px;height:42px;cursor:pointer;font-size:1.1rem}
-@media (max-width:1120px){.nav{display:none}.theme-btn{margin-left:auto}}
-.brand{white-space:nowrap}
 
-/* Portada */
-.hero{padding:3.5rem 0 4rem;position:relative;overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center}
-.hero h1{font-size:clamp(3.2rem,10vw,7rem);line-height:.9;margin-bottom:1.5rem;letter-spacing:-.01em}
-.hero h1 span{display:inline-block;padding:.05em .25em;border:4px solid var(--line);border-radius:22px;box-shadow:8px 8px 0 var(--line);color:#fff}
-.hero h1 .w1{background:var(--pink);transform:rotate(-3deg)}
-.hero h1 .w2{background:var(--sky);transform:rotate(2deg);margin-top:.18em;margin-left:.6em}
-.lead{font-size:1.35rem;font-weight:700;max-width:28ch;margin:0 0 1.8rem;background:var(--card);border:3px solid var(--line);border-radius:18px;padding:.9rem 1.1rem;box-shadow:var(--shadow)}
-.btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--display);font-weight:700;font-size:1.1rem;background:var(--sun);color:#22124A!important;padding:.85rem 1.4rem;border-radius:16px;border:3px solid var(--line);box-shadow:var(--shadow);text-decoration:none;cursor:pointer;transition:transform .12s, box-shadow .12s;margin:0 .6rem .7rem 0}
+/* Estructura */
+.shell{display:grid;grid-template-columns:260px minmax(0,1fr);gap:2rem;padding-top:2rem;padding-bottom:3rem}
+.side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px);align-self:start;max-height:calc(100vh - 100px);overflow-y:auto;padding:0 .4rem .6rem 0}
+.side h2{font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:.9rem 0 .4rem}
+.side h2:first-child{margin-top:0}
+.side nav{display:grid;gap:.4rem}
+.side a{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--ink);font-family:var(--display);font-weight:600;font-size:1rem;line-height:1.2;background:var(--card);border:3px solid var(--line);border-radius:14px;padding:.35rem .7rem;box-shadow:3px 3px 0 var(--line);transition:transform .12s}
+.side a:hover{transform:translate(-2px,-2px)}
+.side a .e{font-size:1.15rem}
+.side a[aria-current="page"]{background:var(--sun);color:#22124A}
+.side a.done::after{content:"✓";margin-left:auto;font-weight:700;color:var(--mint)}
+.side a[aria-current="page"].done::after{color:#22124A}
+@media (max-width:900px){
+  .shell{grid-template-columns:1fr;gap:1rem;padding-top:1rem}
+  .side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 64px);z-index:10;background:var(--bg);padding:.5rem 1.25rem;margin:0 -1.25rem;border-bottom:3px solid var(--line);max-height:none;overflow:visible}
+  .side h2{display:none}
+  #nav{display:flex;overflow-x:auto;gap:.5rem;padding:.2rem .2rem .5rem}
+  .side nav{display:contents}
+  .side a{white-space:nowrap;flex:none}
+  .side a.done::after{display:none}
+}
+
+/* Piezas */
+.btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--display);font-weight:700;font-size:1.05rem;background:var(--sun);color:#22124A!important;padding:.75rem 1.25rem;border-radius:16px;border:3px solid var(--line);box-shadow:var(--shadow);text-decoration:none;cursor:pointer;transition:transform .12s, box-shadow .12s;margin:0 .6rem .7rem 0}
 .btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--line)}
 .btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--line)}
 .btn.alt{background:var(--mint)}
-.byline{display:inline-block;margin-top:1rem;font-family:var(--display);font-weight:600;background:var(--tint-violet);border:2px dashed var(--violet);border-radius:14px;padding:.5rem .9rem;font-size:1rem}
-.netbox{background:var(--card);border:4px solid var(--line);border-radius:28px;box-shadow:10px 10px 0 var(--line);padding:1rem;position:relative}
-.net{width:100%;height:auto;display:block}
-.net line{stroke:var(--muted);stroke-width:3;stroke-linecap:round;stroke-dasharray:400;stroke-dashoffset:400;animation:draw 1.6s ease-out forwards}
-.net line.hot{stroke:var(--violet);stroke-width:4}
-.net .node{animation:bob 3.2s ease-in-out infinite}
-.net .node:nth-child(odd){animation-delay:-1.4s}
-.net circle{stroke:var(--line);stroke-width:3}
-.net .on circle{fill:var(--sun)}
-.net .mid circle{fill:var(--card)}
-.net .off circle{fill:var(--bg);stroke:var(--muted);stroke-dasharray:5 5}
-.net text{font-size:25px;text-anchor:middle;dominant-baseline:central}
-@keyframes draw{to{stroke-dashoffset:0}}
-@keyframes bob{50%{transform:translateY(-6px)}}
-.legend{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem}
-.legend span{font-family:var(--display);font-weight:600;font-size:.95rem;padding:.3rem .75rem;border-radius:99px;border:2px solid var(--line)}
-.sticker{position:absolute;font-size:2.2rem;filter:drop-shadow(3px 3px 0 var(--line));animation:bob 4s ease-in-out infinite}
-@media (max-width:860px){.hero-grid{grid-template-columns:1fr}.sticker{display:none}}
+.btn.pink{background:var(--pink);color:#fff!important}
+.btn.small{font-size:.9rem;padding:.4rem .8rem;box-shadow:3px 3px 0 var(--line)}
+.chip{display:inline-block;font-family:var(--display);font-weight:600;font-size:.85rem;padding:.2rem .7rem;border-radius:99px;border:2px solid var(--line);background:#fff;color:#22124A}
+.hint{color:var(--muted);font-weight:700;font-size:.95rem;margin:.4rem 0}
 
-/* Secciones */
-section{padding:4rem 0}
-.title{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-bottom:.6rem}
-.title h2{font-size:clamp(2rem,5vw,3rem);margin:0;padding:.2em .55em;border:4px solid var(--line);border-radius:18px;box-shadow:var(--shadow);background:var(--card);transform:rotate(-1.5deg)}
-.title .ico{font-size:2.6rem;filter:drop-shadow(3px 3px 0 var(--line))}
-.sub{color:var(--muted);font-weight:700;max-width:52ch;margin:.8rem 0 2rem}
-
-/* Por qué */
-.why{display:grid;grid-template-columns:1fr 1fr;gap:1.8rem;margin-top:2rem}
-.why .card{border:4px solid var(--line);border-radius:24px;box-shadow:8px 8px 0 var(--line);padding:1.6rem;position:relative}
-.why .card:first-child{background:var(--tint-pink)}
-.why .card:last-child{background:var(--tint-sky)}
-.why .big{font-size:3.4rem;line-height:1;display:block;margin-bottom:.6rem}
-.why h3{font-size:1.6rem}
-.why p{margin:0 0 .9rem}
-.bubble{margin:3rem auto 0;max-width:780px;background:var(--sun);color:#22124A;border:4px solid var(--line);border-radius:28px;box-shadow:8px 8px 0 var(--line);padding:1.6rem 2rem;font-family:var(--display);font-weight:700;font-size:clamp(1.3rem,3vw,1.75rem);line-height:1.3;position:relative;text-align:center}
-.bubble::after{content:"";position:absolute;bottom:-17px;left:16%;width:28px;height:28px;background:var(--sun);border-right:4px solid var(--line);border-bottom:4px solid var(--line);transform:rotate(45deg)}
-@media (max-width:760px){.why{grid-template-columns:1fr}}
-
-/* Mapa de entradas */
-.route{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;list-style:none;padding:0;margin:0}
-.route a{display:flex;flex-direction:column;height:100%;text-decoration:none;color:var(--ink)!important;font-weight:400;background:var(--card);border:4px solid var(--line);border-radius:24px;box-shadow:8px 8px 0 var(--line);overflow:hidden;transition:transform .15s, box-shadow .15s}
-.route a:hover{transform:translate(-3px,-3px) rotate(-.6deg);box-shadow:11px 11px 0 var(--line)}
-.route .art{position:relative;height:150px;display:grid;place-items:center;border-bottom:4px solid var(--line);font-size:4.6rem}
-.route .art span{filter:drop-shadow(4px 4px 0 rgba(34,18,74,.9));transition:transform .2s}
-.route a:hover .art span{transform:scale(1.12) rotate(-6deg)}
-.route .num{position:absolute;top:12px;left:12px;width:44px;height:44px;border-radius:50%;background:var(--card);border:3px solid var(--line);font-family:var(--display);font-weight:700;font-size:1.3rem;display:grid;place-items:center}
-.route .min{position:absolute;top:14px;right:12px;font-family:var(--display);font-weight:600;font-size:.85rem;background:var(--card);border:2px solid var(--line);border-radius:99px;padding:.15rem .6rem}
-.route .txt{padding:1.1rem 1.25rem 1.4rem}
-.route h3{font-size:1.35rem;margin:.4rem 0}
-.route p{margin:0;color:var(--muted);font-size:1rem}
-.chip{display:inline-block;font-family:var(--display);font-weight:600;font-size:.85rem;padding:.2rem .7rem;border-radius:99px;border:2px solid var(--line)}
+/* Inicio */
+.hero{background:var(--card);border:4px solid var(--line);border-radius:28px;box-shadow:10px 10px 0 var(--line);padding:2rem 1.8rem;overflow:hidden}
+.hero h1{font-size:clamp(2.3rem,7vw,4.3rem);line-height:.95;margin-bottom:1rem}
+.hero h1 span{display:inline-block;padding:.05em .25em;border:4px solid var(--line);border-radius:20px;box-shadow:6px 6px 0 var(--line);color:#fff}
+.hero h1 .w1{background:var(--pink);transform:rotate(-2.5deg)}
+.hero h1 .w2{background:var(--sky);transform:rotate(2deg);margin-top:.15em}
+.lead{font-size:1.2rem;font-weight:700;max-width:38ch;margin:0 0 1.4rem}
+.mini{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-top:1.4rem}
+.mini .c{border:3px solid var(--line);border-radius:14px;padding:.5rem;background:var(--bg);min-height:120px}
+.mini .c b{display:block;font-family:var(--display);font-size:.9rem;margin-bottom:.4rem}
+.mini .k{border:2px solid var(--line);border-radius:8px;height:22px;margin-bottom:.35rem;animation:bob 3.4s ease-in-out infinite}
+.mini .k:nth-child(odd){animation-delay:-1.2s}
+@keyframes bob{50%{transform:translateY(-4px)}}
+.bubble{margin:2rem 0;background:var(--sun);color:#22124A;border:4px solid var(--line);border-radius:28px;box-shadow:8px 8px 0 var(--line);padding:1.3rem 1.6rem;font-family:var(--display);font-weight:700;font-size:clamp(1.15rem,3vw,1.5rem);line-height:1.3;text-align:center}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin:1.6rem 0}
+.three .s{border:4px solid var(--line);border-radius:22px;box-shadow:6px 6px 0 var(--line);padding:1.1rem 1.2rem;color:#22124A}
+.three .s .n{font-size:2.4rem;line-height:1;display:block}
+.three .s h3{font-size:1.25rem;margin:.4rem 0 .2rem}
+.three .s p{margin:0;font-size:1rem}
+.sect{font-size:1.6rem;margin:2rem 0 1rem;display:inline-block;padding:.15em .6em;border:4px solid var(--line);border-radius:16px;background:var(--card);box-shadow:var(--shadow);transform:rotate(-1deg)}
+.route{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;list-style:none;padding:0;margin:0}
+.route a{display:flex;flex-direction:column;height:100%;text-decoration:none;color:var(--ink);font-weight:400;background:var(--card);border:4px solid var(--line);border-radius:22px;box-shadow:6px 6px 0 var(--line);overflow:hidden;transition:transform .15s}
+.route a:hover{transform:translate(-3px,-3px) rotate(-.6deg)}
+.route .art{height:90px;display:grid;place-items:center;border-bottom:4px solid var(--line);font-size:3rem;position:relative}
+.route .num{position:absolute;top:8px;left:8px;width:34px;height:34px;border-radius:50%;background:var(--card);border:3px solid var(--line);font-family:var(--display);font-weight:700;display:grid;place-items:center;font-size:1rem}
+.route .txt{padding:.7rem .9rem 1rem}
+.route h3{font-size:1.1rem;margin:.3rem 0}
+.route p{margin:0;color:var(--muted);font-size:.92rem;line-height:1.4}
 @media (max-width:960px){.route{grid-template-columns:1fr 1fr}}
-@media (max-width:620px){.route{grid-template-columns:1fr}}
+@media (max-width:560px){.route{grid-template-columns:1fr}.three{grid-template-columns:1fr}.mini{grid-template-columns:1fr 1fr}}
+.passcard{margin-top:1.6rem;background:var(--t-sun);border:4px solid var(--line);border-radius:24px;box-shadow:8px 8px 0 var(--line);padding:1.2rem 1.4rem}
+.passcard .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.8rem;margin-top:.6rem}
+.bd{display:flex;gap:.7rem;align-items:center;background:var(--card);border:3px solid var(--line);border-radius:16px;padding:.5rem .8rem}
+.bd .e{font-size:2rem;filter:grayscale(1);opacity:.4}
+.bd.on .e{filter:none;opacity:1}
+.bd small{display:block;color:var(--muted);font-weight:700;line-height:1.3}
+.bd b{font-family:var(--display)}
 
-/* Autoevaluación */
-.quizbar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 70px);z-index:5;background:var(--card);border:3px solid var(--line);border-radius:16px;padding:.6rem 1rem;box-shadow:var(--shadow);display:flex;align-items:center;gap:1rem;margin-bottom:1.4rem;font-family:var(--display);font-weight:600}
-.quizbar .track{flex:1;height:16px;background:var(--bg);border:2px solid var(--line);border-radius:99px;overflow:hidden}
-.quizbar .track b{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--violet),var(--sky));transition:width .3s}
-.qcards{display:grid;gap:1.1rem}
-.q{border:4px solid var(--line);border-radius:22px;padding:1.2rem 1.3rem;margin:0;box-shadow:6px 6px 0 var(--line);background:var(--card)}
-.q legend{padding:0;float:left;width:100%;font-weight:800;font-size:1.1rem;margin-bottom:.8rem;display:flex;gap:.7rem;align-items:flex-start}
-.q legend .n{flex:none;width:36px;height:36px;border-radius:50%;border:3px solid var(--line);display:grid;place-items:center;font-family:var(--display);color:#22124A}
-.opts{clear:both;display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
-.opts label{display:flex;flex-direction:column;align-items:center;gap:.15rem;border:3px solid var(--line);border-radius:16px;padding:.6rem .4rem;cursor:pointer;font-family:var(--display);font-weight:600;background:var(--bg);transition:transform .1s}
-.opts label .e{font-size:1.8rem;line-height:1}
-.opts label:hover{transform:translateY(-2px)}
-.opts input{position:absolute;opacity:0;pointer-events:none}
-.opts label.sel,.opts label:has(input:checked){background:var(--sun);color:#22124A;box-shadow:inset 0 -5px 0 rgba(0,0,0,.12);transform:scale(1.04)}
-.opts label:has(input:focus-visible){outline:4px solid var(--violet);outline-offset:2px}
-.err{color:#D0164E;font-weight:800;display:none;margin-top:.8rem}
-.result{display:none;margin-top:1.6rem;text-align:center;border:4px solid var(--line);border-radius:28px;box-shadow:10px 10px 0 var(--line);padding:2rem 1.5rem;background:var(--tint-violet)}
-.result.show{display:block;animation:pop .45s cubic-bezier(.2,1.6,.4,1)}
-@keyframes pop{from{transform:scale(.7);opacity:0}}
-.result .badge{font-size:5rem;line-height:1;display:block;filter:drop-shadow(4px 4px 0 var(--line))}
-.result h3{font-size:2rem;margin:.6rem 0}
-.result p{margin:.4rem auto;max-width:48ch}
-.meter{height:22px;max-width:420px;margin:1rem auto;background:var(--card);border:3px solid var(--line);border-radius:99px;overflow:hidden}
-.meter b{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--sun),var(--pink));transition:width .8s ease}
+/* Artículo */
+.banner{border:4px solid var(--line);border-radius:28px;box-shadow:10px 10px 0 var(--line);padding:1.6rem;display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;color:#22124A;margin-bottom:1.6rem}
+.banner h1{font-size:clamp(1.7rem,4.6vw,2.7rem);margin:.5rem 0 .8rem}
+.banner .emo{font-size:clamp(4rem,12vw,7rem);line-height:1;filter:drop-shadow(5px 5px 0 #22124A);transform:rotate(-8deg)}
+.meta{display:flex;gap:.5rem;flex-wrap:wrap}
+.meta span{background:rgba(255,255,255,.75);border:2px solid #22124A;border-radius:99px;padding:.2rem .75rem;font-family:var(--display);font-weight:600;font-size:.9rem;color:#22124A}
+.steps{display:flex;gap:.35rem;margin-bottom:1.3rem}
+.steps i{flex:1;height:10px;border-radius:99px;border:2px solid var(--line);background:var(--card)}
+.steps i.on{background:var(--c)}
+.body-card{background:var(--card);border:4px solid var(--line);border-radius:24px;box-shadow:8px 8px 0 var(--line);padding:1.6rem 1.8rem;overflow:hidden;margin-bottom:1.6rem}
+.body-card p{margin:0 0 1.1rem}
+.body-card h2{display:inline-block;font-size:1.4rem;margin:1.5rem 0 .9rem;padding:.25rem .9rem;border:3px solid var(--line);border-radius:14px;background:var(--c);color:#22124A;box-shadow:4px 4px 0 var(--line);transform:rotate(-1deg)}
+.body-card h2:first-child{margin-top:0}
+.body-card b.h{background:linear-gradient(transparent 55%,var(--hl) 55%);padding:0 .15em}
+.body-card ul.cards{list-style:none;padding:0;margin:0 0 1.2rem;display:grid;gap:.6rem}
+.body-card ul.cards li{background:var(--ct);border:3px solid var(--line);border-radius:14px;padding:.6rem .9rem .6rem 2.7rem;position:relative}
+.body-card ul.cards li::before{content:"";position:absolute;left:.85rem;top:.9rem;width:16px;height:16px;border-radius:50%;background:var(--c);border:2.5px solid var(--line)}
+.info{float:right;width:250px;margin:0 0 1rem 1.4rem;background:var(--ct);border:3px solid var(--line);border-radius:18px;box-shadow:5px 5px 0 var(--line);padding:.8rem 1rem;font-size:.95rem;line-height:1.5}
+.info h3{font-size:1.05rem;margin-bottom:.4rem;text-align:center}
+.info dl{margin:0}
+.info dt{font-family:var(--display);font-weight:700;font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:.5rem}
+.info dd{margin:0}
+@media (max-width:640px){.info{float:none;width:auto;margin:0 0 1.2rem}.banner{grid-template-columns:1fr}.banner .emo{order:-1}.body-card{padding:1.2rem}}
+blockquote.q{margin:1.6rem 0;background:var(--c);color:#22124A;border:4px solid var(--line);border-radius:24px;box-shadow:6px 6px 0 var(--line);padding:1.1rem 1.4rem 1.1rem 3.8rem;font-family:var(--display);font-weight:600;font-size:1.2rem;line-height:1.35;position:relative}
+blockquote.q::before{content:"💡";position:absolute;left:1rem;top:1rem;font-size:2rem}
+.think{margin:1.6rem 0;background:var(--sun);color:#22124A;border:4px solid var(--line);border-radius:24px;box-shadow:8px 8px 0 var(--line);padding:1.2rem 1.4rem;display:flex;gap:1rem;align-items:flex-start}
+.think .e{font-size:2.6rem;line-height:1}
+.think h3{font-size:1.25rem;margin-bottom:.3rem}
+.think p{margin:0;font-weight:700}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.6rem}
+.pager a{display:block;text-decoration:none;color:var(--ink);background:var(--card);border:3px solid var(--line);border-radius:18px;box-shadow:5px 5px 0 var(--line);padding:.9rem 1.1rem;font-family:var(--display);font-weight:600}
+.pager small{display:block;color:var(--muted);font-size:.85rem}
+.pager .next{text-align:right}
+@media (max-width:560px){.pager{grid-template-columns:1fr}}
+.table-wrap{overflow-x:auto;margin:0 0 1.2rem}
+table.cmp{border-collapse:separate;border-spacing:0;width:100%;min-width:520px;border:3px solid var(--line);border-radius:16px;overflow:hidden;font-size:1rem}
+table.cmp th,table.cmp td{padding:.55rem .8rem;text-align:left;border-bottom:2px solid var(--line);vertical-align:top}
+table.cmp thead th{font-family:var(--display);color:#22124A;background:var(--c)}
+table.cmp tbody tr:last-child td{border-bottom:0}
+table.cmp td:first-child{font-family:var(--display);font-weight:600;background:var(--ct)}
+.cols4{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin:1rem 0 1.4rem}
+.cols4 div{border:3px solid var(--line);border-radius:16px;padding:.7rem .8rem;color:#22124A;font-size:.95rem;line-height:1.45;box-shadow:4px 4px 0 var(--line)}
+.cols4 b{display:block;font-family:var(--display);font-size:1.1rem;margin-bottom:.2rem}
+@media (max-width:900px){.cols4{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.cols4{grid-template-columns:1fr}}
+.sec-title{font-size:1.5rem;margin:0 0 .4rem}
+.panel{background:var(--card);border:4px solid var(--line);border-radius:24px;box-shadow:8px 8px 0 var(--line);padding:1.4rem 1.6rem;margin-bottom:1.6rem}
+@media (max-width:640px){.panel{padding:1.1rem}}
 
-/* Herramientas */
-.tools{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem}
-.tool{background:var(--card);border:4px solid var(--line);border-radius:24px;box-shadow:8px 8px 0 var(--line);overflow:hidden;display:flex;flex-direction:column}
-.tool .head{padding:1.1rem 1.25rem;border-bottom:4px solid var(--line);display:flex;align-items:center;gap:.7rem}
-.tool .head span{font-size:2.4rem;filter:drop-shadow(3px 3px 0 var(--line))}
-.tool h3{font-size:1.3rem;margin:0;color:#22124A}
-.tool ul{list-style:none;margin:0;padding:.8rem 1rem;flex:1}
-.tool li{margin:.4rem 0}
-.tool label{display:flex;gap:.7rem;align-items:flex-start;cursor:pointer;padding:.55rem .7rem;border-radius:14px;border:2px solid transparent;font-size:1rem}
+/* Tablero */
+.board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem;margin:1rem 0}
+@media (max-width:980px){.board{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.board{grid-template-columns:1fr}}
+.bcol{border:3px solid var(--line);border-radius:18px;background:var(--bg);min-height:170px;display:flex;flex-direction:column;overflow:hidden}
+.bcol.over{outline:4px dashed var(--violet);outline-offset:-4px}
+.bhead{padding:.5rem .8rem;border-bottom:3px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:.4rem;font-family:var(--display);font-weight:700;color:#22124A}
+.bhead small{background:rgba(255,255,255,.75);border:2px solid #22124A;border-radius:99px;padding:0 .5rem;font-size:.85rem}
+.bhead small.full{background:#fff;color:#D0164E}
+.bbody{padding:.6rem;display:grid;gap:.5rem;align-content:start;flex:1}
+.kc{background:var(--cc);color:#22124A;border:3px solid var(--line);border-radius:12px;padding:.45rem .6rem;box-shadow:3px 3px 0 var(--line);font-weight:700;font-size:.93rem;line-height:1.3;cursor:grab}
+.kc.local{border-style:dashed}
+.kc .who{display:block;font-size:.78rem;opacity:.75;margin-top:.2rem}
+.kc .acts{display:flex;gap:.3rem;margin-top:.4rem;justify-content:flex-end}
+.kc .acts button,.post button{border:2px solid #22124A;background:#fff;color:#22124A;border-radius:8px;cursor:pointer;font-weight:800;min-width:30px;height:28px;line-height:1}
+.kc .acts button:hover{background:var(--sun)}
+.toast{min-height:2.4rem;margin:.4rem 0;padding:.45rem .9rem;border-radius:14px;border:3px solid transparent;font-weight:800;font-family:var(--display)}
+.toast.show{border-color:var(--line);background:var(--t-sky)}
+.toast.warn{background:var(--t-pink)}
+.toast.good{background:var(--t-mint)}
+.status{border:3px solid var(--line);border-radius:16px;padding:.55rem .9rem;font-weight:700;margin:0 0 .8rem;font-size:.97rem;line-height:1.45}
+.status.green{background:var(--t-mint)}.status.yellow{background:var(--t-sun)}.status.blue{background:var(--t-sky)}
+.addrow{display:grid;grid-template-columns:150px 1fr auto;gap:.6rem;margin:.8rem 0 0;align-items:center}
+@media (max-width:640px){.addrow{grid-template-columns:1fr}}
+.inp{font:inherit;font-weight:700;padding:.6rem .9rem;border:3px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);width:100%}
+.addrow .btn{margin:0}
+.wall{display:grid;gap:.8rem;margin-top:1rem}
+.post{display:grid;grid-template-columns:auto 1fr auto;gap:.8rem;align-items:start;background:var(--cc);color:#22124A;border:3px solid var(--line);border-radius:16px;box-shadow:4px 4px 0 var(--line);padding:.7rem .9rem}
+.post.local{border-style:dashed}
+.post .em{font-size:2rem;line-height:1}
+.post p{margin:0;font-weight:700}
+.post small{font-weight:700;opacity:.75}
+.emos{display:flex;gap:.4rem;flex-wrap:wrap;margin:.5rem 0}
+.emos label{cursor:pointer}
+.emos input{position:absolute;opacity:0}
+.emos span{display:grid;place-items:center;width:44px;height:44px;font-size:1.5rem;border:3px solid var(--line);border-radius:12px;background:var(--card)}
+.emos input:checked + span{background:var(--sun);transform:scale(1.08)}
+.emos input:focus-visible + span{outline:4px solid var(--violet)}
+
+/* Listas de chequeo */
+.tools{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+@media (max-width:980px){.tools{grid-template-columns:1fr}}
+.tool{background:var(--card);border:4px solid var(--line);border-radius:22px;box-shadow:6px 6px 0 var(--line);overflow:hidden;display:flex;flex-direction:column}
+.tool .head{padding:.9rem 1.1rem;border-bottom:4px solid var(--line);display:flex;align-items:center;gap:.7rem;color:#22124A}
+.tool .head span{font-size:2.1rem}
+.tool h3{font-size:1.15rem;margin:0}
+.tool ul{list-style:none;margin:0;padding:.6rem .8rem;flex:1}
+.tool li{margin:.3rem 0}
+.tool label{display:flex;gap:.6rem;align-items:flex-start;cursor:pointer;padding:.45rem .6rem;border-radius:12px;border:2px solid transparent;font-size:.97rem;line-height:1.45}
 .tool label:hover{background:var(--bg);border-color:var(--line)}
 .tool input{position:absolute;opacity:0}
-.tool .box{flex:none;width:28px;height:28px;border:3px solid var(--line);border-radius:9px;display:grid;place-items:center;background:var(--card);font-weight:800;margin-top:.1rem}
+.tool .box{flex:none;width:26px;height:26px;border:3px solid var(--line);border-radius:8px;display:grid;place-items:center;background:var(--card);font-weight:800;margin-top:.05rem}
 .tool input:checked ~ .box{background:var(--mint)}
 .tool input:checked ~ .box::after{content:"✓";color:#22124A}
 .tool input:checked ~ .t{opacity:.6;text-decoration:line-through}
 .tool input:focus-visible ~ .box{outline:4px solid var(--violet);outline-offset:2px}
-.tool .foot{padding:0 1.2rem 1.2rem}
+.tool .foot{padding:0 1rem 1rem}
 .tool .bar{height:14px;border:2px solid var(--line);border-radius:99px;overflow:hidden;background:var(--bg)}
-.tool .bar b{display:block;height:100%;width:0;background:var(--mint);transition:width .3s}
-.progress{font-family:var(--display);font-weight:600;font-size:.95rem;margin:.4rem 0 0}
-@media (max-width:960px){.tools{grid-template-columns:1fr}}
+.tool .bar b{display:block;height:100%;width:0;transition:width .3s}
+.progress{font-family:var(--display);font-weight:600;font-size:.92rem;margin:.4rem 0 0}
 
 /* Glosario */
-.search{width:100%;max-width:460px;font:inherit;font-weight:700;padding:.85rem 1.1rem;border:4px solid var(--line);border-radius:18px;background:var(--card);color:var(--ink);box-shadow:var(--shadow);margin-bottom:.6rem}
-.hint{color:var(--muted);font-weight:700;margin:0 0 1.8rem}
-.gloss{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1.2rem}
-.fc{perspective:900px;height:200px}
+.search{width:100%;max-width:440px;font:inherit;font-weight:700;padding:.75rem 1rem;border:4px solid var(--line);border-radius:18px;background:var(--card);color:var(--ink);box-shadow:var(--shadow);margin-bottom:.6rem}
+.gloss{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1.1rem;margin-top:1rem}
+.fc{perspective:900px;height:190px}
 .fc.hide{display:none}
 .fc button{all:unset;cursor:pointer;display:block;width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .5s}
 .fc button:focus-visible{outline:4px solid var(--sun);outline-offset:4px;border-radius:20px}
 .fc.flip button{transform:rotateY(180deg)}
-.face{position:absolute;inset:0;backface-visibility:hidden;border:4px solid var(--line);border-radius:20px;box-shadow:6px 6px 0 var(--line);padding:1rem;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
-.face.front{color:#22124A}
-.face.front.light{color:#FFFFFF}
-.face.front strong{font-family:var(--display);font-size:1.35rem;line-height:1.15}
-.face.front small{margin-top:.7rem;font-weight:700;opacity:.75}
-.face.back{transform:rotateY(180deg);background:var(--card);font-size:.95rem;line-height:1.45}
-.empty{display:none;font-weight:800;color:var(--muted)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border:4px solid var(--line);border-radius:20px;box-shadow:6px 6px 0 var(--line);padding:.9rem;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:#22124A}
+.face.front.light{color:#fff}
+.face.front strong{font-family:var(--display);font-size:1.25rem;line-height:1.15}
+.face.front small{margin-top:.6rem;font-weight:700;opacity:.75}
+.face.back{transform:rotateY(180deg);background:var(--card);color:var(--ink);font-size:.92rem;line-height:1.45}
 
-/* Referencias */
-.refs-box{background:var(--card);border:4px solid var(--line);border-radius:24px;box-shadow:8px 8px 0 var(--line);padding:1.6rem 1.8rem}
-.refs{padding-left:0;list-style:none;font-size:.95rem;margin:0}
-.refs li{padding-left:2em;text-indent:-2em;margin-bottom:.7rem}
+/* Quiz */
+.quiz .qq{font-family:var(--display);font-size:1.3rem;font-weight:700;margin:.3rem 0 1rem}
+.quiz .who{display:inline-block;font-family:var(--display);font-weight:600;font-size:.85rem;background:var(--t-sun);border:2px solid var(--line);border-radius:99px;padding:.15rem .7rem}
+.quiz .opt{display:block;width:100%;text-align:left;font:inherit;font-weight:700;border:3px solid var(--line);border-radius:14px;padding:.7rem 1rem;margin-bottom:.6rem;background:var(--card);color:var(--ink);cursor:pointer;box-shadow:3px 3px 0 var(--line)}
+.quiz .opt:hover:not([disabled]){background:var(--t-sun)}
+.quiz .opt.ok{background:var(--mint);color:#22124A}
+.quiz .opt.no{background:var(--pink);color:#fff}
+.quiz .fb{margin:.6rem 0 1rem;padding:.7rem 1rem;border-radius:14px;border:3px solid var(--line);background:var(--t-sky);font-weight:700}
+.qbar{height:14px;border:2px solid var(--line);border-radius:99px;overflow:hidden;background:var(--bg);margin-bottom:1rem}
+.qbar b{display:block;height:100%;background:linear-gradient(90deg,var(--pink),var(--violet),var(--sky));transition:width .3s}
 
-footer{background:var(--violet);color:#fff;border-top:4px solid var(--line);padding:2.5rem 0 3rem;margin-top:2rem}
-footer p{margin:.4rem 0}
-footer .authors{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
-footer .authors span{background:var(--sun);color:#22124A;border:3px solid var(--line);border-radius:99px;padding:.3rem .9rem;font-family:var(--display);font-weight:600}
-
-/* Vista de entrada */
-#post{display:none;padding:2rem 0 4rem}
-body.reading #home{display:none}
-body.reading #post{display:block}
-.back{display:inline-flex;font-family:var(--display);text-decoration:none;background:var(--card);border:3px solid var(--line);border-radius:14px;padding:.45rem 1rem;box-shadow:4px 4px 0 var(--line);margin-bottom:1.6rem;color:var(--ink)!important}
-.banner{border:4px solid var(--line);border-radius:28px;box-shadow:10px 10px 0 var(--line);padding:2rem 1.8rem;display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;color:#22124A;margin-bottom:2rem}
-.banner h1{font-size:clamp(2rem,5.5vw,3.2rem);margin:.5rem 0 1rem}
-.banner .emo{font-size:clamp(4.5rem,13vw,8rem);line-height:1;filter:drop-shadow(5px 5px 0 #22124A);transform:rotate(-8deg)}
-.banner .chip{background:#fff}
-.meta{display:flex;gap:.5rem;flex-wrap:wrap}
-.meta span{background:rgba(255,255,255,.75);border:2px solid #22124A;border-radius:99px;padding:.2rem .75rem;font-family:var(--display);font-weight:600;font-size:.9rem}
-.steps{display:flex;gap:.4rem;margin-bottom:1.6rem}
-.steps i{flex:1;height:10px;border-radius:99px;border:2px solid var(--line);background:var(--card)}
-.steps i.done{background:var(--c)}
-.body-card{background:var(--card);border:4px solid var(--line);border-radius:24px;box-shadow:8px 8px 0 var(--line);padding:1.8rem 1.9rem}
-.post-body p{margin:0 0 1.15rem}
-.post-body h2{display:inline-block;font-size:1.45rem;margin:1.8rem 0 1rem;padding:.3rem .9rem;border:3px solid var(--line);border-radius:14px;background:var(--c);color:#22124A;box-shadow:4px 4px 0 var(--line);transform:rotate(-1deg)}
-.post-body h2::before{content:attr(data-ico) " "}
-.post-body b{background:linear-gradient(transparent 55%,var(--sunhl) 55%);padding:0 .15em}
-.post-body ul{list-style:none;padding:0;margin:0 0 1.2rem;display:grid;gap:.6rem}
-.post-body li{background:var(--ct);border:3px solid var(--line);border-radius:14px;padding:.65rem .9rem .65rem 2.8rem;position:relative}
-.post-body li::before{content:"";position:absolute;left:.85rem;top:.95rem;width:16px;height:16px;border-radius:50%;background:var(--c);border:2.5px solid var(--line)}
-.post-body blockquote{margin:2rem 0;background:var(--c);color:#22124A;border:4px solid var(--line);border-radius:24px;box-shadow:6px 6px 0 var(--line);padding:1.3rem 1.5rem 1.3rem 4rem;font-family:var(--display);font-weight:600;font-size:1.25rem;line-height:1.35;position:relative}
-.post-body blockquote::before{content:"💡";position:absolute;left:1rem;top:1.1rem;font-size:2rem}
-.think{margin:2rem 0;background:var(--sun);color:#22124A;border:4px solid var(--line);border-radius:24px;box-shadow:8px 8px 0 var(--line);padding:1.4rem 1.6rem;display:flex;gap:1rem;align-items:flex-start}
-.think .e{font-size:2.8rem;line-height:1}
-.think h3{font-size:1.3rem;margin-bottom:.3rem}
-.think p{margin:0;font-weight:700}
-.pager{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
-.pager a{display:block;text-decoration:none;color:var(--ink)!important;background:var(--card);border:3px solid var(--line);border-radius:18px;box-shadow:5px 5px 0 var(--line);padding:1rem 1.1rem;font-family:var(--display);font-weight:600}
-.pager small{display:block;color:var(--muted);font-size:.85rem}
-.pager .next{text-align:right}
-:root{--sunhl:#FFE27A}
-:root[data-theme="dark"]{--sunhl:#6B4FD8}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sunhl:#6B4FD8}}
-@media (max-width:620px){.banner{grid-template-columns:1fr}.banner .emo{order:-1}.body-card{padding:1.3rem}.pager{grid-template-columns:1fr}}
-/* Evaluación final: juego de la rana */
-.game{background:var(--card);border:4px solid var(--line);border-radius:28px;box-shadow:10px 10px 0 var(--line);overflow:hidden}
-.hud{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;justify-content:space-between;padding:.9rem 1.2rem;background:var(--violet);color:#fff;border-bottom:4px solid var(--line);font-family:var(--display);font-weight:600}
-.hud .pill{background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.5);border-radius:99px;padding:.2rem .8rem}
-.hud .hearts{font-size:1.25rem;letter-spacing:.15em}
-.qbox{padding:1.2rem 1.4rem;border-bottom:4px solid var(--line);background:var(--tint-sun)}
-.qbox .who{display:inline-block;font-family:var(--display);font-weight:600;font-size:.85rem;background:var(--card);border:2px solid var(--line);border-radius:99px;padding:.15rem .7rem;margin-bottom:.5rem}
-.qbox h3{font-size:clamp(1.2rem,3vw,1.55rem);margin:0;line-height:1.25}
-.pond{position:relative;min-height:440px;padding:2rem 1rem 8.5rem;
-  background:
-   radial-gradient(ellipse 60px 14px at 15% 20%,rgba(255,255,255,.25),transparent 70%),
-   radial-gradient(ellipse 80px 16px at 80% 35%,rgba(255,255,255,.2),transparent 70%),
-   radial-gradient(ellipse 70px 14px at 40% 85%,rgba(255,255,255,.2),transparent 70%),
-   linear-gradient(180deg,#38B6E8,#1E8FC9)}
-:root[data-theme="dark"] .pond{background:radial-gradient(ellipse 60px 14px at 15% 20%,rgba(255,255,255,.12),transparent 70%),linear-gradient(180deg,#155A86,#0D3D61)}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pond{background:radial-gradient(ellipse 60px 14px at 15% 20%,rgba(255,255,255,.12),transparent 70%),linear-gradient(180deg,#155A86,#0D3D61)}}
-.pads{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;align-items:center}
-.pad{all:unset;box-sizing:border-box;cursor:pointer;position:relative;min-height:150px;display:flex;align-items:center;justify-content:center;text-align:center;padding:1.6rem 1.4rem;color:#123A1F;font-family:var(--display);font-weight:600;font-size:1rem;line-height:1.25;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 120' preserveAspectRatio='none'%3E%3Cpath d='M100 60 L124.8 5.9 A96 56 0 1 0 167.9 20.4 Z' fill='%2357D46F' stroke='%2322124A' stroke-width='4'/%3E%3C/svg%3E") center/100% 100% no-repeat;
-  filter:drop-shadow(4px 5px 0 rgba(10,30,60,.45));transition:transform .15s}
-.pad span{max-width:78%;position:relative;z-index:1;background:rgba(255,255,255,.88);border:2px solid #22124A;border-radius:12px;padding:.35rem .6rem;color:#22124A}
-.pad:hover:not([disabled]){transform:scale(1.04) rotate(-1deg)}
-.pad:focus-visible{outline:4px solid var(--sun);outline-offset:4px;border-radius:50%}
-.pad[disabled]{cursor:default}
-.pad.good{filter:drop-shadow(0 0 0 #fff) drop-shadow(0 0 14px var(--sun)) drop-shadow(4px 5px 0 rgba(10,30,60,.45))}
-.pad.good::after{content:"✅";position:absolute;top:2px;right:16%;font-size:1.6rem}
-.pad.sink{animation:sink 1s ease-in forwards}
-@keyframes sink{40%{transform:rotate(-6deg)}100%{transform:translateY(40px) scale(.75);opacity:.15}}
-.start{position:absolute;left:50%;bottom:1.2rem;transform:translateX(-50%);width:150px;height:80px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 120' preserveAspectRatio='none'%3E%3Cpath d='M100 60 L124.8 5.9 A96 56 0 1 0 167.9 20.4 Z' fill='%2357D46F' stroke='%2322124A' stroke-width='5'/%3E%3C/svg%3E") center/100% 100% no-repeat}
-.frog{position:absolute;left:0;top:0;font-size:3.6rem;line-height:1;z-index:5;pointer-events:none;filter:drop-shadow(3px 4px 0 rgba(10,30,60,.5));will-change:transform}
-.splash{position:absolute;font-size:3rem;z-index:6;pointer-events:none;animation:splash .8s ease-out forwards}
-@keyframes splash{from{transform:scale(.3);opacity:1}to{transform:scale(1.6);opacity:0}}
-.feedback{display:none;padding:1.2rem 1.4rem;border-top:4px solid var(--line);align-items:flex-start;gap:1rem;flex-wrap:wrap}
-.feedback.show{display:flex}
-.feedback.ok{background:var(--tint-mint)}
-.feedback.bad{background:var(--tint-pink)}
-.feedback .e{font-size:2.4rem;line-height:1}
-.feedback .msg{flex:1;min-width:220px}
-.feedback h4{font-family:var(--display);font-size:1.3rem;margin:0 0 .2rem}
-.feedback p{margin:0}
-.feedback .btn{margin:0}
-.screen{padding:2.4rem 1.6rem;text-align:center}
-.screen .big{font-size:5rem;line-height:1;display:block;filter:drop-shadow(4px 4px 0 var(--line))}
-.screen h3{font-size:clamp(1.6rem,4vw,2.2rem);margin:.8rem 0}
-.screen p{max-width:52ch;margin:.5rem auto 1.4rem}
-.screen .btns{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center}
-.edu{margin-top:1.8rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;background:var(--tint-mint);border:4px solid var(--line);border-radius:22px;box-shadow:6px 6px 0 var(--line);padding:1.1rem 1.3rem}
-.edu p{margin:0;flex:1;min-width:220px;font-weight:700}
-.edu .btn{margin:0}
-@media (max-width:720px){.pads{grid-template-columns:1fr;gap:.6rem}.pad{min-height:110px;padding:1.2rem 2rem}.pond{padding-bottom:7.5rem}}
+.video{display:flex;gap:1rem;align-items:center;text-decoration:none;color:var(--ink);background:var(--ct);border:4px solid var(--line);border-radius:24px;box-shadow:8px 8px 0 var(--line);padding:1rem 1.3rem;margin-bottom:1.6rem;transition:transform .12s}
+.video:hover{transform:translate(-2px,-2px)}
+.video .play{flex:none;width:58px;height:58px;border-radius:50%;background:var(--c);color:#22124A;border:3px solid var(--line);display:grid;place-items:center;font-size:1.5rem;box-shadow:3px 3px 0 var(--line)}
+.video small{display:block;font-family:var(--display);font-weight:600;color:var(--muted)}
+.video b{display:block;font-family:var(--display);font-size:1.15rem;line-height:1.2;margin:.1rem 0;color:var(--ink)}
+.video em{display:block;font-style:normal;font-weight:700;font-size:.92rem;color:var(--muted)}
+.video .vn{display:block;font-size:.95rem;font-weight:700;margin-top:.25rem}
+.refs{list-style:none;padding:0;margin:0;font-size:.95rem}
+.refs li{padding-left:2em;text-indent:-2em;margin-bottom:.6rem}
+footer{background:var(--violet);color:#fff;border-top:4px solid var(--line);padding:2rem 0 2.6rem}
+footer p{margin:.3rem 0}
+footer .authors{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem}
+footer .authors span{background:var(--sun);color:#22124A;border:3px solid var(--line);border-radius:99px;padding:.25rem .8rem;font-family:var(--display);font-weight:600}
+footer a{color:#fff}
+.toastbadge{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 1.2rem);transform:translate(-50%,200%);background:var(--sun);color:#22124A;border:4px solid var(--line);border-radius:20px;box-shadow:6px 6px 0 var(--line);padding:.7rem 1.2rem;font-family:var(--display);font-weight:700;z-index:40;transition:transform .35s cubic-bezier(.2,1.6,.4,1);max-width:90vw;text-align:center}
+.toastbadge.show{transform:translate(-50%,0)}
 </style>
 </head>
 <body>
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#inicio" aria-label="Ciudadanía en Red, inicio"><span class="logo" aria-hidden="true">🌐</span>Ciudadanía en Red</a>
-    <nav class="nav" aria-label="Secciones">
-      <a href="#entradas">Entradas</a>
-      <a href="#autoevaluacion">Autoevaluación</a>
-      <a href="#herramientas">Herramientas</a>
-      <a href="#glosario">Glosario</a>
-      <a href="#evaluacion-final">Evaluación final</a>
-      <a href="#referencias">Referencias</a>
-    </nav>
+    <a class="brand" href="#/inicio" aria-label="Wiki Ciudadanía en Red, inicio"><span class="logo" aria-hidden="true">🌐</span>Wiki Ciudadanía en Red</a>
+    <div class="pass" id="passStrip" role="img" aria-label="Tus insignias"></div>
     <button class="theme-btn" id="themeBtn" aria-label="Cambiar entre modo claro y oscuro">🌙</button>
   </div>
 </header>
 
-<main>
-<div id="home">
-  <div class="hero" id="inicio">
-    <span class="sticker" style="top:8%;left:46%" aria-hidden="true">📱</span>
-    <span class="sticker" style="bottom:6%;right:44%;animation-delay:-1s" aria-hidden="true">💬</span>
-    <span class="sticker" style="top:14%;right:3%;animation-delay:-2s" aria-hidden="true">✨</span>
-    <div class="wrap hero-grid">
-      <div>
-        <h1><span class="w1">Ciudadanía</span><br><span class="w2">en Red</span></h1>
-        <p class="lead">Un blog para entender la cultura digital que habitamos y usarla con criterio.</p>
-        <a class="btn" href="#entrada-1">🚀 Empezar a leer</a>
-        <a class="btn alt" href="#autoevaluacion">🎯 Hacer la autoevaluación</a><br>
-        <span class="byline">✍️ Por Jenny Parra, Laura Daza, María José García y Diana Chipiz</span>
-      </div>
-      <div class="netbox">
-        <svg class="net" viewBox="0 0 420 340" role="img" aria-label="Una red de personas: algunas conectadas con criterio, otras conectadas sin entender el sistema y otras por fuera de la red">
-          <g>
-          <line class="hot" x1="80" y1="70" x2="200" y2="40"/><line class="hot" x1="200" y1="40" x2="320" y2="90"/>
-          <line class="hot" x1="80" y1="70" x2="150" y2="160"/><line x1="150" y1="160" x2="270" y2="175"/>
-          <line class="hot" x1="320" y1="90" x2="270" y2="175"/><line x1="200" y1="40" x2="150" y2="160"/>
-          <line x1="270" y1="175" x2="350" y2="250"/><line x1="150" y1="160" x2="110" y2="260"/>
-          <line x1="270" y1="175" x2="210" y2="270"/><line x1="110" y1="260" x2="210" y2="270"/>
-          </g>
-          <g class="node on"><circle cx="80" cy="70" r="22"/><text x="80" y="71">😎</text></g>
-          <g class="node on"><circle cx="200" cy="40" r="24"/><text x="200" y="41">🤓</text></g>
-          <g class="node on"><circle cx="320" cy="90" r="22"/><text x="320" y="91">💡</text></g>
-          <g class="node mid"><circle cx="150" cy="160" r="22"/><text x="150" y="161">📱</text></g>
-          <g class="node on"><circle cx="270" cy="175" r="25"/><text x="270" y="176">🧠</text></g>
-          <g class="node mid"><circle cx="350" cy="250" r="21"/><text x="350" y="251">🎮</text></g>
-          <g class="node mid"><circle cx="110" cy="260" r="21"/><text x="110" y="261">🤳</text></g>
-          <g class="node mid"><circle cx="210" cy="270" r="22"/><text x="210" y="271">📺</text></g>
-          <g class="node off"><circle cx="40" cy="190" r="19"/><text x="40" y="191">❔</text></g>
-          <g class="node off"><circle cx="392" cy="165" r="18"/><text x="392" y="166">❔</text></g>
-          <g class="node off"><circle cx="300" cy="312" r="19"/><text x="300" y="313">❔</text></g>
-        </svg>
-        <div class="legend">
-          <span style="background:var(--sun);color:#22124A">Usa y entiende</span>
-          <span style="background:var(--card)">Usa sin entender</span>
-          <span style="background:var(--bg);border-style:dashed">Queda por fuera</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <section id="por-que">
-    <div class="wrap">
-      <div class="title"><span class="ico" aria-hidden="true">🤔</span><h2>Por qué existe este blog</h2></div>
-      <div class="why">
-        <div class="card">
-          <span class="big" aria-hidden="true">🤳📲❓</span>
-          <h3>Usamos mucho, entendemos poco</h3>
-          <p>Abrimos aplicaciones, aceptamos términos y condiciones, compartimos noticias y le pedimos respuestas a la inteligencia artificial todos los días. Pocas veces nos preguntamos cómo funcionan esos sistemas, qué hacen con nuestros datos o por qué vemos unos contenidos y no otros.</p>
-          <p>Estar conectado no nos convierte en ciudadanos digitales. Usar una herramienta no es lo mismo que ser competente en su uso.</p>
-        </div>
-        <div class="card">
-          <span class="big" aria-hidden="true">📵🏘️🚪</span>
-          <h3>Y muchos se quedan por fuera</h3>
-          <p>Al otro lado están quienes casi no usan la tecnología: por falta de acceso, de formación o de confianza. Estudiantes, docentes, familias y comunidades enteras pierden oportunidades de aprender, participar y defender sus derechos en la red.</p>
-          <p>Ciudadanía en Red explica la cibercultura en palabras sencillas y propone una ética digital práctica para ambos casos.</p>
-        </div>
-      </div>
-      <p class="bubble">¿Cómo pasamos de ser usuarios que consumen a ciudadanos que entienden, participan y deciden en la red?</p>
-    </div>
-  </section>
-
-  <section id="entradas">
-    <div class="wrap">
-      <div class="title"><span class="ico" aria-hidden="true">🗺️</span><h2>Entradas</h2></div>
-      <p class="sub">Una ruta de seis lecturas cortas. Puedes seguirlas en orden o empezar por la que más te interese.</p>
-      <ol class="route" id="postList"></ol>
-    </div>
-  </section>
-
-  <section id="autoevaluacion">
-    <div class="wrap read">
-      <div class="title"><span class="ico" aria-hidden="true">🎯</span><h2>¿Qué tan alfabetizado digitalmente estás?</h2></div>
-      <p class="sub">Responde con sinceridad. Nadie más verá tus respuestas; al final te sugerimos por dónde empezar.</p>
-      <form id="quiz"></form>
-    </div>
-  </section>
-
-  <section id="herramientas">
-    <div class="wrap">
-      <div class="title"><span class="ico" aria-hidden="true">🧰</span><h2>Caja de herramientas</h2></div>
-      <p class="sub">Listas de chequeo para llevar la teoría a la práctica. Marca lo que ya haces; tu progreso se guarda en este navegador.</p>
-      <div class="tools" id="tools"></div>
-    </div>
-  </section>
-
-  <section id="glosario">
-    <div class="wrap">
-      <div class="title"><span class="ico" aria-hidden="true">📖</span><h2>Glosario</h2></div>
-      <p class="sub">Los conceptos clave del blog, explicados en una o dos frases.</p>
-      <label for="gq" style="position:absolute;left:-9999px">Buscar en el glosario</label>
-      <input class="search" id="gq" type="search" placeholder="🔎 Buscar un término, por ejemplo: algoritmo">
-      <p class="hint">Toca una tarjeta para darle la vuelta y ver qué significa.</p>
-      <div class="gloss" id="gloss"></div>
-      <p class="empty" id="gEmpty">No hay términos con esa palabra. Prueba con otra búsqueda.</p>
-    </div>
-  </section>
-
-  <section id="evaluacion-final">
-    <div class="wrap">
-      <div class="title"><span class="ico" aria-hidden="true">🐸</span><h2>Evaluación final: Salta con la rana</h2></div>
-      <p class="sub">Pon a prueba todo lo que aprendiste en el blog. Ayuda a la rana a cruzar el estanque saltando a la hojita con la respuesta correcta. Tienes tres vidas.</p>
-      <div class="game" id="game"></div>
-      <div class="edu">
-        <span style="font-size:2.4rem" aria-hidden="true">🎮</span>
-        <p>¿Quieres otro reto? Juega también nuestro Froggy Jumps en Educaplay: "¡La tecnología, uso responsable!"</p>
-        <a class="btn alt" href="https://es.educaplay.com/juego/29321054-uso_responsable_de_la_tecnologia.html" target="_blank" rel="noopener">🐸 Jugar en Educaplay</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="referencias">
-    <div class="wrap read">
-      <div class="title"><span class="ico" aria-hidden="true">📚</span><h2>Referencias</h2></div>
-      <div class="refs-box" style="margin-top:1.8rem">
-<ul class="refs">
-        <li>Carr, N. (2011). <i>Superficiales: ¿Qué está haciendo Internet con nuestras mentes?</i> Taurus.</li>
-        <li>Castells, M. (2001). <i>La era de la información: economía, sociedad y cultura</i>. Alianza Editorial.</li>
-        <li>Cobo, C. (2016). <i>La innovación pendiente: Reflexiones (y provocaciones) sobre la educación, el futuro y sus posibles derivas</i>. Ceibal.</li>
-        <li>Gilster, P. (1997). <i>Digital literacy</i>. Wiley.</li>
-        <li>Kirschner, P. A., &amp; De Bruyckere, P. (2017). The myths of the digital native and the multitasker. <i>Teaching and Teacher Education, 67</i>, 135–142.</li>
-        <li>Lévy, P. (2007). <i>Cibercultura: La cultura de la sociedad digital</i>. Anthropos.</li>
-        <li>Martín-Barbero, J. (2006). A Latin American perspective on communication/cultural mediation. <i>Global Media and Communication, 2</i>(3), 279–297.</li>
-        <li>Moulier-Boutang, Y. (2011). <i>Cognitive capitalism</i>. Polity Press.</li>
-        <li>Nissenbaum, H. (2010). <i>Privacy in context: Technology, policy, and the integrity of social life</i>. Stanford University Press.</li>
-        <li>O'Neil, C. (2016). <i>Weapons of math destruction</i>. Crown.</li>
-        <li>Pariser, E. (2011). <i>The filter bubble: What the Internet is hiding from you</i>. Penguin Press.</li>
-        <li>Prensky, M. (2001). Digital natives, digital immigrants. <i>On the Horizon, 9</i>(5), 1–6.</li>
-        <li>Ribble, M. (2015). <i>Digital citizenship in schools: Nine elements all students should know</i> (3.ª ed.). ISTE.</li>
-        <li>Sibilia, P. (2012). <i>¿Redes o paredes? La escuela en tiempos de la dispersión</i>. Tinta Fresca.</li>
-        <li>Turkle, S. (2011). <i>Alone together: Why we expect more from technology and less from each other</i>. Basic Books.</li>
-        <li>UNESCO. (2023). <i>Informe de seguimiento de la educación en el mundo 2023: Tecnología en la educación: ¿una herramienta en los términos de quién?</i> https://doi.org/10.54676/idqe8212</li>
-        <li>van Deursen, A. J. A. M., &amp; Helsper, E. J. (2015). The third-level digital divide: Who benefits most from being online? <i>Communication and Information Technologies Annual</i> (Studies in Media and Communications, Vol. 10), 29–52. Emerald.</li>
-        <li>Vuorikari, R., Kluzer, S., &amp; Punie, Y. (2022). <i>DigComp 2.2: The digital competence framework for citizens</i>. Publications Office of the European Union.</li>
-        <li>White, D. S., &amp; Le Cornu, A. (2011). Visitors and residents: A new typology for online engagement. <i>First Monday, 16</i>(9).</li>
-        <li>Wineburg, S., &amp; McGrew, S. (2019). Lateral reading and the nature of expertise. <i>Teachers College Record, 121</i>(11), 1–40.</li>
-        <li>Zuboff, S. (2019). <i>The age of surveillance capitalism</i>. PublicAffairs.</li>
-      </ul>
-      </div>
-    </div>
-  </section>
+<div class="wrap shell">
+  <aside class="side"><nav id="nav" aria-label="Páginas de la wiki"></nav></aside>
+  <main id="main" aria-live="polite"></main>
 </div>
-
-<article id="post" class="wrap read" aria-live="polite"></article>
-</main>
 
 <footer>
   <div class="wrap">
-    <p style="font-family:var(--display);font-weight:700;font-size:1.4rem">🌐 Ciudadanía en Red</p>
-    <p>Blog educativo sobre cibercultura, alfabetización digital y ética digital. Proyecto académico del Seminario de Fundamentación en Educación y Cibercultura.</p>
-    <p>Creado por Jenny Parra, Laura Daza, María José García y Diana Chipiz.</p>
+    <p style="font-family:var(--display);font-weight:700;font-size:1.3rem">🌐 Wiki Ciudadanía en Red</p>
+    <p>Wiki participativa basada en el blog <a href="https://missparra.github.io/CiudadaniaEnRed/" target="_blank" rel="noopener">Ciudadanía en Red</a>, trabajada con tableros Kanban.</p>
+    <p>Proyecto académico del Grupo 402, Maestría en Educación para la Innovación Pedagógica, Universidad del Área Andina.</p>
     <div class="authors" aria-hidden="true"><span>Jenny</span><span>Laura</span><span>María José</span><span>Diana</span></div>
   </div>
 </footer>
 
+<div class="toastbadge" id="badgeToast" role="status"></div>
+
 <script>
-const POSTS = [
-{ id:1, tag:"Cibercultura", min:4,
-  title:"¿Qué es la cibercultura? (Y por qué ya vives en ella)",
-  sum:"No es solo internet: son las prácticas, valores y formas de pensar que surgen cuando convivimos con la tecnología.",
-  body:`<p>Cuando buscas un tutorial para arreglar algo, comentas en un grupo de WhatsApp de la clase o editas un documento compartido, estás participando en la cibercultura. Pierre Lévy (2007) la define como el conjunto de prácticas, valores, actitudes y formas de pensamiento que se desarrollan junto con el ciberespacio.</p>
-<h2>Inteligencia colectiva</h2>
-<p>La idea central de Lévy es la <b>inteligencia colectiva</b>: nadie lo sabe todo, pero todos saben algo, y la red permite juntar esos saberes. Wikipedia, los foros de ayuda o los repositorios de recursos educativos son ejemplos de conocimiento construido entre muchas personas, no solo por las instituciones tradicionales.</p>
-<h2>La sociedad red</h2>
-<p>Manuel Castells (2001) añade que vivimos en una <b>sociedad red</b>: el conocimiento ya no es un recurso escaso guardado en bibliotecas, sino un flujo que circula y se transforma. Eso cambia quién tiene poder, quién participa y quién se queda por fuera.</p>
-<h2>La cibercultura también nos moldea</h2>
-<p>La tecnología no es una simple herramienta neutral. Paula Sibilia (2012) habla de <b>subjetividades mediáticas</b>: formas de pensar, sentir y actuar que se construyen <i>con</i> los dispositivos. Las redes sociales, por ejemplo, influyen en cómo nos mostramos, qué esperamos de los demás e incluso en cómo prestamos atención.</p>
-<blockquote>Entender la cibercultura no es aprender a usar aplicaciones; es entender cómo esas aplicaciones cambian nuestra manera de aprender, relacionarnos y participar.</blockquote>`,
-  think:"Piensa en un día normal. ¿En qué momentos participaste en la inteligencia colectiva y en cuáles solo consumiste contenido?" },
-{ id:2, tag:"Alfabetización digital", min:4,
-  title:"Usar no es lo mismo que saber",
-  sum:"El mito del nativo digital y por qué manejar el celular no basta para ser competente en la red.",
-  body:`<p>Marc Prensky (2001) popularizó la idea de los <b>nativos digitales</b>: jóvenes que, por haber crecido con la tecnología, la dominarían de manera natural. La investigación posterior desmontó ese mito. Kirschner y De Bruyckere (2017) mostraron que nacer rodeado de pantallas no garantiza saber buscar, evaluar ni crear información con criterio, y que la famosa multitarea en realidad perjudica el aprendizaje.</p>
-<p>David White y Alison Le Cornu (2011) propusieron otra mirada: más que la edad, importa <i>cómo</i> usamos la red. Hay <b>visitantes</b>, que entran a la red para resolver algo puntual y salen, y <b>residentes</b>, que viven parte de su vida social e intelectual allí. Una misma persona puede ser visitante en lo académico y residente en lo social.</p>
-<h2>Entonces, ¿qué es la alfabetización digital?</h2>
-<p>Paul Gilster (1997), quien acuñó el término, la describió como la capacidad de comprender y usar información en múltiples formatos a través de los computadores. Hoy el marco europeo DigComp 2.2 (Vuorikari et al., 2022) la organiza en cinco áreas:</p>
-<ul><li>Búsqueda y evaluación de información y datos.</li><li>Comunicación y colaboración.</li><li>Creación de contenido digital.</li><li>Seguridad, que incluye proteger los datos y el bienestar.</li><li>Resolución de problemas.</li></ul>
-<h2>La otra cara: no usar</h2>
-<p>La brecha no solo afecta a quien usa sin entender. También hay docentes, adultos y estudiantes que evitan la tecnología por miedo a equivocarse o porque nadie les enseñó. Ambos casos son falta de alfabetización digital, y ambos tienen solución.</p>`,
-  think:"¿Eres más visitante o residente? ¿En qué áreas de DigComp te sientes fuerte y en cuál necesitas aprender más?" },
-{ id:3, tag:"Sistemas digitales", min:5,
-  title:"Cómo deciden los algoritmos lo que ves",
-  sum:"Tu inicio en redes no es una ventana neutral al mundo: es una selección hecha para mantenerte conectado.",
-  body:`<p>Un <b>algoritmo</b> es un conjunto de instrucciones que procesa datos para tomar una decisión. En las redes sociales, los algoritmos deciden qué publicaciones aparecen primero en tu inicio. Para hacerlo usan señales como lo que miras, cuánto tiempo te detienes, lo que te gusta, lo que compartes y lo que hacen personas parecidas a ti.</p>
-<h2>¿Para qué están diseñados?</h2>
-<p>La mayoría de plataformas gratuitas viven de la publicidad, así que su objetivo es que pases el mayor tiempo posible en ellas. Yann Moulier-Boutang (2011) llama <b>capitalismo cognitivo</b> a este modelo, en el que la atención, el conocimiento y la creatividad de los usuarios se convierten en valor económico. El scroll infinito y la reproducción automática no son accidentes de diseño.</p>
-<h2>La burbuja de filtro</h2>
-<p>Eli Pariser (2011) advirtió que, al mostrarnos lo que ya nos gusta, los algoritmos nos encierran en una <b>burbuja de filtro</b>: vemos cada vez más de lo mismo y menos de lo que piensa distinto. Eso facilita las ecocámaras, donde solo escuchamos opiniones que confirman las nuestras.</p>
-<h2>¿Y la inteligencia artificial?</h2>
-<p>Los chatbots de IA generativa funcionan prediciendo cuál es la respuesta más probable según los textos con los que fueron entrenados. Por eso pueden escribir con mucha seguridad datos falsos o referencias que no existen. Además, como señala Cathy O'Neil (2016), los sistemas automatizados pueden reproducir los sesgos de los datos con los que se construyen.</p>
-<h2>Qué puedes hacer</h2>
-<ul><li>Busca el mismo tema en fuentes distintas, no solo en tu red favorita.</li><li>Sigue a personas e instituciones que piensen diferente a ti.</li><li>Revisa la opción "por qué veo este anuncio" en tus redes.</li><li>Verifica siempre lo que te responde una IA antes de usarlo.</li></ul>`,
-  think:"Abre tu red social más usada y mira las primeras diez publicaciones. ¿Qué crees que sabe el algoritmo de ti?" },
-{ id:4, tag:"Privacidad", min:4,
-  title:"Tus datos valen: privacidad en la vida cotidiana",
-  sum:"Si no pagas por un servicio, probablemente estás pagando con tus datos. Qué entregas y cómo cuidarlo.",
-  body:`<p>Cada vez que usas una aplicación dejas una <b>huella digital</b>: tu ubicación, tus contactos, tus búsquedas, las horas en que te conectas y hasta cuánto tardas en leer algo. Muchos de esos datos son <b>metadatos</b>, información sobre tu información, y dicen mucho más de lo que parece.</p>
-<h2>Un mercado de comportamientos</h2>
-<p>Shoshana Zuboff (2019) describe el <b>capitalismo de la vigilancia</b>: un modelo de negocio que recoge datos sobre nuestro comportamiento para predecirlo y venderlo. No es un problema solo de grandes empresas lejanas; también ocurre con aplicaciones educativas, juegos y plataformas que usamos a diario.</p>
-<h2>La privacidad depende del contexto</h2>
-<p>Helen Nissenbaum (2010) propone la idea de <b>integridad contextual</b>: compartir información no es malo en sí mismo; el problema aparece cuando un dato sale del contexto en el que lo entregamos. Contarle al médico un diagnóstico es apropiado; que ese diagnóstico termine en manos de una aseguradora o un empleador, no.</p>
-<p>En Colombia, la Ley Estatutaria 1581 de 2012 protege los datos personales y reconoce el derecho de las personas a conocer, actualizar y rectificar la información que se recoge sobre ellas.</p>
-<h2>Prácticas básicas de cuidado</h2>
-<ul><li>Revisa qué permisos tienen tus aplicaciones (cámara, micrófono, ubicación, contactos).</li><li>Usa contraseñas distintas para cada servicio y, si puedes, un gestor de contraseñas.</li><li>Activa la verificación en dos pasos en tu correo y tus redes.</li><li>Piensa antes de publicar fotos o datos de otras personas, en especial de menores de edad.</li></ul>`,
-  think:"¿Cuántas aplicaciones de tu celular tienen acceso a tu ubicación? ¿Todas lo necesitan?" },
-{ id:5, tag:"Ética digital", min:5,
-  title:"Ética digital en la práctica",
-  sum:"Autoría, inteligencia artificial, desinformación y ciberacoso: decisiones éticas que tomamos con cada clic.",
-  body:`<p>La ética digital no es un tema abstracto. Mike Ribble (2015) describe la ciudadanía digital como un conjunto de normas de comportamiento responsable en la red, que incluye el acceso, la comunicación, la seguridad, los derechos y las responsabilidades. Estas son cuatro situaciones cotidianas donde se pone a prueba.</p>
-<h2>Respetar la autoría</h2>
-<p>Que algo esté en internet no significa que sea libre de usar. Cita siempre la fuente de textos, imágenes y videos. Busca recursos con <b>licencias Creative Commons</b>, que indican cómo puedes reutilizar una obra y a quién debes reconocer.</p>
-<h2>Usar la IA con honestidad</h2>
-<p>La inteligencia artificial puede ayudarte a entender un tema, organizar ideas o revisar un texto. Entregar como propio un trabajo hecho por una IA, en cambio, es una forma de plagio. Declara cuándo y cómo la usaste, verifica sus respuestas y no le entregues datos personales o confidenciales.</p>
-<h2>Verificar antes de compartir</h2>
-<p>La desinformación se propaga porque la compartimos sin revisar. Sam Wineburg y Sarah McGrew (2019) estudiaron cómo trabajan los verificadores profesionales y encontraron que usan la <b>lectura lateral</b>: en lugar de quedarse leyendo la página sospechosa, abren otras pestañas para averiguar quién está detrás y qué dicen otras fuentes.</p>
-<h2>No ser espectador del ciberacoso</h2>
-<p>El anonimato y la distancia facilitan el acoso y los discursos de odio. Si lo ves, no lo compartas ni lo celebres. Apoya a la persona afectada, guarda evidencia con capturas, usa las herramientas de denuncia de la plataforma y busca ayuda de un adulto o una institución cuando se trate de menores.</p>`,
-  think:"¿Alguna vez compartiste algo que luego resultó falso? ¿Qué te habría ayudado a detectarlo a tiempo?" },
-{ id:6, tag:"Brecha digital", min:4,
-  title:"La brecha digital: quién se queda por fuera",
-  sum:"Tener internet no basta. La brecha también está en lo que sabemos hacer con él y en lo que logramos gracias a él.",
-  body:`<p>Solemos pensar la brecha digital como la diferencia entre quien tiene computador e internet y quien no. Esa es solo la primera capa. Los investigadores Alexander van Deursen y Ellen Helsper (2015) describen tres niveles:</p>
-<ul><li><b>Acceso:</b> tener o no dispositivos y conectividad de calidad.</li><li><b>Uso y habilidades:</b> saber o no aprovechar la tecnología para estudiar, trabajar o participar.</li><li><b>Resultados:</b> obtener o no beneficios reales, como un empleo, un trámite resuelto o un aprendizaje.</li></ul>
-<p>Dos personas con el mismo celular pueden vivir realidades muy distintas: una lo usa para aprender, crear y defender sus derechos; otra solo para entretenerse, o casi no lo usa porque nadie le enseñó.</p>
-<h2>No basta con repartir equipos</h2>
-<p>El informe de la UNESCO (2023) sobre tecnología en la educación recuerda que la tecnología no mejora el aprendizaje por sí sola: depende de cómo se usa, de la formación docente y del contexto. Cristóbal Cobo (2016) lo resume en una idea: adoptar tecnología no es lo mismo que innovar.</p>
-<h2>Una mirada desde América Latina</h2>
-<p>Jesús Martín-Barbero (2006) insistió en que los medios y las tecnologías deben pensarse desde las culturas y realidades locales, no como una copia de modelos del norte global. En zonas rurales o con baja conectividad, la alfabetización digital puede empezar con recursos sin conexión, aprendizaje entre generaciones y proyectos ligados a los problemas de la comunidad.</p>
-<blockquote>Cerrar la brecha digital no es poner a todos frente a una pantalla, sino lograr que todos puedan decidir qué hacer con ella.</blockquote>`,
-  think:"En tu entorno, ¿quién se está quedando por fuera de la red? ¿Qué podrías enseñarle tú?" }
+/* ---------- Utilidades ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function load(k, d){ try{ const v = JSON.parse(localStorage.getItem(k)); return v ?? d; }catch(e){ return d; } }
+function save(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+const uid = () => Math.random().toString(36).slice(2, 9);
+const shuffle = a => { a=[...a]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+const PASTEL = ['#FFE27A','#9BDBFF','#FFB3D4','#8DEBC6','#CDB8FF','#FFC2A3'];
+const pastel = id => PASTEL[[...String(id)].reduce((a,c)=>a+c.charCodeAt(0),0) % PASTEL.length];
+
+/* ---------- Tarjetas iniciales de cada tablero ---------- */
+const SEEDS = {
+ "cibercultura":[["Escribir un ejemplo de inteligencia colectiva que uso en mi vida","todo"],["Anotar en qué momentos de un día normal solo consumí contenido","todo"],["Explicar con mis palabras qué es la sociedad red","todo"],["Responder la pregunta “Para pensar” de la entrada","doing"],["Dar un ejemplo de cómo las redes cambian mi manera de prestar atención","review"]],
+ "alfabetizacion":[["Decidir si soy más visitante o más residente en la red y por qué","todo"],["Ubicar mi fortaleza y mi reto en las 5 áreas de DigComp","todo"],["Explicar por qué crecer con pantallas no garantiza saber evaluar información","todo"],["Pensar cómo ayudar a alguien que evita la tecnología por miedo a equivocarse","doing"],["Dar un ejemplo de multitarea que me haya perjudicado al estudiar","review"]],
+ "algoritmos":[["Mirar las primeras diez publicaciones de mi red y anotar qué sabe el algoritmo de mí","todo"],["Buscar el mismo tema en dos fuentes distintas y comparar","todo"],["Revisar la opción “por qué veo este anuncio” en una red","todo"],["Verificar una respuesta de IA antes de usarla","doing"],["Explicar con un ejemplo qué es una burbuja de filtro","review"]],
+ "privacidad":[["Contar cuántas aplicaciones de mi celular usan mi ubicación y revisar si la necesitan","todo"],["Activar la verificación en dos pasos en mi correo","todo"],["Cambiar una contraseña repetida por una única","todo"],["Pensar antes de publicar fotos o datos de otras personas","doing"],["Explicar con un ejemplo la privacidad contextual","review"]],
+ "etica":[["Citar la fuente de una imagen o un texto que usé","todo"],["Declarar cuándo y cómo usé IA en un trabajo","todo"],["Aplicar lectura lateral a una noticia sospechosa","todo"],["Practicar qué hacer si veo ciberacoso: guardar evidencia y denunciar","doing"],["Buscar una imagen con licencia Creative Commons","review"]],
+ "brecha":[["Identificar quién se queda por fuera de la red en mi entorno","todo"],["Explicar los tres niveles de la brecha digital con un ejemplo","todo"],["Enseñarle a esa persona una práctica digital sencilla","todo"],["Imaginar una solución sin conexión: impresa o en grupo con un solo dispositivo","doing"],["Explicar por qué repartir equipos no basta","review"]],
+ "caso1":[["Elegir la app que usamos: red social, videojuego o chatbot","todo"],["Leer la entrada 4 del blog: privacidad","todo"],["Aplicar la lista “Revisión de privacidad en 15 minutos” a nuestra app","todo"],["Revisar los permisos y la política de datos de la app","todo"],["Escribir el informe de una página","todo"],["Redactar la guía de tres ajustes recomendados","todo"],["Definir con el docente la meta del sprint","doing"]],
+ "caso2":[["Publicación viral 1","todo"],["Publicación viral 2","todo"],["Publicación viral 3","todo"],["Publicación viral 4","todo"],["Publicación viral 5","todo"],["Publicación viral 6: se resuelve con ayuda de un chatbot; verifica si lo que respondió es cierto","todo"]],
+ "caso3":[["S1 · Entrevistar a una persona de mi entorno: acceso, uso y habilidades, y resultados","todo"],["S1 · Contar con el equipo quiénes completaron el diagnóstico y qué barreras hubo","todo"],["S2 · Elegir una necesidad: hacer un trámite en línea o reconocer un mensaje fraudulento","todo"],["S2 · Diseñar la mini clase o la guía impresa","todo"],["S3 · Enseñarle a mi persona y registrar qué pasó","todo"],["S3 · Presentar el resultado al curso","todo"],["S1 · Preparar las preguntas de la entrevista","doing"]],
+ "proyecto":[["S1 · Ficha de empatía: entrevistar a alguien que usa la red sin entenderla o que queda por fuera","todo"],["S2 · Elegir el problema de la campaña de ciudadanía digital","todo"],["S2 · Hacer las listas de chequeo de noticias y de privacidad con el equipo","todo"],["S3 · Prototipo de la campaña: afiche, guía impresa o video","doing"],["S3 · Declarar el uso de IA en el prototipo","review"],["S4 · Jugar la rana y comparar resultados","todo"],["S4 · Muestra a la comunidad: cada integrante le enseña algo a alguien","todo"]]
+};
+
+/* ---------- Pasaporte de insignias (microcredenciales) ---------- */
+const ENTRY_SLUGS = ['cibercultura','alfabetizacion','algoritmos','privacidad','etica','brecha'];
+const BADGES = [
+  {k:'explorer', e:'🧭', t:'Explorador/a de la red', d:'Visita las 6 entradas'},
+  {k:'manager',  e:'🗂️', t:'Gestor/a de tableros', d:'Lleva 5 tarjetas distintas a Hecho'},
+  {k:'poster',   e:'📣', t:'Aportante', d:'Publica una tarjeta o una respuesta'},
+  {k:'citizen',  e:'🏅', t:'Ciudadano/a en red', d:'Saca 6 o más aciertos en el quiz'}
+];
+let PASS = Object.assign({visited:[], doneIds:[], poster:false, quiz:0}, load('cr-pass', {}));
+const earned = () => ({
+  explorer: ENTRY_SLUGS.every(s => PASS.visited.includes(s)),
+  manager: PASS.doneIds.length >= 5,
+  poster: !!PASS.poster,
+  citizen: PASS.quiz >= 6
+});
+let lastEarned = earned();
+function passcardHTML(){
+  const e = earned();
+  return '<h3 style="margin:0">🛂 Tu pasaporte de ciudadano/a en red</h3><p class="hint" style="margin:.2rem 0 0">Cuatro insignias que reconocen lo que haces, no solo lo que lees. Se guardan en este navegador.</p><div class="row">' +
+   BADGES.map(b => '<div class="bd '+(e[b.k]?'on':'')+'"><span class="e" aria-hidden="true">'+b.e+'</span><div><b>'+b.t+'</b><small>'+b.d+'</small></div></div>').join('') + '</div>';
+}
+function updatePass(){
+  save('cr-pass', PASS);
+  const now = earned();
+  BADGES.forEach(b => { if(now[b.k] && !lastEarned[b.k]) toastBadge('🎉 ¡Nueva insignia! ' + b.e + ' ' + b.t); });
+  lastEarned = now;
+  $('#passStrip').innerHTML = BADGES.map(b => '<span class="'+(now[b.k]?'on':'')+'" title="'+esc(b.t)+': '+esc(b.d)+'">'+b.e+'</span>').join('');
+  renderNav();
+  const pc = $('#passcard'); if(pc) pc.innerHTML = passcardHTML();
+}
+let bt;
+function toastBadge(t){ const el=$('#badgeToast'); el.textContent=t; el.classList.add('show'); clearTimeout(bt); bt=setTimeout(()=>el.classList.remove('show'),3800); }
+
+/* ---------- Motor de tablero Kanban ---------- */
+const COLS = [
+  {id:'todo',   name:'Por hacer',   e:'📝', c:'var(--sky)'},
+  {id:'doing',  name:'En progreso', e:'⚙️', c:'var(--sun)'},
+  {id:'review', name:'Revisión',    e:'🔎', c:'var(--pink)'},
+  {id:'done',   name:'Hecho',       e:'✅', c:'var(--mint)'}
+];
+function makeBoard(root, o){
+  const CX = o.cols || COLS;
+  let cards = [];
+  root.innerHTML = '<div class="toast" role="status"></div><div class="board"></div>';
+  const toast = root.querySelector('.toast'), boardEl = root.querySelector('.board');
+  let tt;
+  function say(t, type){ toast.textContent = t; toast.className = 'toast show ' + (type||''); clearTimeout(tt); tt = setTimeout(()=>{ toast.className='toast'; toast.textContent=''; }, 6500); }
+  async function move(id, to){
+    const c = cards.find(x => x.id === id); if(!c || c.col === to) return;
+    if(to === 'done' && c.col !== 'review'){ say(o.lastMsg || '🔎 Una tarjeta solo llega a Hecho después de pasar por Revisión: otra persona debe revisarla y citar sus fuentes.', 'warn'); return; }
+    const lim = o.wip[to], n = cards.filter(x => x.col === to).length;
+    if(lim && n >= lim){ say('🚦 Límite WIP: en “' + CX.find(x=>x.id===to).name + '” caben máximo ' + lim + ' tarjetas. Termina o mueve alguna antes de empezar más.', 'warn'); return; }
+    if(o.check){ const m = o.check(c, to); if(m){ say(m, 'warn'); return; } }
+    try{ await o.onMove(c, to); if(to === 'done') say(o.doneMsg || '🎉 ¡Tarjeta terminada y revisada!', 'good'); }
+    catch(e){ say('No se pudo mover la tarjeta. Inténtalo de nuevo.', 'warn'); }
+  }
+  function draw(){
+    boardEl.innerHTML = '';
+    CX.forEach((col, ci) => {
+      const items = cards.filter(c => c.col === col.id);
+      const lim = o.wip[col.id];
+      const el = document.createElement('div'); el.className = 'bcol';
+      const head = document.createElement('div'); head.className = 'bhead'; head.style.background = col.c;
+      head.innerHTML = '<span>'+col.e+' '+col.name+'</span><small class="'+(lim&&items.length>=lim?'full':'')+'">'+items.length+(lim?'/'+lim:'')+'</small>';
+      const body = document.createElement('div'); body.className = 'bbody';
+      items.forEach(c => {
+        const k = document.createElement('div'); k.className = 'kc' + (c.src==='local'?' local':''); k.style.setProperty('--cc', pastel(c.id));
+        k.draggable = true;
+        const t = document.createElement('span'); t.textContent = c.text; k.appendChild(t);
+        if(c.alias){ const w = document.createElement('span'); w.className='who'; w.textContent = '✍️ ' + c.alias + (c.src==='local' ? ' · solo en tu navegador' : ''); k.appendChild(w); }
+        if(c.owner){ const w = document.createElement('span'); w.className='who'; w.textContent = '🙋 Responsable: ' + c.owner; k.appendChild(w); }
+        const acts = document.createElement('div'); acts.className = 'acts';
+        if(ci > 0){ const b = document.createElement('button'); b.type='button'; b.textContent='◀'; b.setAttribute('aria-label','Mover a '+CX[ci-1].name); b.onclick = () => move(c.id, CX[ci-1].id); acts.appendChild(b); }
+        if(ci < CX.length-1){ const b = document.createElement('button'); b.type='button'; b.textContent='▶'; b.setAttribute('aria-label','Mover a '+CX[ci+1].name); b.onclick = () => move(c.id, CX[ci+1].id); acts.appendChild(b); }
+        if(o.canRemove && o.canRemove(c)){ const b = document.createElement('button'); b.type='button'; b.textContent='🗑'; b.setAttribute('aria-label','Borrar tarjeta'); b.onclick = () => o.onRemove(c); acts.appendChild(b); }
+        k.appendChild(acts);
+        k.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', c.id); e.dataTransfer.effectAllowed = 'move'; });
+        body.appendChild(k);
+      });
+      el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('over'); });
+      el.addEventListener('dragleave', () => el.classList.remove('over'));
+      el.addEventListener('drop', e => { e.preventDefault(); el.classList.remove('over'); move(e.dataTransfer.getData('text/plain'), col.id); });
+      el.appendChild(head); el.appendChild(body); boardEl.appendChild(el);
+    });
+  }
+  return { set(arr){ cards = arr; draw(); }, say };
+}
+
+/* ---------- Capa compartida (db) con modo solo ---------- */
+const Shared = { db:null, user:null, uid:null, teacher:false, canWrite:null, board:[], wall:[], ready:false };
+let localBoard = load('cr-lboard', []);
+let localWall  = load('cr-lwall', []);
+let OWN = load('cr-own', {});
+let OVR = load('cr-ovr', {});          // movimientos propios sobre tarjetas compartidas (solo lectura)
+let SEEDED = load('cr-seeded', {});
+const MOUNTED = [];
+async function connect(){
+  try{
+    if(!window.claude || !window.claude.use){ Shared.ready = true; refresh(); return; }
+    const [db, user] = await Promise.all([claude.use('db'), claude.use('user')]);
+    Shared.db = db; Shared.user = user;
+    if(user){
+      try{ Shared.uid = await user.id(); }catch(e){}
+      try{ Shared.teacher = await user.canEdit(); }catch(e){}
+      try{ Shared.canWrite = await user.can('data.write'); }catch(e){}
+    }
+    if(db){
+      db.collection('board').orderBy('ts').limit(1000).onSnapshot(s => { Shared.board = s.docs.map(d => ({...d.data(), id:d.id})); refresh(); }, () => {});
+      db.collection('wall').orderBy('ts','desc').limit(500).onSnapshot(s => { Shared.wall = s.docs.map(d => ({...d.data(), id:d.id})); refresh(); }, () => {});
+    }
+  }catch(e){}
+  Shared.ready = true; refresh();
+}
+function refresh(){ MOUNTED.forEach(f => f()); }
+function ensureLocalSeeds(key){
+  if(Shared.db || SEEDED[key] || !SEEDS[key]) return;
+  SEEDS[key].forEach(([text, col]) => localBoard.push({id:uid(), entry:key, text, col, alias:'Profe', ts:Date.now()}));
+  SEEDED[key] = true; save('cr-lboard', localBoard); save('cr-seeded', SEEDED);
+}
+function cardsFor(key){
+  const sh = Shared.board.filter(c => c.entry === key).map(c => ({...c, id:'s:'+c.id, src:'shared', col: OVR['s:'+c.id] || c.col, owner: OWN['s:'+c.id] || c.owner}));
+  const lo = localBoard.filter(c => c.entry === key).map(c => ({...c, id:'l:'+c.id, src:'local'}));
+  return sh.concat(lo);
+}
+function postsFor(key){
+  return Shared.wall.filter(c => c.entry === key).map(c => ({...c, id:'s:'+c.id, src:'shared'}))
+    .concat(localWall.filter(c => c.entry === key).map(c => ({...c, id:'l:'+c.id, src:'local'}))).sort((a,b) => b.ts - a.ts).slice(0, 60);
+}
+const mine = c => c.src === 'local' || Shared.teacher || (c.uid && c.uid === Shared.uid);
+function statusHTML(){
+  if(!Shared.ready) return '<div class="status blue">⏳ Conectando con el tablero del curso…</div>';
+  if(Shared.db && Shared.canWrite !== false) return '<div class="status green">🟢 <b>Modo compartido.</b> Lo que publiques o muevas aquí lo ve todo el curso en tiempo real.</div>';
+  if(Shared.db) return '<div class="status yellow">🟡 <b>Solo lectura.</b> Ves lo que hacen tus compañeros, pero tu cuenta no puede escribir en lo compartido: tus tarjetas y movimientos quedan solo en este navegador. Pídele al profe permiso de colaborador.</div>';
+  return '<div class="status blue">🔵 <b>Modo solo.</b> Puedes trabajar el tablero, pero tus aportes se quedan en este navegador. Cuando tu profe te comparta el enlace con permiso de colaborador, aquí aparecerá el tablero de todo el curso.</div>';
+}
+async function sharedAdd(coll, rec){
+  if(Shared.uid) rec.uid = Shared.uid;
+  if(Shared.db && Shared.canWrite !== false){
+    try{ await Shared.db.collection(coll).add(rec); return 'shared'; }
+    catch(e){ if(e && (e.code === 'invalid_argument' || e.code === 'not_granted')) Shared.canWrite = false; }
+  }
+  if(coll === 'board'){ localBoard.push({...rec, id:uid()}); save('cr-lboard', localBoard); }
+  else { localWall.push({...rec, id:uid()}); save('cr-lwall', localWall); }
+  return 'local';
+}
+function aliasValue(host){ return ((host.querySelector('.alias').value || '').trim().slice(0,16)) || 'Anónimo'; }
+
+/* Sección de tablero compartido */
+function mountBoard(host, key, wip, opts){
+  opts = opts || {};
+  host.innerHTML = '<div class="sbox"></div><div class="bhost"></div><div class="addrow"><input class="inp alias" maxlength="16" placeholder="Tu Nickname" aria-label="Tu Nickname"><input class="inp txt" maxlength="80" placeholder="Escribe una tarjeta nueva (máx. 80 letras)" aria-label="Texto de la tarjeta"><button class="btn add" type="button">➕ Agregar</button></div><p class="hint">Participa con un Nickname, no con tu nombre completo ni datos personales.</p>';
+  const board = makeBoard(host.querySelector('.bhost'), {
+    wip, cols: opts.cols, lastMsg: opts.lastMsg, doneMsg: opts.doneMsg,
+    check: opts.perPerson ? (c, to) => {
+      const lim = opts.perPerson[to]; if(!lim) return null;
+      const me = aliasValue(host), n = cardsFor(key).filter(x => x.col === to && x.owner === me && x.id !== c.id).length;
+      return n >= lim ? '🙋 ' + me + ', ya tienes ' + n + ' tarjetas en “' + opts.cols.find(x => x.id === to).name + '”. El máximo es ' + lim + ' por persona: termina una antes de tomar otra.' : null;
+    } : null,
+    canRemove: mine,
+    onRemove: async c => {
+      if(c.src === 'local'){ localBoard = localBoard.filter(x => 'l:'+x.id !== c.id); save('cr-lboard', localBoard); refresh(); return; }
+      try{ await Shared.db.doc('board/' + c.id.slice(2)).delete(); }catch(e){}
+    },
+    onMove: async (c, to) => {
+      const me = aliasValue(host), setOwner = !!opts.perPerson && to === 'doing';
+      if(c.src === 'local'){ const x = localBoard.find(y => 'l:'+y.id === c.id); if(x){ x.col = to; if(setOwner) x.owner = me; save('cr-lboard', localBoard); } }
+      else {
+        let ok = false;
+        if(Shared.db && Shared.canWrite !== false){
+          try{ await Shared.db.doc('board/' + c.id.slice(2)).update(setOwner ? {col:to, owner:me} : {col:to}); delete OVR[c.id]; delete OWN[c.id]; ok = true; }
+          catch(e){ Shared.canWrite = false; }
+        }
+        if(!ok){ OVR[c.id] = to; if(setOwner) OWN[c.id] = me; }
+        save('cr-ovr', OVR); save('cr-own', OWN);
+      }
+      if(to === 'done' && !PASS.doneIds.includes(c.id)){ PASS.doneIds.push(c.id); updatePass(); }
+      refresh();
+    }
+  });
+  const redraw = () => { host.querySelector('.sbox').innerHTML = statusHTML(); if(Shared.ready) ensureLocalSeeds(key); board.set(cardsFor(key)); };
+  MOUNTED.push(redraw); redraw();
+  host.querySelector('.alias').value = load('cr-alias', '');
+  host.querySelector('.alias').addEventListener('input', e => save('cr-alias', e.target.value));
+  host.querySelector('.add').onclick = async () => {
+    const inp = host.querySelector('.txt'), t = inp.value.trim();
+    if(!t){ board.say('Escribe primero el texto de la tarjeta.', 'warn'); return; }
+    const btn = host.querySelector('.add'); btn.disabled = true;
+    const where = await sharedAdd('board', {entry:key, text:t, alias:aliasValue(host), col:'todo', ts:Date.now()});
+    btn.disabled = false; inp.value = '';
+    board.say(where === 'shared' ? '✅ Tarjeta publicada para todo el curso.' : '📝 Tarjeta guardada solo en tu navegador.', 'good');
+    PASS.poster = true; updatePass(); refresh();
+  };
+}
+
+/* Sección de respuestas (muro) */
+function mountWall(host, key, emojis){
+  host.innerHTML = '<div class="addrow"><input class="inp alias" maxlength="16" placeholder="Tu Nickname" aria-label="Tu Nickname"><input class="inp txt" maxlength="160" placeholder="Escribe tu respuesta (máx. 160 letras)" aria-label="Tu respuesta"><button class="btn pink add" type="button">📣 Publicar</button></div>' +
+    '<div class="emos" role="radiogroup" aria-label="Escoge un emoji">' + emojis.map((x,i) => '<label><input type="radio" name="emo" value="'+x+'" '+(i===0?'checked':'')+'><span>'+x+'</span></label>').join('') + '</div><div class="wall"></div>';
+  const wall = host.querySelector('.wall');
+  const draw = () => {
+    const posts = postsFor(key); wall.innerHTML = '';
+    if(!posts.length){ wall.innerHTML = '<p class="hint">Todavía no hay respuestas. ¡Sé el primero en publicar!</p>'; return; }
+    posts.forEach(p => {
+      const el = document.createElement('div'); el.className = 'post' + (p.src==='local'?' local':''); el.style.setProperty('--cc', pastel(p.id));
+      const em = document.createElement('span'); em.className='em'; em.textContent = p.emoji || '💬';
+      const mid = document.createElement('div'); const tx = document.createElement('p'); tx.textContent = p.text;
+      const sm = document.createElement('small'); sm.textContent = '✍️ ' + (p.alias || 'Anónimo') + (p.src==='local' ? ' · solo en tu navegador' : '');
+      mid.appendChild(tx); mid.appendChild(sm); el.appendChild(em); el.appendChild(mid);
+      if(mine(p)){ const b = document.createElement('button'); b.type='button'; b.textContent='🗑'; b.setAttribute('aria-label','Borrar respuesta');
+        b.onclick = async () => {
+          if(p.src === 'local'){ localWall = localWall.filter(x => 'l:'+x.id !== p.id); save('cr-lwall', localWall); refresh(); }
+          else { try{ await Shared.db.doc('wall/' + p.id.slice(2)).delete(); }catch(e){} }
+        }; el.appendChild(b); }
+      wall.appendChild(el);
+    });
+  };
+  MOUNTED.push(draw); draw();
+  host.querySelector('.alias').value = load('cr-alias', '');
+  host.querySelector('.alias').addEventListener('input', e => save('cr-alias', e.target.value));
+  host.querySelector('.add').onclick = async () => {
+    const inp = host.querySelector('.txt'), t = inp.value.trim(); if(!t){ inp.focus(); return; }
+    const emoji = (host.querySelector('input[name="emo"]:checked')||{}).value || '💬';
+    const btn = host.querySelector('.add'); btn.disabled = true;
+    await sharedAdd('wall', {entry:key, text:t, alias:aliasValue(host), emoji, ts:Date.now()});
+    btn.disabled = false; inp.value = '';
+    PASS.poster = true; updatePass(); refresh();
+  };
+}
+
+/* ---------- Contenido: entradas del blog ---------- */
+const ENTRIES = [
+ { id:'cibercultura', n:1, tag:'Cibercultura', e:'🌐', c:'var(--violet)', ct:'var(--t-violet)', min:4,
+   t:'¿Qué es la cibercultura? (Y por qué ya vives en ella)',
+   sum:'Las prácticas, valores y formas de pensar que surgen cuando convivimos con la tecnología.',
+   body:`<p>Cuando buscas un tutorial para arreglar algo, comentas en el grupo de WhatsApp de la clase o editas un documento compartido, ya estás participando en la cibercultura. Pierre Lévy (2007) la define como el conjunto de prácticas, valores, actitudes y formas de pensamiento que se desarrollan junto con el ciberespacio.</p>
+     <h2>Inteligencia colectiva</h2>
+     <p>La idea central de Lévy es la <b class="h">inteligencia colectiva</b>: nadie lo sabe todo, pero todos saben algo, y la red permite juntar esos saberes. Wikipedia, los foros de ayuda y los recursos educativos abiertos son ejemplos. Esta misma wiki, construida entre todo el curso, también lo es.</p>
+     <h2>La sociedad red</h2>
+     <p>Para Manuel Castells (2001) vivimos en una <b class="h">sociedad red</b>: el conocimiento ya no es un recurso escaso guardado en bibliotecas, sino un flujo que circula y se transforma. Eso cambia quién tiene poder, quién participa y quién se queda por fuera.</p>
+     <h2>La cibercultura también nos moldea</h2>
+     <p>La tecnología no es una simple herramienta neutral. Paula Sibilia (2012) habla de <b class="h">subjetividades mediáticas</b>: formas de pensar, sentir y actuar que se construyen con los dispositivos. Las redes influyen en cómo nos mostramos, qué esperamos de los demás e incluso en cómo prestamos atención.</p>
+     <blockquote class="q">Entender la cibercultura no es aprender a usar aplicaciones; es entender cómo esas aplicaciones cambian nuestra manera de aprender, relacionarnos y participar.</blockquote>`,
+   think:'Piensa en un día normal. ¿En qué momentos participaste en la inteligencia colectiva y en cuáles solo consumiste contenido?', emojis:['💡','🤔','🙌','📱','🌐','💬'], video:{url:'https://www.youtube.com/watch?v=qugS5MaZ0L8', title:'Inteligencia colectiva para educadores: conferencia de Pierre Lévy (fragmento)', ch:'Canal de Enith Castaño Bermúdez', note:'En español · fragmento de una conferencia de Lévy organizada por la OEI e IBERTIC en 2015.'} },
+ { id:'alfabetizacion', n:2, tag:'Alfabetización digital', e:'🧠', c:'var(--sky)', ct:'var(--t-sky)', min:4,
+   t:'Usar no es lo mismo que saber',
+   sum:'El mito del nativo digital y por qué manejar el celular no basta para ser competente en la red.',
+   body:`<p>Marc Prensky (2001) popularizó la idea de los <b class="h">nativos digitales</b>: jóvenes que, por haber crecido con la tecnología, la dominarían de forma natural. La investigación posterior desmontó ese mito. Kirschner y De Bruyckere (2017) mostraron que nacer rodeado de pantallas no garantiza saber buscar, evaluar ni crear información con criterio, y que la multitarea perjudica el aprendizaje.</p>
+     <p>David White y Alison Le Cornu (2011) propusieron mirar <i>cómo</i> usamos la red: los <b class="h">visitantes</b> entran para resolver algo puntual y salen; los <b class="h">residentes</b> viven allí parte de su vida social e intelectual. Una misma persona puede ser visitante en lo académico y residente en lo social.</p>
+     <h2>Entonces, ¿qué es la alfabetización digital?</h2>
+     <p>Paul Gilster (1997), quien acuñó el término, la describió como la capacidad de comprender y usar información en múltiples formatos a través de los computadores. Hoy el marco DigComp 2.2 (Vuorikari et al., 2022) la organiza en cinco áreas:</p>
+     <ul class="cards"><li>Búsqueda y evaluación de información y datos.</li><li>Comunicación y colaboración.</li><li>Creación de contenido digital.</li><li>Seguridad, que incluye proteger los datos y el bienestar.</li><li>Resolución de problemas.</li></ul>
+     <h2>La otra cara: no usar</h2>
+     <p>También hay docentes, adultos y estudiantes que evitan la tecnología por miedo a equivocarse o porque nadie les enseñó. Ambos casos son falta de alfabetización digital, y ambos tienen solución.</p>`,
+   think:'¿Eres más visitante o residente? ¿En qué áreas de DigComp te sientes fuerte y en cuál necesitas aprender más?', emojis:['🧠','🤓','🙈','🌱','💪','💬'], video:{url:'https://www.youtube.com/watch?v=-4N5qmVc3yU', title:'Digital Literacy: resumen del libro de Paul Gilster', ch:'Canal Fast Book Summaries', note:'En inglés · 4 minutos · resumen animado hecho por un canal independiente. Activa los subtítulos.'} },
+ { id:'algoritmos', n:3, tag:'Sistemas digitales', e:'🤖', c:'var(--pink)', ct:'var(--t-pink)', min:5,
+   t:'Cómo deciden los algoritmos lo que ves',
+   sum:'Tu inicio en redes no es una ventana neutral: es una selección hecha para mantenerte conectado.',
+   body:`<p>Un <b class="h">algoritmo</b> es un conjunto de instrucciones que procesa datos para tomar una decisión. En las redes sociales decide qué publicaciones aparecen primero en tu inicio, usando señales como lo que miras, cuánto tiempo te detienes, lo que te gusta, lo que compartes y lo que hacen personas parecidas a ti.</p>
+     <h2>¿Para qué están diseñados?</h2>
+     <p>La mayoría de plataformas gratuitas viven de la publicidad, así que su objetivo es que pases el mayor tiempo posible en ellas. Yann Moulier-Boutang (2011) llama <b class="h">capitalismo cognitivo</b> a este modelo, en el que la atención, el conocimiento y la creatividad de los usuarios se convierten en valor económico. El scroll infinito y la reproducción automática no son accidentes de diseño.</p>
+     <h2>La burbuja de filtro</h2>
+     <p>Eli Pariser (2011) advirtió que, al mostrarnos lo que ya nos gusta, los algoritmos nos encierran en una <b class="h">burbuja de filtro</b>: vemos cada vez más de lo mismo y menos de lo que piensa distinto. Eso facilita las ecocámaras, donde solo escuchamos opiniones que confirman las nuestras.</p>
+     <h2>¿Y la inteligencia artificial?</h2>
+     <p>Los chatbots de IA generativa funcionan prediciendo la respuesta más probable según los textos con los que fueron entrenados. Por eso pueden escribir con seguridad datos falsos o referencias que no existen. Además, como señala Cathy O’Neil (2016), los sistemas automatizados pueden reproducir los sesgos de sus datos.</p>
+     <h2>Qué puedes hacer</h2>
+     <ul class="cards"><li>Busca el mismo tema en fuentes distintas, no solo en tu red favorita.</li><li>Sigue a personas e instituciones que piensen diferente a ti.</li><li>Revisa la opción “por qué veo este anuncio” en tus redes.</li><li>Verifica siempre lo que te responde una IA antes de usarlo.</li></ul>`,
+   think:'Abre tu red social más usada y mira las primeras diez publicaciones. ¿Qué crees que sabe el algoritmo de ti?', emojis:['🤖','🫧','🎰','🔍','✨','💬'], video:{url:'https://www.youtube.com/watch?v=BY6RZXJrU2o', title:'What Actually Makes an Algorithm Terrifying (con Cathy O’Neil)', ch:'Pódcast Super Data Science', note:'En inglés · pódcast de más de una hora: escucha un fragmento a partir del minuto 14 y activa los subtítulos.'} },
+ { id:'privacidad', n:4, tag:'Privacidad', e:'🔒', c:'var(--mint)', ct:'var(--t-mint)', min:4,
+   t:'Tus datos valen: privacidad en la vida cotidiana',
+   sum:'Si no pagas por un servicio, probablemente estás pagando con tus datos.',
+   body:`<p>Cada vez que usas una aplicación dejas una <b class="h">huella digital</b>: tu ubicación, tus contactos, tus búsquedas, las horas en que te conectas y hasta cuánto tardas en leer algo. Muchos de esos datos son <b class="h">metadatos</b>, información sobre tu información, y dicen mucho más de lo que parece.</p>
+     <h2>Un mercado de comportamientos</h2>
+     <p>Shoshana Zuboff (2019) describe el <b class="h">capitalismo de la vigilancia</b>: un modelo de negocio que recoge datos sobre nuestro comportamiento para predecirlo y venderlo. No es un problema solo de grandes empresas lejanas; también ocurre con aplicaciones educativas, juegos y plataformas que usamos a diario.</p>
+     <h2>La privacidad depende del contexto</h2>
+     <p>Helen Nissenbaum (2010) propone la <b class="h">integridad contextual</b>: compartir información no es malo en sí mismo; el problema aparece cuando un dato sale del contexto en el que lo entregamos. Contarle al médico un diagnóstico es apropiado; que llegue a una aseguradora o a un empleador, no.</p>
+     <p>En Colombia, la Ley Estatutaria 1581 de 2012 protege los datos personales y reconoce el derecho a conocer, actualizar y rectificar la información que se recoge sobre las personas.</p>
+     <h2>Prácticas básicas de cuidado</h2>
+     <ul class="cards"><li>Revisa qué permisos tienen tus aplicaciones: cámara, micrófono, ubicación y contactos.</li><li>Usa contraseñas distintas para cada servicio y, si puedes, un gestor de contraseñas.</li><li>Activa la verificación en dos pasos en tu correo y tus redes.</li><li>Piensa antes de publicar fotos o datos de otras personas, en especial de menores de edad.</li></ul>
+     <blockquote class="q">Por eso en esta wiki participas con un Nickname y sin datos personales: la privacidad también se practica aquí.</blockquote>`,
+   think:'¿Cuántas aplicaciones de tu celular tienen acceso a tu ubicación? ¿Todas lo necesitan?', emojis:['🔒','🛡️','🔑','📍','🛒','💬'], video:{url:'https://www.youtube.com/watch?v=KOBzMcBKL4M', title:'Helen Nissenbaum: Internet Privacy and Security', ch:'American Academy of Arts & Sciences', note:'En inglés · conferencia de 2011 de la autora de la integridad contextual. Activa los subtítulos.'} },
+ { id:'etica', n:5, tag:'Ética digital', e:'⚖️', c:'var(--sun)', ct:'var(--t-sun)', min:5,
+   t:'Ética digital en la práctica',
+   sum:'Autoría, inteligencia artificial, desinformación y ciberacoso: decisiones que tomamos con cada clic.',
+   body:`<p>La ética digital no es un tema abstracto. Mike Ribble (2015) describe la ciudadanía digital como un conjunto de normas de comportamiento responsable en la red: acceso, comunicación, seguridad, derechos y responsabilidades. Estas son cuatro situaciones cotidianas donde se pone a prueba.</p>
+     <h2>Respetar la autoría</h2>
+     <p>Que algo esté en internet no significa que sea libre de usar. Cita siempre la fuente de textos, imágenes y videos, y busca recursos con <b class="h">licencias Creative Commons</b>, que indican cómo reutilizar una obra y a quién reconocer.</p>
+     <h2>Usar la IA con honestidad</h2>
+     <p>La IA puede ayudarte a entender un tema, organizar ideas o revisar un texto. Entregar como propio un trabajo hecho por una IA es una forma de plagio. Declara cuándo y cómo la usaste, verifica sus respuestas y no le entregues datos personales o confidenciales.</p>
+     <h2>Verificar antes de compartir</h2>
+     <p>La desinformación se propaga porque la compartimos sin revisar. Sam Wineburg y Sarah McGrew (2019) encontraron que los verificadores profesionales usan la <b class="h">lectura lateral</b>: en lugar de quedarse en la página sospechosa, abren otras pestañas para averiguar quién está detrás y qué dicen otras fuentes.</p>
+     <h2>No ser espectador del ciberacoso</h2>
+     <p>El anonimato y la distancia facilitan el acoso y los discursos de odio. Si lo ves, no lo compartas ni lo celebres: apoya a la persona afectada, guarda evidencia con capturas, usa las herramientas de denuncia y busca ayuda de un adulto o una institución cuando se trate de menores.</p>
+     <blockquote class="q">En los tableros de esta wiki aplicamos lo mismo: una tarjeta llega a Hecho solo si otra persona la revisó y citó sus fuentes.</blockquote>`,
+   think:'¿Alguna vez compartiste algo que luego resultó falso? ¿Qué te habría ayudado a detectarlo a tiempo?', emojis:['⚖️','🔍','🤝','©️','🤖','💬'], video:{url:'https://www.youtube.com/watch?v=PCHAGVftN1I', title:'What is: Digital Ethics?', ch:'Vlerick Business School', note:'En inglés · 4 minutos · explica por qué la ética debe estar presente al diseñar tecnología. Activa los subtítulos.'} },
+ { id:'brecha', n:6, tag:'Brecha digital', e:'🌉', c:'var(--coral)', ct:'var(--t-coral)', min:4,
+   t:'La brecha digital: quién se queda por fuera',
+   sum:'Tener internet no basta: la brecha también está en lo que sabemos hacer con él y en lo que logramos gracias a él.',
+   body:`<p>Solemos pensar la brecha digital como la diferencia entre quien tiene computador e internet y quien no. Esa es solo la primera capa. Van Deursen y Helsper (2015) describen tres niveles:</p>
+     <ul class="cards"><li><b class="h">Acceso:</b> tener o no dispositivos y conectividad de calidad.</li><li><b class="h">Uso y habilidades:</b> saber o no aprovechar la tecnología para estudiar, trabajar o participar.</li><li><b class="h">Resultados:</b> obtener o no beneficios reales, como un empleo, un trámite resuelto o un aprendizaje.</li></ul>
+     <p>Dos personas con el mismo celular pueden vivir realidades muy distintas: una lo usa para aprender, crear y defender sus derechos; otra solo para entretenerse, o casi no lo usa porque nadie le enseñó.</p>
+     <h2>No basta con repartir equipos</h2>
+     <p>El informe de la UNESCO (2023) recuerda que la tecnología no mejora el aprendizaje por sí sola: depende de cómo se usa, de la formación docente y del contexto. Cristóbal Cobo (2016) lo resume así: adoptar tecnología no es lo mismo que innovar.</p>
+     <h2>Una mirada desde América Latina</h2>
+     <p>Jesús Martín-Barbero (2006) insistió en que las tecnologías deben pensarse desde las culturas y realidades locales, no como copia de modelos del norte global. En zonas rurales o con baja conectividad, la alfabetización digital puede empezar con recursos sin conexión, aprendizaje entre generaciones y proyectos ligados a los problemas de la comunidad.</p>
+     <blockquote class="q">Cerrar la brecha digital no es poner a todos frente a una pantalla, sino lograr que todos puedan decidir qué hacer con ella.</blockquote>`,
+   think:'En tu entorno, ¿quién se está quedando por fuera de la red? ¿Qué podrías enseñarle tú?', emojis:['🌉','🌎','📦','🤝','🏘️','💬'], video:{url:'https://www.youtube.com/watch?v=2bpx41zpE5s', title:'Desigualdad digital: explicaciones locales de patrones globales', ch:'Conferencia de Ellen Helsper en Montevideo · REVISTAONDA', note:'En español · conferencia de Ellen Helsper, coautora de los tres niveles de la brecha digital.'} }
 ];
 
-const QUIZ = [
-"Antes de compartir una noticia, reviso quién la publica y si otros medios la confirman.",
-"Entiendo por qué una red social me muestra unos contenidos y no otros.",
-"Reviso los permisos que les doy a las aplicaciones de mi celular.",
-"Uso contraseñas distintas y verificación en dos pasos en mis cuentas importantes.",
-"Cito la fuente cuando uso imágenes o textos de otras personas.",
-"Cuando uso inteligencia artificial, verifico lo que responde y aclaro que la usé.",
-"Me animo a probar herramientas digitales nuevas para estudiar o trabajar.",
-"Sé qué hacer si veo a alguien sufriendo acoso en línea."
-];
-
+/* ---------- Listas de chequeo (definición de hecho) ---------- */
 const TOOLS = [
-{ key:"verificar", title:"Antes de compartir una noticia", items:[
- "Leí la noticia completa, no solo el titular.",
- "Averigüé quién la publica y si es un medio o autor confiable.",
- "Busqué si otras fuentes serias informan lo mismo.",
- "Revisé la fecha: puede ser una noticia vieja que circula como nueva.",
- "Comprobé que las imágenes no estén sacadas de contexto (búsqueda inversa de imágenes).",
- "Me pregunté si me provoca una emoción fuerte a propósito."]},
-{ key:"privacidad", title:"Revisión de privacidad en 15 minutos", items:[
- "Revisé los permisos de ubicación, cámara y micrófono de mis aplicaciones.",
- "Activé la verificación en dos pasos en mi correo.",
- "Cambié las contraseñas repetidas por contraseñas únicas.",
- "Revisé quién puede ver mis publicaciones en redes sociales.",
- "Eliminé aplicaciones que ya no uso.",
- "Busqué mi nombre en internet para ver qué información aparece."]},
-{ key:"ia", title:"Usar la IA con ética", items:[
- "Uso la IA para entender y mejorar, no para que haga el trabajo por mí.",
- "Verifico datos, cifras y referencias en fuentes reales.",
- "Declaro cuándo y cómo usé la IA en mis trabajos.",
- "No comparto datos personales ni información confidencial.",
- "Reviso las normas de mi institución sobre el uso de IA."]}
+ {key:'verificar', e:'📰', c:'var(--sky)', title:'Antes de compartir una noticia', items:["Leí la noticia completa, no solo el titular.","Averigüé quién la publica y si es un medio o autor confiable.","Busqué si otras fuentes serias informan lo mismo.","Revisé la fecha: puede ser una noticia vieja que circula como nueva.","Comprobé que las imágenes no estén sacadas de contexto (búsqueda inversa de imágenes).","Me pregunté si me provoca una emoción fuerte a propósito."]},
+ {key:'privacidad', e:'🔐', c:'var(--mint)', title:'Revisión de privacidad en 15 minutos', items:["Revisé los permisos de ubicación, cámara y micrófono de mis aplicaciones.","Activé la verificación en dos pasos en mi correo.","Cambié las contraseñas repetidas por contraseñas únicas.","Revisé quién puede ver mis publicaciones en redes sociales.","Eliminé aplicaciones que ya no uso.","Busqué mi nombre en internet para ver qué información aparece."]},
+ {key:'ia', e:'🤖', c:'var(--pink)', title:'Usar la IA con ética', items:["Uso la IA para entender y mejorar, no para que haga el trabajo por mí.","Verifico datos, cifras y referencias en fuentes reales.","Declaro cuándo y cómo usé la IA en mis trabajos.","No comparto datos personales ni información confidencial.","Reviso las normas de mi institución sobre el uso de IA."]}
 ];
 
+/* ---------- Glosario ---------- */
 const GLOSS = [
 ["Algoritmo","Conjunto de instrucciones que procesa datos para tomar decisiones, como qué contenido mostrarte en una red social."],
 ["Alfabetización digital","Capacidad de buscar, evaluar, crear y compartir información digital de forma crítica, segura y ética."],
@@ -589,117 +663,19 @@ const GLOSS = [
 ["Privacidad contextual","Idea de que la privacidad se respeta cuando la información circula según las normas del contexto en que se compartió (Nissenbaum, 2010)."],
 ["Verificación en dos pasos","Método de seguridad que pide un segundo código o confirmación además de la contraseña."]
 ];
+const GC = ["#FFC83D","#2FA8FF","#FF4F9A","#19C98A","#7B4DFF","#FF7A45"];
+const GE = ["🤖","🔤","📰","🌉","🫧","🧠","🌐","🙋","©️","⚠️","📢","👣","✨","🧩","🔍","🏷️","🔒","🔑"];
 
-
-const LOOK = {
- 1:{c:"var(--violet)",t:"var(--tint-violet)",e:"🌐",ico:["🧩","🕸️","🪞"]},
- 2:{c:"var(--sky)",t:"var(--tint-sky)",e:"🧠",ico:["🔤","🙈"]},
- 3:{c:"var(--pink)",t:"var(--tint-pink)",e:"🤖",ico:["🎰","🫧","✨","🛠️"]},
- 4:{c:"var(--mint)",t:"var(--tint-mint)",e:"🔒",ico:["🛒","🏥","🛡️"]},
- 5:{c:"var(--sun)",t:"var(--tint-sun)",e:"⚖️",ico:["©️","🤖","🔍","🤝"]},
- 6:{c:"var(--coral)",t:"var(--tint-coral)",e:"🌉",ico:["📦","🌎"]}
-};
-
-/* Mapa de entradas */
-document.getElementById('postList').innerHTML = POSTS.map(p=>{const L=LOOK[p.id];return `<li><a href="#entrada-${p.id}">
-  <div class="art" style="background:${L.c}"><span class="num">${p.id}</span><span class="min">⏱️ ${p.min} min de lectura</span><span aria-hidden="true">${L.e}</span></div>
-  <div class="txt"><span class="chip" style="background:${L.t}">${p.tag}</span><h3>${p.title}</h3><p>${p.sum}</p></div></a></li>`}).join('');
-
-/* Vista de entrada */
-const postEl=document.getElementById('post');
-function showPost(id){
-  const i=POSTS.findIndex(p=>p.id===id); if(i<0) return showHome();
-  const p=POSTS[i],prev=POSTS[i-1],next=POSTS[i+1],L=LOOK[p.id];
-  postEl.style.setProperty('--c',L.c); postEl.style.setProperty('--ct',L.t);
-  postEl.innerHTML=`<a class="back" href="#entradas">⬅️ Volver al blog</a>
-  <div class="steps" aria-hidden="true">${POSTS.map((x,k)=>`<i class="${k<=i?'done':''}"></i>`).join('')}</div>
-  <header class="banner" style="background:${L.c}${p.id===1?';color:#fff':''}">
-    <div><span class="chip">${p.tag}</span><h1>${p.title}</h1>
-    <div class="meta"><span>Entrada ${p.id} de ${POSTS.length}</span><span>⏱️ ${p.min} min de lectura</span></div></div>
-    <div class="emo" aria-hidden="true">${L.e}</div>
-  </header>
-  <div class="body-card post-body">${p.body}</div>
-  <aside class="think"><span class="e" aria-hidden="true">🤔</span><div><h3>Para pensar</h3><p>${p.think}</p></div></aside>
-  <nav class="pager" aria-label="Otras entradas">
-    ${prev?`<a href="#entrada-${prev.id}"><small>⬅️ Anterior</small>${prev.title}</a>`:'<span></span>'}
-    ${next?`<a class="next" href="#entrada-${next.id}"><small>Siguiente ➡️</small>${next.title}</a>`:`<a class="next" href="#evaluacion-final"><small>Terminaste la ruta 🏁</small>Evaluación final: Salta con la rana 🐸</a>`}
-  </nav>`;
-  postEl.querySelectorAll('.post-body h2').forEach((h,k)=>h.dataset.ico=L.ico[k]||'⭐');
-  document.body.classList.add('reading'); document.title=p.title+' | Ciudadanía en Red'; window.scrollTo(0,0);
-}
-function showHome(){document.body.classList.remove('reading');document.title='Ciudadanía en Red';}
-function route(){
-  const h=location.hash.slice(1),m=h.match(/^entrada-(\d+)$/);
-  if(m){showPost(+m[1]);return;}
-  const was=document.body.classList.contains('reading'); showHome();
-  if(h&&was){const t=document.getElementById(h); if(t) requestAnimationFrame(()=>t.scrollIntoView());}
-}
-window.addEventListener('hashchange',route); route();
-
-/* Autoevaluación */
-const QC=["var(--pink)","var(--sky)","var(--mint)","var(--sun)","var(--violet)","var(--coral)","var(--sky)","var(--pink)"];
-const quiz=document.getElementById('quiz');
-quiz.innerHTML=`<div class="quizbar"><span id="qCount">0 de ${QUIZ.length}</span><div class="track"><b id="qTrack"></b></div><span aria-hidden="true">🏁</span></div><div class="qcards">`+
- QUIZ.map((q,i)=>`<fieldset class="q"><legend><span class="n" style="background:${QC[i]}">${i+1}</span><span>${q}</span></legend><div class="opts">
- ${[["Sí",2,"👍"],["A veces",1,"🤔"],["Todavía no",0,"🌱"]].map(([t,v,e])=>`<label><input type="radio" name="q${i}" value="${v}"><span class="e" aria-hidden="true">${e}</span><span>${t}</span></label>`).join('')}
- </div></fieldset>`).join('')+
- `</div><button class="btn" type="submit" style="margin-top:1.6rem">✨ Ver mi resultado</button>
- <p class="err" id="qErr">Responde las ${QUIZ.length} afirmaciones para ver tu resultado.</p>
- <div class="result" id="qRes" role="status"></div>`;
-quiz.addEventListener('change',()=>{quiz.querySelectorAll('.opts label').forEach(l=>l.classList.toggle('sel',l.querySelector('input').checked));const n=new Set([...quiz.querySelectorAll('input:checked')].map(x=>x.name)).size;
- document.getElementById('qCount').textContent=`${n} de ${QUIZ.length}`;document.getElementById('qTrack').style.width=(n/QUIZ.length*100)+'%';});
-quiz.addEventListener('submit',e=>{
- e.preventDefault(); const fd=new FormData(quiz); let s=0,n=0;
- for(let i=0;i<QUIZ.length;i++){const v=fd.get('q'+i); if(v!==null){n++;s+=+v;}}
- const err=document.getElementById('qErr'),res=document.getElementById('qRes');
- if(n<QUIZ.length){err.style.display='block';res.classList.remove('show');return;}
- err.style.display='none'; const max=QUIZ.length*2; let lvl;
- if(s<=6) lvl={b:"🌱",t:"Punto de partida",d:"Usas la tecnología, pero todavía hay mucho por descubrir sobre cómo funciona. Es el mejor momento para empezar.",r:[2,3]};
- else if(s<=12) lvl={b:"🚀",t:"En camino",d:"Tienes buenas prácticas, aunque hay áreas que puedes fortalecer, sobre todo en privacidad y ética.",r:[4,5]};
- else lvl={b:"🦸",t:"Ciudadano en red",d:"Usas la red con criterio. Ahora puedes ayudar a otras personas a dar el mismo paso.",r:[6,1]};
- res.innerHTML=`<span class="badge" aria-hidden="true">${lvl.b}</span><h3>${lvl.t}</h3><div class="meter" aria-hidden="true"><b></b></div><p>Obtuviste ${s} de ${max} puntos. ${lvl.d}</p>
- <p>Te recomendamos leer: ${lvl.r.map(id=>{const p=POSTS.find(x=>x.id===id);return `<a href="#entrada-${id}">${p.title}</a>`}).join(' y ')}.</p>`;
- res.classList.remove('show'); void res.offsetWidth; res.classList.add('show');
- res.scrollIntoView({block:'center'});
- setTimeout(()=>{res.querySelector('.meter b').style.width=(s/max*100)+'%';},120);
-});
-
-/* Herramientas */
-const TLOOK={verificar:["var(--sky)","📰"],privacidad:["var(--mint)","🔐"],ia:["var(--pink)","🤖"]};
-function load(k){try{return JSON.parse(localStorage.getItem('cer-'+k))||[];}catch(e){return [];}}
-function save(k,v){try{localStorage.setItem('cer-'+k,JSON.stringify(v));}catch(e){}}
-document.getElementById('tools').innerHTML=TOOLS.map(t=>{const d=load(t.key),L=TLOOK[t.key];
- return `<div class="tool" data-key="${t.key}"><div class="head" style="background:${L[0]}"><span aria-hidden="true">${L[1]}</span><h3>${t.title}</h3></div><ul>
- ${t.items.map((it,i)=>`<li><label><input type="checkbox" data-i="${i}" ${d.includes(i)?'checked':''}><span class="box" aria-hidden="true"></span><span class="t">${it}</span></label></li>`).join('')}
- </ul><div class="foot"><div class="bar" aria-hidden="true"><b style="background:${L[0]}"></b></div><p class="progress"></p></div></div>`}).join('');
-function upd(box){const c=[...box.querySelectorAll('input')],k=c.filter(x=>x.checked).length;
- box.querySelector('.bar b').style.width=(k/c.length*100)+'%';
- box.querySelector('.progress').textContent=k===c.length?'🎉 Completaste esta lista.':`${k} de ${c.length} prácticas marcadas.`;}
-document.querySelectorAll('.tool').forEach(b=>{upd(b);b.addEventListener('change',()=>{save(b.dataset.key,[...b.querySelectorAll('input')].filter(x=>x.checked).map(x=>+x.dataset.i));upd(b);});});
-
-/* Glosario en tarjetas */
-const GC=["var(--sun)","var(--sky)","var(--pink)","var(--mint)","var(--violet)","var(--coral)"];
-const GE=["🤖","🔤","📰","🌉","🫧","🧠","🌐","🙋","©️","⚠️","📢","👣","✨","🧩","🔍","🏷️","🔒","🔑"];
-const gl=document.getElementById('gloss');
-gl.innerHTML=GLOSS.map(([t,d],i)=>`<div class="fc"><button type="button" aria-pressed="false" aria-label="${t}. Toca para ver la definición">
- <span class="face front${GC[i%GC.length]==='var(--violet)'?' light':''}" style="background:${GC[i%GC.length]}"><span style="font-size:2.4rem" aria-hidden="true">${GE[i]||'⭐'}</span><strong>${t}</strong><small>Toca para ver 👆</small></span>
- <span class="face back">${d}</span></button></div>`).join('');
-gl.querySelectorAll('.fc button').forEach(b=>b.addEventListener('click',()=>{const f=b.parentElement.classList.toggle('flip');b.setAttribute('aria-pressed',f);}));
-const norm=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-document.getElementById('gq').addEventListener('input',e=>{const q=norm(e.target.value.trim());let n=0;
- gl.querySelectorAll('.fc').forEach(c=>{const ok=!q||norm(c.textContent).includes(q);c.classList.toggle('hide',!ok);if(ok)n++;});
- document.getElementById('gEmpty').style.display=n?'none':'block';});
-
-/* Evaluación final: juego de la rana */
+/* ---------- Preguntas de la rana (evaluación final del blog) ---------- */
 const GAME_Q = [
  {who:"Pierre Lévy (2007)", q:"¿Cómo se llama la idea de que nadie lo sabe todo, pero todos saben algo, y la red permite juntar esos saberes?", a:["Inteligencia colectiva","Burbuja de filtro","Capitalismo cognitivo"], why:"Lévy propone la inteligencia colectiva: el conocimiento se construye entre muchas personas, como en Wikipedia o los foros de ayuda. (Entrada 1)"},
  {who:"Manuel Castells (2001)", q:"Según Castells, ¿en qué tipo de sociedad vivimos, donde el conocimiento es un flujo que circula y se transforma?", a:["En la sociedad red","En la sociedad de la vigilancia","En la sociedad analógica"], why:"Castells habla de la sociedad red: el conocimiento ya no está guardado solo en bibliotecas, sino que circula por redes. (Entrada 1)"},
  {who:"Paula Sibilia (2012)", q:"¿Qué son las subjetividades mediáticas?", a:["Formas de pensar, sentir y actuar que se construyen con los dispositivos","Leyes que regulan los medios de comunicación","Programas para editar fotos y videos"], why:"Sibilia explica que la tecnología no es neutral: las redes influyen en cómo nos mostramos y cómo prestamos atención. (Entrada 1)"},
  {who:"Kirschner y De Bruyckere (2017)", q:"¿Qué demostraron estos investigadores sobre los llamados nativos digitales?", a:["Que nacer rodeado de pantallas no garantiza saber evaluar información","Que los jóvenes dominan la tecnología de forma natural","Que hacer muchas tareas a la vez mejora el aprendizaje"], why:"Desmontaron el mito del nativo digital de Prensky (2001): usar no es lo mismo que saber, y la multitarea perjudica el aprendizaje. (Entrada 2)"},
- {who:"White y Le Cornu (2011)", q:"Una persona que entra a la red solo para resolver algo puntual y luego sale es un...", a:["Visitante","Residente","Inmigrante digital"], why:"Para White y Le Cornu importa cómo usamos la red: los visitantes entran y salen; los residentes viven parte de su vida allí. (Entrada 2)"},
- {who:"Eli Pariser (2011)", q:"Cuando los algoritmos nos muestran solo lo que ya nos gusta y nos alejan de lo que piensa distinto, estamos en una...", a:["Burbuja de filtro","Sociedad red","Licencia Creative Commons"], why:"Pariser advirtió que la burbuja de filtro facilita las ecocámaras, donde solo escuchamos opiniones como las nuestras. (Entrada 3)"},
+ {who:"White y Le Cornu (2011)", q:"Una persona que entra a la red solo para resolver algo puntual y luego sale es un…", a:["Visitante","Residente","Inmigrante digital"], why:"Para White y Le Cornu importa cómo usamos la red: los visitantes entran y salen; los residentes viven parte de su vida allí. (Entrada 2)"},
+ {who:"Eli Pariser (2011)", q:"Cuando los algoritmos nos muestran solo lo que ya nos gusta y nos alejan de lo que piensa distinto, estamos en una…", a:["Burbuja de filtro","Sociedad red","Licencia Creative Commons"], why:"Pariser advirtió que la burbuja de filtro facilita las ecocámaras, donde solo escuchamos opiniones como las nuestras. (Entrada 3)"},
  {who:"Yann Moulier-Boutang (2011)", q:"¿Qué es el capitalismo cognitivo?", a:["Un modelo donde la atención, el conocimiento y la creatividad se vuelven valor económico","Una aplicación para estudiar mejor","Un tipo de inteligencia artificial gratuita"], why:"Por eso muchas plataformas gratuitas están diseñadas para que pases el mayor tiempo posible en ellas, como el scroll infinito. (Entrada 3)"},
- {who:"Cathy O'Neil (2016)", q:"¿Qué advierte O'Neil sobre los sistemas automatizados y los algoritmos?", a:["Que pueden reproducir los sesgos de los datos con que se construyen","Que nunca se equivocan porque son máquinas","Que solo funcionan sin internet"], why:"Los algoritmos y la IA no son neutrales: pueden repetir prejuicios y errores de sus datos. Por eso hay que verificar. (Entrada 3)"},
+ {who:"Cathy O’Neil (2016)", q:"¿Qué advierte O’Neil sobre los sistemas automatizados y los algoritmos?", a:["Que pueden reproducir los sesgos de los datos con que se construyen","Que nunca se equivocan porque son máquinas","Que solo funcionan sin internet"], why:"Los algoritmos y la IA no son neutrales: pueden repetir prejuicios y errores de sus datos. Por eso hay que verificar. (Entrada 3)"},
  {who:"Shoshana Zuboff (2019)", q:"¿Cómo llama Zuboff al modelo que recoge datos de nuestro comportamiento para predecirlo y venderlo?", a:["Capitalismo de la vigilancia","Inteligencia colectiva","Alfabetización mediática"], why:"Zuboff muestra que esto también ocurre con apps educativas, juegos y plataformas que usamos a diario. (Entrada 4)"},
  {who:"Helen Nissenbaum (2010)", q:"Según la idea de integridad contextual, ¿cuándo aparece el problema de privacidad?", a:["Cuando un dato sale del contexto en el que lo entregamos","Siempre que compartimos cualquier información","Solo cuando usamos un computador público"], why:"Contarle al médico un diagnóstico es apropiado; que llegue a un empleador, no. (Entrada 4)"},
  {who:"Ley Estatutaria 1581 de 2012", q:"En Colombia, ¿qué protege la Ley 1581 de 2012?", a:["Los datos personales","Los derechos de autor de los videojuegos","El acceso gratuito a internet"], why:"Esta ley reconoce el derecho a conocer, actualizar y rectificar la información que se recoge sobre nosotros. (Entrada 4)"},
@@ -708,93 +684,312 @@ const GAME_Q = [
  {who:"van Deursen y Helsper (2015)", q:"¿Cuáles son los tres niveles de la brecha digital?", a:["Acceso, uso y habilidades, y resultados","Celular, computador y tableta","Redes sociales, juegos y videos"], why:"Tener internet no basta: también importa lo que sabemos hacer con él y lo que logramos gracias a él. (Entrada 6)"},
  {who:"Cristóbal Cobo (2016) y Jesús Martín-Barbero (2006)", q:"¿Qué idea comparten sobre la tecnología en la educación?", a:["Adoptar tecnología no es lo mismo que innovar; hay que pensarla desde el contexto local","Basta con repartir equipos para que todos aprendan","Hay que copiar los modelos educativos del norte global"], why:"Cerrar la brecha no es poner a todos frente a una pantalla, sino lograr que todos decidan qué hacer con ella. (Entrada 6)"}
 ];
-const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const G = {i:0, score:0, lives:3, order:[]};
-const gameEl = document.getElementById('game');
-const shuffle = a => { a=[...a]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
 
-function gameStart(){
-  gameEl.innerHTML = `<div class="screen" style="background:var(--tint-sky)">
-   <span class="big" aria-hidden="true">🐸</span><h3>¿Listo para cruzar el estanque?</h3>
-   <p>Son ${GAME_Q.length} preguntas sobre todo lo que leíste en Ciudadanía en Red y los autores que citamos. Toca la hojita con la respuesta correcta. Si fallas, la hojita se hunde y pierdes una vida ❤️.</p>
-   <div class="btns"><button class="btn" id="gPlay" type="button">🐸 Empezar a saltar</button></div></div>`;
-  document.getElementById('gPlay').onclick = () => { G.i=0; G.score=0; G.lives=3; G.order=shuffle(GAME_Q.map((_,k)=>k)); gameRound(); };
+
+/* ---------- Tres casos prácticos ---------- */
+const COLS_VERIF = [
+  {id:'todo',   name:'Por verificar', e:'📰', c:'var(--sky)'},
+  {id:'doing',  name:'Investigando', e:'🔍', c:'var(--sun)'},
+  {id:'review', name:'Contrastando con otra fuente', e:'🔀', c:'var(--pink)'},
+  {id:'done',   name:'Veredicto', e:'⚖️', c:'var(--mint)'}
+];
+const tbl = rows => '<div class="table-wrap"><table class="cmp"><thead><tr><th>Elemento</th><th>Detalle</th></tr></thead><tbody>' + rows.map(r => '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td></tr>').join('') + '</tbody></table></div>';
+const CASES = [
+ { id:'caso1', n:1, nav:'Caso 1 · Privacidad', e:'🕵️', c:'var(--mint)', ct:'var(--t-mint)', min:6,
+   t:'Auditoría de privacidad de mi app favorita',
+   sum:'Un sprint de Scrum para descubrir qué datos pide una app y qué hace con ellos.',
+   body: tbl([['Problema','Los estudiantes aceptan términos y condiciones sin leerlos y no saben qué datos entregan.'],['Objetivo','Reconocer el valor de los datos personales y aplicar prácticas básicas de cuidado.'],['Entradas del OVA','<a href="#/algoritmos">Entrada 3: algoritmos</a>, <a href="#/privacidad">entrada 4: privacidad</a> y la lista <a href="#/herramientas">“Revisión de privacidad en 15 minutos”</a>.'],['Metodología','Scrum, un <i>sprint</i> de 2 semanas.'],['Duración','4 sesiones de 2 horas.']]) +
+     `<h2>Desarrollo</h2><ul class="cards">
+       <li><b class="h">Planificación:</b> cada equipo elige una app que usa (red social, videojuego o chatbot). El docente, como <i>Product Owner</i>, propone la meta: “Al final del <i>sprint</i>, tendremos un informe de qué datos pide la app y qué hace con ellos”.</li>
+       <li><b class="h">Ejecución:</b> leen la entrada de privacidad, aplican la lista de chequeo a su app y revisan los permisos y la política de datos.</li>
+       <li><b class="h">Revisión:</b> cada equipo presenta su hallazgo más sorprendente.</li>
+       <li><b class="h">Retrospectiva:</b> ¿qué cambiaremos en nuestras configuraciones?</li></ul>
+     <h2>Producto</h2><p>Un informe de una página y una guía de tres ajustes recomendados.</p>
+     <h2>Analítica</h2><p>Se registra qué porcentaje de la lista de chequeo completó cada estudiante y qué ítems quedaron sin marcar. Si la mayoría no marca los de permisos, el docente refuerza ese punto con una demostración en vivo. Como se trata de menores, el registro se hace con conocimiento de los estudiantes y sus acudientes.</p>
+     <h2>Evaluación</h2><p>El informe, la lista de chequeo y las preguntas de privacidad en la <a href="#/quiz">rana</a>.</p>`,
+   boardText:'Este es el tablero del <i>sprint</i>. Cada equipo agrega las tarjetas de sus tareas. Recuerda: a Hecho solo llega lo que otra persona revisó y con fuentes citadas.',
+   boardOpts:{wip:{doing:5, review:4}},
+   think:'Retrospectiva: ¿qué cambiaremos en nuestras configuraciones después de la auditoría?', wallText:'Comparte tu hallazgo más sorprendente o el ajuste que vas a hacer.', emojis:['🕵️','🔒','😮','🛠️','📍','💬'] },
+ { id:'caso2', n:2, nav:'Caso 2 · Verificar noticias', e:'🔎', c:'var(--sky)', ct:'var(--t-sky)', min:6,
+   t:'Detectives de la información',
+   sum:'Un tablero Kanban con límite de trabajo en curso para verificar publicaciones virales.',
+   body: tbl([['Problema','Los estudiantes comparten noticias sin verificarlas.'],['Objetivo','Verificar información y usar la IA con ética.'],['Entradas del OVA','<a href="#/etica">Entrada 5: ética digital</a> y las listas <a href="#/herramientas">“Antes de compartir una noticia”</a> y “Usar la IA con ética”.'],['Metodología','Kanban con límite de trabajo en curso.'],['Duración','3 sesiones de 2 horas.']]) +
+     `<h2>Desarrollo</h2><ul class="cards">
+       <li>El docente lleva <b class="h">6 publicaciones virales</b> (una verdadera, varias falsas o engañosas) y cada una se convierte en una <b class="h">tarjeta</b> en el tablero del equipo.</li>
+       <li>Las columnas son: <b class="h">Por verificar</b>, <b class="h">Investigando</b> (máximo 2 tarjetas por persona), <b class="h">Contrastando con otra fuente</b> y <b class="h">Veredicto</b>.</li>
+       <li>Cada tarjeta debe cerrar con un veredicto y las fuentes consultadas, por ejemplo con la <b class="h">lectura lateral</b>: salir de la página y buscar qué dicen otras fuentes sobre ella.</li>
+       <li>Una de las tarjetas se resuelve con ayuda de un chatbot, y el equipo debe verificar si lo que respondió es cierto. Así se practica el uso honesto de la IA.</li></ul>
+     <h2>Producto</h2><p>Un muro de veredictos del curso, con las fuentes citadas. Está más abajo: ahí publicas el veredicto de tu tarjeta.</p>
+     <h2>Analítica</h2><p>Se mira el tiempo que cada tarjeta pasa en cada columna. Si muchas se acumulan en “Contrastando con otra fuente”, significa que cuesta encontrar una segunda fuente y hay que enseñar a buscar mejor. Es un indicador del tablero y no depende de la tecnología: en esta wiki se ve a simple vista cuántas tarjetas hay en cada columna.</p>
+     <h2>Evaluación</h2><p>Calidad de las fuentes, claridad del veredicto y reflexión final sobre qué errores del chatbot encontraron.</p>`,
+   boardText:'En este tablero, <b>Investigando</b> admite máximo 2 tarjetas por persona (usa siempre el mismo Nickname) y una tarjeta solo llega a <b>Veredicto</b> después de contrastarse con otra fuente. El docente reemplaza las tarjetas de ejemplo por las publicaciones reales.',
+   boardOpts:{cols:COLS_VERIF, wip:{}, perPerson:{doing:2}, lastMsg:'🔀 Una tarjeta solo llega a Veredicto después de contrastarse con otra fuente. Aplica la lectura lateral y cita lo que encontraste.', doneMsg:'⚖️ ¡Veredicto emitido! Publícalo con sus fuentes en el muro.'},
+   think:'¿Qué errores del chatbot encontraron al verificar su respuesta? ¿Qué harían distinto la próxima vez?', wallText:'Publica tu veredicto con las fuentes que consultaste: ✅ verdadera, ❌ falsa o ⚠️ engañosa.', emojis:['✅','❌','⚠️','🔍','🤖','💬'] },
+ { id:'caso3', n:3, nav:'Caso 3 · Enseña a alguien', e:'🤝', c:'var(--coral)', ct:'var(--t-coral)', min:6,
+   t:'Enseña a alguien: reduciendo la brecha digital',
+   sum:'Tres sprints de Scrum, con tablero Kanban en papel, para llevar lo aprendido a tu entorno.',
+   body: tbl([['Problema','Hay familiares y vecinos que quedan por fuera por falta de acceso, formación o confianza.'],['Objetivo','Reflexionar sobre la brecha digital y actuar para reducirla en su entorno.'],['Entradas del OVA','<a href="#/brecha">Entrada 6: brecha digital</a>, que propone que cada estudiante enseñe a alguien de su entorno, y <a href="#/etica">entrada 5: ética digital</a>.'],['Metodología','Scrum, 3 <i>sprints</i> de 2 semanas, con tablero Kanban en papel.'],['Duración','6 semanas.']]) +
+     `<h2>Desarrollo</h2><ul class="cards">
+       <li><b class="h">Sprint 1, diagnóstico:</b> cada estudiante entrevista a una persona de su entorno con los tres niveles de la brecha que explica el blog: acceso, uso y habilidades, y resultados.</li>
+       <li><b class="h">Sprint 2, diseño:</b> cada equipo elige una necesidad (por ejemplo, hacer un trámite en línea o reconocer un mensaje fraudulento) y diseña una mini clase o una guía impresa.</li>
+       <li><b class="h">Sprint 3, acción:</b> los estudiantes enseñan a su persona, registran qué pasó y presentan el resultado al curso.</li></ul>
+     <p><b class="h">Adaptación para baja conectividad:</b> el tablero es de papel, las guías se imprimen y el docente proyecta el blog en clase. Este tablero digital es una copia del tablero de papel para los equipos que sí tienen conexión.</p>
+     <h2>Producto</h2><p>Una guía impresa más un relato breve de la experiencia de enseñanza.</p>
+     <h2>Analítica (nivel 1, manual)</h2><p>El docente cuenta cuántos estudiantes lograron completar el <i>sprint</i> 1. Si hay estudiantes sin entrevista, no interpreta desinterés: revisa primero si hubo barreras de acceso o de contacto.</p>
+     <h2>Evaluación</h2><p>Una rúbrica de la guía, la retrospectiva de cada <i>sprint</i> y lo que reportó la persona que recibió la clase.</p>`,
+   boardText:'Cada tarjeta lleva el número de su <i>sprint</i> (S1 a S3). Agrega las de tu equipo y avancen juntos.',
+   boardOpts:{wip:{doing:5, review:4}},
+   think:'¿Qué pasó cuando le enseñaste a tu persona? ¿Qué barrera encontraste y cómo la resolviste?', wallText:'Cuenta en pocas líneas tu experiencia de enseñanza: es tu relato breve.', emojis:['🤝','🌉','📘','😊','🧓','💬'] }
+];
+function casesOverviewHTML(){
+  return `<p>Los tres casos usan lo que ya tiene el blog: las seis entradas, la autoevaluación, la caja de herramientas con listas de chequeo, el glosario y la evaluación final con la rana. Cada caso combina el OVA con una <b class="h">metodología ágil</b> (Scrum o Kanban) y con un <b class="h">indicador de analítica del aprendizaje</b> que el docente puede usar para decidir cómo intervenir. Están pensados para estudiantes de grado 9 en un curso de Tecnología e Informática.</p>
+   <ul class="cards">${CASES.map(c => `<li><a href="#/${c.id}"><b>Caso ${c.n}: ${c.t}</b></a><br>${c.sum}</li>`).join('')}</ul>
+   <h2>Cómo se conectan</h2>
+   <div class="table-wrap"><table class="cmp"><thead><tr><th>Caso</th><th>Pregunta del blog</th><th>Metodología</th><th>Dato que mira el docente</th></tr></thead><tbody>
+     <tr><td>1</td><td>¿Qué hacen los sistemas con mis datos?</td><td>Scrum</td><td>Ítems de la lista de chequeo sin marcar</td></tr>
+     <tr><td>2</td><td>¿Cómo sé si algo es verdad?</td><td>Kanban</td><td>Tiempo de las tarjetas por columna</td></tr>
+     <tr><td>3</td><td>¿Quién queda por fuera y qué puedo hacer?</td><td>Scrum + Kanban en papel</td><td>Avance por <i>sprint</i> y barreras de acceso</td></tr>
+   </tbody></table></div>
+   <p>Pueden aplicarse en este orden: del cuidado personal (casos 1 y 2) a la acción comunitaria (caso 3). Cada caso tiene en esta wiki su tablero compartido, y un muro para publicar la retrospectiva, los veredictos o el relato de la experiencia.</p>`;
 }
 
-function gameRound(){
-  const Q = GAME_Q[G.order[G.i]];
-  const opts = shuffle(Q.a.map((t,k)=>({t,ok:k===0})));
-  gameEl.innerHTML = `
-   <div class="hud"><span class="pill">Salto ${G.i+1} de ${GAME_Q.length}</span><span class="pill">⭐ ${G.score}</span><span class="hearts" aria-label="${G.lives} vidas">${'❤️'.repeat(G.lives)}${'🤍'.repeat(3-G.lives)}</span></div>
-   <div class="qbox"><span class="who">📚 ${Q.who}</span><h3>${Q.q}</h3></div>
-   <div class="pond" id="pond">
-     <div class="pads">${opts.map((o,k)=>`<button class="pad" type="button" data-ok="${o.ok}"><span>${o.t}</span></button>`).join('')}</div>
-     <div class="start" id="startPad" aria-hidden="true"></div>
-     <div class="frog" id="frog" aria-hidden="true">🐸</div>
+/* ---------- Páginas y navegación ---------- */
+const PAGES = [
+ {id:'inicio', t:'Inicio', e:'🏠', g:'Empieza'},
+ {id:'metodo', t:'Nuestro método Kanban', e:'🗂️', g:'Empieza', c:'var(--violet)', ct:'var(--t-violet)', min:4, sum:'Cómo trabajamos esta wiki: columnas, reglas y roles.'},
+ ...ENTRIES.map(x => ({id:x.id, t:x.t, nav:x.n+'. '+x.tag, e:x.e, g:'Entradas del blog', c:x.c, ct:x.ct, min:x.min, sum:x.sum, entry:x})),
+ {id:'casos', t:'Tres casos prácticos', nav:'Resumen de los casos', e:'🧪', g:'Casos prácticos', c:'var(--violet)', ct:'var(--t-violet)', min:3, sum:'Scrum, Kanban y analítica aplicados al blog.'},
+ ...CASES.map(x => ({id:x.id, t:x.t, nav:x.nav, e:x.e, g:'Casos prácticos', c:x.c, ct:x.ct, min:x.min, sum:x.sum, caso:x})),
+ {id:'proyecto', t:'Proyecto: campaña de ciudadanía digital', nav:'Tablero del proyecto', e:'🚀', g:'Hacemos', c:'var(--coral)', ct:'var(--t-coral)', min:5, sum:'Cuatro sprints para llevar el blog a tu comunidad.'},
+ {id:'herramientas', t:'Caja de herramientas', e:'🧰', g:'Hacemos', c:'var(--mint)', ct:'var(--t-mint)', min:4, sum:'Listas de chequeo que usamos como definición de hecho.'},
+ {id:'glosario', t:'Glosario', e:'📖', g:'Consulta', c:'var(--sky)', ct:'var(--t-sky)', min:3, sum:'Dieciocho conceptos clave del blog.'},
+ {id:'quiz', t:'Evaluación final: quiz de la rana', nav:'Quiz', e:'🐸', g:'Consulta', c:'var(--pink)', ct:'var(--t-pink)', min:5, sum:'Ocho preguntas sobre los autores y conceptos del blog.'},
+ {id:'referentes', t:'Autores y referentes', e:'📚', g:'Consulta', c:'var(--sun)', ct:'var(--t-sun)', min:3, sum:'Quién dijo qué y dónde leerlo.'}
+];
+const currentId = () => { const m = location.hash.match(/^#\/([\w-]+)/); return m && PAGES.some(p => p.id === m[1]) ? m[1] : 'inicio'; };
+function renderNav(){
+  const cur = currentId(); let g = '', html = '';
+  PAGES.forEach(p => {
+    if(p.g !== g){ g = p.g; html += '</nav><h2>'+esc(g)+'</h2><nav>'; }
+    html += '<a href="#/'+p.id+'" class="'+(PASS.visited.includes(p.id)&&p.id!=='inicio'?'done':'')+'" '+(p.id===cur?'aria-current="page"':'')+'><span class="e" aria-hidden="true">'+p.e+'</span>'+esc(p.nav||p.t)+'</a>';
+  });
+  $('#nav').outerHTML = '<div id="nav">' + html.replace('</nav>','') + '</nav></div>';
+}
+
+function homeHTML(){
+  return `<section class="hero">
+    <h1><span class="w1">Ciudadanía</span><br><span class="w2">en Red</span></h1>
+    <p class="lead">La wiki del curso: las ideas del blog, trabajadas entre todos en tableros Kanban.</p>
+    <a class="btn" href="#/cibercultura">🚀 Empezar por la entrada 1</a><a class="btn alt" href="#/metodo">🗂️ Cómo trabajamos</a>
+    <div class="mini" aria-hidden="true">
+      <div class="c"><b>📝 Por hacer</b><div class="k" style="background:#9BDBFF"></div><div class="k" style="background:#FFE27A"></div><div class="k" style="background:#FFB3D4"></div></div>
+      <div class="c"><b>⚙️ En progreso</b><div class="k" style="background:#8DEBC6"></div><div class="k" style="background:#CDB8FF"></div></div>
+      <div class="c"><b>🔎 Revisión</b><div class="k" style="background:#FFC2A3"></div></div>
+      <div class="c"><b>✅ Hecho</b><div class="k" style="background:#FFE27A"></div><div class="k" style="background:#9BDBFF"></div></div>
+    </div>
+  </section>
+  <p class="bubble">¿Cómo pasamos de ser usuarios que consumen a ciudadanos que entienden, participan y deciden en la red?</p>
+  <div class="three">
+    <div class="s" style="background:var(--sky)"><span class="n">📖</span><h3>1. Lee la entrada</h3><p>Las ideas del blog, con sus autores.</p></div>
+    <div class="s" style="background:var(--sun)"><span class="n">🗂️</span><h3>2. Mueve tus tarjetas</h3><p>Cada entrada tiene su tablero de tareas.</p></div>
+    <div class="s" style="background:var(--pink)"><span class="n">🙋</span><h3>3. Responde y aporta</h3><p>Contesta el “Para pensar” y agrega ideas.</p></div>
+  </div>
+  <h2 class="sect">Las seis entradas</h2>
+  <ol class="route">${ENTRIES.map(x => `<li><a href="#/${x.id}"><div class="art" style="background:${x.c}"><span class="num">${x.n}</span><span aria-hidden="true">${x.e}</span></div><div class="txt"><span class="chip" style="background:${x.ct}">${x.tag}</span><h3>${x.t}</h3><p>${x.sum}</p></div></a></li>`).join('')}</ol>
+  <h2 class="sect">Tres casos prácticos</h2>
+  <ol class="route">${CASES.map(x => `<li><a href="#/${x.id}"><div class="art" style="background:${x.c}"><span class="num">${x.n}</span><span aria-hidden="true">${x.e}</span></div><div class="txt"><span class="chip" style="background:${x.ct}">Caso ${x.n}</span><h3>${x.t}</h3><p>${x.sum}</p></div></a></li>`).join('')}</ol>
+  <div class="passcard" id="passcard">${passcardHTML()}</div>`;
+}
+
+function methodHTML(){
+  return `<p>Esta wiki no se lee y ya: se <b class="h">trabaja</b>. Cada entrada del blog y el proyecto de la campaña tienen un tablero Kanban compartido por todo el curso, para que se vea qué tareas están pendientes, cuáles avanzan y cuáles ya se terminaron.</p>
+   <h2>Las columnas de nuestros tableros</h2>
+   <div class="cols4">
+     <div style="background:var(--sky)"><b>📝 Por hacer</b>Prácticas del blog que aún no empiezas: revisar permisos, aplicar lectura lateral, entrevistar a alguien.</div>
+     <div style="background:var(--sun)"><b>⚙️ En progreso</b>Lo que estás haciendo ahora. Máximo 5 tarjetas a la vez en cada tablero.</div>
+     <div style="background:var(--pink)"><b>🔎 Revisión</b>Otra persona revisa tu trabajo. Máximo 4 tarjetas a la vez.</div>
+     <div style="background:var(--mint)"><b>✅ Hecho</b>Tarea terminada que cumple nuestra definición de hecho.</div>
    </div>
-   <div class="feedback" id="fb" role="status"></div>`;
-  const pond=document.getElementById('pond'), frog=document.getElementById('frog');
-  const place=(el)=>{const p=pond.getBoundingClientRect(),r=el.getBoundingClientRect(),f=frog.getBoundingClientRect();
-    return {x:r.left-p.left+r.width/2-f.width/2, y:r.top-p.top+r.height/2-f.height/2-8};};
-  const home=place(document.getElementById('startPad'));
-  frog.style.transform=`translate(${home.x}px,${home.y}px)`;
-  pond.querySelectorAll('.pad').forEach(pad=>pad.addEventListener('click',()=>jump(pad,Q,pond,frog,place,home)));
+   <h2>Nuestras reglas</h2>
+   <ul class="cards">
+     <li><b class="h">Definición de hecho:</b> una tarjeta llega a Hecho solo si otra persona la revisó y citó sus fuentes, como se aprende en la entrada 5 del blog. Las listas de la <a href="#/herramientas">Caja de herramientas</a> sirven como criterios.</li>
+     <li><b class="h">Límite WIP:</b> no se puede empezar todo a la vez. Si “En progreso” está llena, primero se termina algo. Así aplicamos lo que el blog dice sobre la atención dispersa.</li>
+     <li><b class="h">Nickname y cero datos personales:</b> como enseña la entrada 4, tus datos valen. Participas con un Nickname y no escribes teléfono, dirección ni colegio.</li>
+     <li><b class="h">Sin dispositivo, tablero físico:</b> si no hay conexión o equipos, el curso usa un tablero en el salón con tarjetas de papel. Así cuidamos lo que dice la entrada 6 sobre la brecha digital.</li>
+   </ul>
+   <h2>Roles y sprints</h2>
+   <p>En el proyecto de la campaña trabajan equipos de cuatro o cinco estudiantes durante cuatro <i>sprints</i> de dos semanas. En cada <i>sprint</i> los roles rotan:</p>
+   <ul class="cards">
+     <li><b class="h">Scrum Master:</b> facilita las reuniones y cuida los acuerdos.</li>
+     <li><b class="h">Product Owner:</b> representa a la comunidad destinataria; al inicio lo asume el docente.</li>
+     <li><b class="h">Verificador/a de fuentes:</b> aplica la lectura lateral y la lista de noticias.</li>
+     <li><b class="h">Time Keeper:</b> cuida los tiempos del <i>sprint</i>.</li>
+   </ul>
+   <h2>Lo que tomamos del referente</h2>
+   <p>El material del Eje 3 propone los tableros digitales con columnas como “Por hacer”, “En progreso” y “Completado”, porque favorecen la transparencia y la responsabilidad entre los participantes (Galindo Cuesta, s. f.). Además, de ese mismo referente tomamos tres ideas más:</p>
+   <ul class="cards">
+     <li><b class="h">Design thinking</b> para ordenar el proyecto en empatía, ideación y prototipado.</li>
+     <li><b class="h">Analítica del aprendizaje</b> en versión sencilla: miramos tarjetas estancadas, avance en las listas y resultado del quiz, siempre con transparencia y sin sancionar.</li>
+     <li><b class="h">Microcredenciales</b> como las cuatro insignias de tu pasaporte, que reconocen lo que haces y no solo lo que lees.</li>
+   </ul>`;
 }
 
-function jump(pad,Q,pond,frog,place,home){
-  pond.querySelectorAll('.pad').forEach(p=>p.disabled=true);
-  const t0=place(pad), pr=pad.getBoundingClientRect(), to={x:t0.x-pr.width*0.36, y:t0.y-pr.height*0.32}, midY=Math.min(home.y,to.y)-90;
-  const anim=frog.animate([
-    {transform:`translate(${home.x}px,${home.y}px) scale(1)`},
-    {transform:`translate(${(home.x+to.x)/2}px,${midY}px) scale(1.35)`,offset:.5},
-    {transform:`translate(${to.x}px,${to.y}px) scale(1)`}
-  ],{duration:reduce?1:650,easing:'ease-in-out',fill:'forwards'});
-  anim.onfinish=()=>{
-    const ok=pad.dataset.ok==='true', fb=document.getElementById('fb');
-    if(ok){ G.score++; pad.classList.add('good'); frog.textContent='🐸'; }
-    else{
-      G.lives--; pad.classList.add('sink');
-      const s=document.createElement('div'); s.className='splash'; s.textContent='💦';
-      s.style.left=(to.x)+'px'; s.style.top=(to.y)+'px'; pond.appendChild(s);
-      frog.animate([{opacity:1},{opacity:0}],{duration:reduce?1:300,fill:'forwards'});
-      setTimeout(()=>{ frog.style.transform=`translate(${home.x}px,${home.y}px)`; frog.getAnimations().forEach(a=>a.cancel()); frog.style.transform=`translate(${home.x}px,${home.y}px)`; },reduce?0:700);
-      pond.querySelector('.pad[data-ok="true"]').classList.add('good');
-    }
-    const hud=gameEl.querySelector('.hud');
-    hud.innerHTML=`<span class="pill">Salto ${G.i+1} de ${GAME_Q.length}</span><span class="pill">⭐ ${G.score}</span><span class="hearts" aria-label="${G.lives} vidas">${'❤️'.repeat(G.lives)}${'🤍'.repeat(3-G.lives)}</span>`;
-    const last=G.i===GAME_Q.length-1, over=G.lives<=0;
-    fb.className='feedback show '+(ok?'ok':'bad');
-    fb.innerHTML=`<span class="e" aria-hidden="true">${ok?'🎉':'💦'}</span><div class="msg"><h4>${ok?'¡Salto perfecto!':'¡Splash! La respuesta era: '+Q.a[0]}</h4><p>${Q.why}</p></div>
-      <button class="btn" type="button" id="gNext">${over?'Ver resultado':last?'🏁 Ver mi resultado':'Siguiente salto 🐸'}</button>`;
-    const nb=document.getElementById('gNext'); nb.focus({preventScroll:true});
-    nb.onclick=()=>{ if(over||last) gameEnd(over); else { G.i++; gameRound(); gameEl.scrollIntoView({block:'start'}); } };
-  };
+function projectHTML(){
+  return `<p>El proyecto convierte las seis entradas en una <b class="h">campaña de ciudadanía digital</b> para tu comunidad: un afiche, una guía impresa, un video corto o una presentación. Se trabaja por equipos y por <i>sprints</i> de dos semanas, siguiendo las fases de empatía, ideación y prototipado (Galindo Cuesta, s. f.).</p>
+   <div class="table-wrap"><table class="cmp"><thead><tr><th>Sprint</th><th>Entradas del blog</th><th>Fase</th><th>Entregable</th></tr></thead><tbody>
+     <tr><td>1</td><td>Cibercultura y alfabetización digital; autoevaluación del blog</td><td>Empatía: entrevistar a alguien que usa la red sin entenderla o que queda por fuera</td><td>Ficha de empatía y mapa de la red del grupo</td></tr>
+     <tr><td>2</td><td>Algoritmos y privacidad; listas de noticias y de privacidad</td><td>Definir el problema e ideas</td><td>Problema priorizado y tres ideas de campaña</td></tr>
+     <tr><td>3</td><td>Ética digital; lista de uso ético de la IA</td><td>Prototipado</td><td>Prototipo de la campaña</td></tr>
+     <tr><td>4</td><td>Brecha digital; juego de la rana</td><td>Prueba y muestra a la comunidad</td><td>Producto final y cada integrante enseña a alguien</td></tr>
+   </tbody></table></div>`;
 }
 
-function gameEnd(over){
-  const n=GAME_Q.length, s=G.score; let b,t,d;
-  if(over){b='💦';t='¡La rana cayó al agua!';d=`Respondiste bien ${s} preguntas antes de quedarte sin vidas. Repasa las entradas y vuelve a intentarlo: ¡tú puedes cruzar el estanque!`;}
-  else if(s>=13){b='🏆';t='¡Cruzaste el estanque como un ciudadano en red!';d=`Acertaste ${s} de ${n}. Dominas los conceptos y los autores del blog. Ahora ayuda a otros a dar el salto.`;}
-  else if(s>=9){b='🐸';t='¡Llegaste a la otra orilla!';d=`Acertaste ${s} de ${n}. Vas muy bien; repasa las preguntas que fallaste para ser un experto.`;}
-  else{b='🌱';t='¡Llegaste, pero con algunos chapuzones!';d=`Acertaste ${s} de ${n}. Vuelve a leer las entradas y juega otra vez para mejorar tu marca.`;}
-  gameEl.innerHTML=`<div class="screen" style="background:var(--tint-violet)"><span class="big" aria-hidden="true">${b}</span><h3>${t}</h3>
-   <div class="meter" aria-hidden="true" style="margin-bottom:1rem"><b></b></div><p>${d}</p>
-   <div class="btns"><button class="btn" type="button" id="gAgain">🔁 Jugar otra vez</button><a class="btn alt" href="#entradas">📚 Repasar las entradas</a></div></div>`;
-  setTimeout(()=>{const m=gameEl.querySelector('.meter b'); if(m) m.style.width=(s/n*100)+'%';},120);
-  document.getElementById('gAgain').onclick=()=>{ G.i=0; G.score=0; G.lives=3; G.order=shuffle(GAME_Q.map((_,k)=>k)); gameRound(); };
-  gameEl.scrollIntoView({block:'start'});
+/* ---------- Render de páginas ---------- */
+function renderPage(id){
+  const main = $('#main');
+  MOUNTED.length = 0;
+  if(id === 'inicio'){ main.innerHTML = homeHTML(); return; }
+  const i = PAGES.findIndex(p => p.id === id), p = PAGES[i], prev = PAGES[i-1], next = PAGES[i+1];
+  main.style.setProperty('--c', p.c); main.style.setProperty('--ct', p.ct);
+  let body = '', extra = '', think = '';
+  if(p.entry){
+    const e = p.entry;
+    body = `<article class="body-card">${e.body}</article>
+      ${videoHTML(e.video)}
+      <section class="panel"><h2 class="sec-title">🗂️ Tablero de la entrada</h2><p>Tareas para llevar esta entrada a la práctica. Mueve tus tarjetas, respeta el límite WIP y recuerda: a Hecho solo llega lo que otra persona revisó y con fuentes citadas.</p><div id="boardHost"></div></section>
+      <aside class="think"><span class="e" aria-hidden="true">🤔</span><div><h3>Para pensar</h3><p>${e.think}</p></div></aside>
+      <section class="panel"><h2 class="sec-title">💬 Respuestas del curso</h2><p>Comparte tu respuesta al “Para pensar”. Lee las de tus compañeros y comenta en clase.</p><div id="wallHost"></div></section>`;
+  } else if(p.caso){
+    const k = p.caso;
+    body = `<article class="body-card">${k.body}</article>
+      <section class="panel"><h2 class="sec-title">🗂️ Tablero del caso</h2><p>${k.boardText}</p><div id="boardHost"></div></section>
+      <aside class="think"><span class="e" aria-hidden="true">🤔</span><div><h3>Para pensar</h3><p>${k.think}</p></div></aside>
+      <section class="panel"><h2 class="sec-title">💬 Muro del caso</h2><p>${k.wallText}</p><div id="wallHost"></div></section>`;
+  } else if(id === 'casos'){ body = `<article class="body-card">${casesOverviewHTML()}</article>`;
+  } else if(id === 'metodo'){ body = `<article class="body-card">${methodHTML()}</article>`;
+  } else if(id === 'proyecto'){ body = `<article class="body-card">${projectHTML()}</article>
+      <section class="panel"><h2 class="sec-title">🚀 Tablero del proyecto</h2><p>Cada tarjeta lleva el número de su <i>sprint</i> (S1 a S4). Agrega las tarjetas de tu equipo y avancen juntos.</p><div id="boardHost"></div></section>`;
+  } else if(id === 'herramientas'){ body = `<article class="body-card"><p>Estas tres listas del blog son nuestra <b class="h">definición de hecho</b>: antes de pasar una tarjeta a Hecho, comprueba que se cumplen las que le corresponden. Tu avance se guarda en este navegador.</p></article><div class="tools" id="tools"></div>`;
+  } else if(id === 'glosario'){ body = `<article class="body-card"><p>Los conceptos clave del blog, en una o dos frases. Toca una tarjeta para voltearla.</p><label for="gq" style="position:absolute;left:-9999px">Buscar en el glosario</label><input class="search" id="gq" type="search" placeholder="🔎 Buscar un término, por ejemplo: algoritmo"><div class="gloss" id="gloss"></div><p class="hint" id="gEmpty" style="display:none">No hay términos con esa palabra. Prueba con otra búsqueda.</p></article>`;
+  } else if(id === 'quiz'){ body = `<article class="body-card"><div class="quiz" id="quiz"></div></article><article class="body-card" style="margin-top:1.2rem;display:flex;flex-wrap:wrap;align-items:center;gap:1rem"><span style="font-size:2.4rem" aria-hidden="true">🎮</span><p style="flex:1 1 240px;margin:0;font-weight:700">¿Quieres otro reto? Juega también nuestro Froggy Jumps en Educaplay: “¡La tecnología, uso responsable!”</p><a class="btn alt" href="https://es.educaplay.com/juego/29321054-uso_responsable_de_la_tecnologia.html" target="_blank" rel="noopener">🐸 Jugar en Educaplay</a></article>`;
+  } else if(id === 'referentes'){ body = referentesHTML(); }
+  if(!p.entry && id !== 'metodo' && id !== 'quiz'){}
+  const tail = p.entry ? '' : (id==='metodo' ? `<aside class="think"><span class="e" aria-hidden="true">🤔</span><div><h3>Para pensar</h3><p>¿Cuál de nuestras reglas te costaría más cumplir en tu grupo? ¿Qué acuerdo harías para lograrlo?</p></div></aside>` : '');
+  main.innerHTML = `<div class="steps" aria-hidden="true">${PAGES.slice(1).map((x,k)=>`<i class="${k<i-1?'on':''}" style="--c:${p.c}"></i>`).join('')}</div>
+   <header class="banner" style="background:${p.c}${p.c==='var(--violet)'?';color:#fff':''}">
+     <div><span class="chip">${p.entry ? 'Entrada '+p.entry.n+' de 6 · '+p.entry.tag : (p.caso ? 'Caso práctico '+p.caso.n+' de 3' : 'Wiki Ciudadanía en Red')}</span><h1>${p.t}</h1><div class="meta"><span>⏱️ ${p.min} min</span><span>${esc(p.sum)}</span></div></div>
+     <div class="emo" aria-hidden="true">${p.e}</div>
+   </header>
+   ${body}${tail}
+   <nav class="pager" aria-label="Otras páginas">
+     ${prev&&prev.id!=='inicio'?`<a href="#/${prev.id}"><small>⬅️ Anterior</small>${esc(prev.nav||prev.t)}</a>`:'<span></span>'}
+     ${next?`<a class="next" href="#/${next.id}"><small>Siguiente ➡️</small>${esc(next.nav||next.t)}</a>`:`<a class="next" href="#/inicio"><small>Terminaste 🏁</small>Volver al inicio</a>`}
+   </nav>`;
+  if(p.entry){ mountBoard($('#boardHost'), id, {doing:5, review:4}); mountWall($('#wallHost'), id, p.entry.emojis); }
+  if(p.caso){ const k = p.caso; mountBoard($('#boardHost'), id, k.boardOpts.wip, k.boardOpts); mountWall($('#wallHost'), id, k.emojis); }
+  if(id === 'proyecto') mountBoard($('#boardHost'), 'proyecto', {doing:5, review:4});
+  if(id === 'herramientas') initTools();
+  if(id === 'glosario') initGloss();
+  if(id === 'quiz') initQuiz();
 }
-gameStart();
-window.addEventListener('resize',()=>{ const pond=document.getElementById('pond'), frog=document.getElementById('frog'), sp=document.getElementById('startPad');
-  if(pond&&frog&&sp&&!pond.querySelector('.pad[disabled]')){ const p=pond.getBoundingClientRect(),r=sp.getBoundingClientRect(),f=frog.getBoundingClientRect();
-  frog.style.transform=`translate(${r.left-p.left+r.width/2-f.width/2}px,${r.top-p.top+r.height/2-f.height/2-8}px)`; }});
 
-/* Tema */
-const root=document.documentElement,tb=document.getElementById('themeBtn');
-function isDark(){return root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;}
-try{const t=localStorage.getItem('cer-theme');if(t)root.dataset.theme=t;}catch(e){}
-tb.textContent=isDark()?'☀️':'🌙';
-tb.addEventListener('click',()=>{root.dataset.theme=isDark()?'light':'dark';tb.textContent=isDark()?'☀️':'🌙';try{localStorage.setItem('cer-theme',root.dataset.theme);}catch(e){}});
+function videoHTML(v){
+  if(!v) return '';
+  return '<a class="video" href="'+esc(v.url)+'" target="_blank" rel="noopener"><span class="play" aria-hidden="true">▶</span><span><small>🎬 Video para ver y comentar en clase</small><b>'+esc(v.title)+'</b><em>'+esc(v.ch)+'</em><span class="vn">'+esc(v.note)+'</span></span></a>';
+}
+
+function referentesHTML(){
+  const A = [['Pierre Lévy (2007)','Inteligencia colectiva','cibercultura'],['Manuel Castells (2001)','Sociedad red','cibercultura'],['Paula Sibilia (2012)','Subjetividades mediáticas','cibercultura'],
+   ['Marc Prensky (2001)','Nativos digitales','alfabetizacion'],['Kirschner y De Bruyckere (2017)','El mito del nativo digital y la multitarea','alfabetizacion'],['White y Le Cornu (2011)','Visitantes y residentes','alfabetizacion'],['Paul Gilster (1997)','Alfabetización digital','alfabetizacion'],['Vuorikari et al. (2022)','Marco DigComp 2.2','alfabetizacion'],
+   ['Yann Moulier-Boutang (2011)','Capitalismo cognitivo','algoritmos'],['Eli Pariser (2011)','Burbuja de filtro','algoritmos'],['Cathy O’Neil (2016)','Sesgos en sistemas automatizados','algoritmos'],
+   ['Shoshana Zuboff (2019)','Capitalismo de la vigilancia','privacidad'],['Helen Nissenbaum (2010)','Integridad contextual','privacidad'],
+   ['Mike Ribble (2015)','Ciudadanía digital','etica'],['Wineburg y McGrew (2019)','Lectura lateral','etica'],
+   ['van Deursen y Helsper (2015)','Tres niveles de la brecha digital','brecha'],['UNESCO (2023)','La tecnología no mejora el aprendizaje por sí sola','brecha'],['Cristóbal Cobo (2016)','Adoptar tecnología no es innovar','brecha'],['Jesús Martín-Barbero (2006)','Mirada desde América Latina','brecha']];
+  const num = s => ENTRIES.find(x => x.id === s).n;
+  const REFS = ["Carr, N. (2011). <i>Superficiales: ¿Qué está haciendo Internet con nuestras mentes?</i> Taurus.","Castells, M. (2001). <i>La era de la información: economía, sociedad y cultura</i>. Alianza Editorial.","Cobo, C. (2016). <i>La innovación pendiente: Reflexiones (y provocaciones) sobre la educación, el futuro y sus posibles derivas</i>. Ceibal.","Galindo Cuesta, J. A. (s. f.). <i>Seminario de fundamentación educación y cibercultura: Eje 3, Pongamos en práctica</i> [Material de curso]. Fundación Universitaria del Área Andina.","Gilster, P. (1997). <i>Digital literacy</i>. Wiley.","Kirschner, P. A., &amp; De Bruyckere, P. (2017). The myths of the digital native and the multitasker. <i>Teaching and Teacher Education, 67</i>, 135–142.","Lévy, P. (2007). <i>Cibercultura: La cultura de la sociedad digital</i>. Anthropos.","Martín-Barbero, J. (2006). A Latin American perspective on communication/cultural mediation. <i>Global Media and Communication, 2</i>(3), 279–297.","Moulier-Boutang, Y. (2011). <i>Cognitive capitalism</i>. Polity Press.","Nissenbaum, H. (2010). <i>Privacy in context: Technology, policy, and the integrity of social life</i>. Stanford University Press.","O’Neil, C. (2016). <i>Weapons of math destruction</i>. Crown.","Pariser, E. (2011). <i>The filter bubble: What the Internet is hiding from you</i>. Penguin Press.","Prensky, M. (2001). Digital natives, digital immigrants. <i>On the Horizon, 9</i>(5), 1–6.","Ribble, M. (2015). <i>Digital citizenship in schools: Nine elements all students should know</i> (3.ª ed.). ISTE.","Sibilia, P. (2012). <i>¿Redes o paredes? La escuela en tiempos de la dispersión</i>. Tinta Fresca.","UNESCO. (2023). <i>Informe de seguimiento de la educación en el mundo 2023: Tecnología en la educación: ¿una herramienta en los términos de quién?</i> https://doi.org/10.54676/idqe8212","van Deursen, A. J. A. M., &amp; Helsper, E. J. (2015). The third-level digital divide: Who benefits most from being online? <i>Communication and Information Technologies Annual</i> (Studies in Media and Communications, Vol. 10), 29–52. Emerald.","Vuorikari, R., Kluzer, S., &amp; Punie, Y. (2022). <i>DigComp 2.2: The digital competence framework for citizens</i>. Publications Office of the European Union.","White, D. S., &amp; Le Cornu, A. (2011). Visitors and residents: A new typology for online engagement. <i>First Monday, 16</i>(9).","Wineburg, S., &amp; McGrew, S. (2019). Lateral reading and the nature of expertise. <i>Teachers College Record, 121</i>(11), 1–40.","Zuboff, S. (2019). <i>The age of surveillance capitalism</i>. PublicAffairs."];
+  return `<article class="body-card"><p>Estas son las ideas de los autores que aparecen en el blog y en esta wiki, y la entrada donde las puedes leer.</p>
+   <div class="table-wrap"><table class="cmp"><thead><tr><th>Autor</th><th>Idea</th><th>Entrada</th></tr></thead><tbody>
+   ${A.map(a => `<tr><td>${a[0]}</td><td>${a[1]}</td><td><a href="#/${a[2]}">Entrada ${num(a[2])}</a></td></tr>`).join('')}
+   </tbody></table></div>
+   <h2>Referencias</h2>
+   <ul class="refs">${REFS.map(r => '<li>'+r+'</li>').join('')}</ul>
+   <p class="hint">El trabajo con tableros se apoya en Galindo Cuesta (s. f.), que cita a Focustribes (2023) para las definiciones de Scrum y Kanban.</p></article>`;
+}
+
+/* ---------- Herramientas ---------- */
+function initTools(){
+  const host = $('#tools');
+  host.innerHTML = TOOLS.map(t => { const d = load('cr-'+t.key, []);
+    return `<div class="tool" data-key="${t.key}"><div class="head" style="background:${t.c}"><span aria-hidden="true">${t.e}</span><h3>${t.title}</h3></div><ul>
+    ${t.items.map((it,i) => `<li><label><input type="checkbox" data-i="${i}" ${d.includes(i)?'checked':''}><span class="box" aria-hidden="true"></span><span class="t">${it}</span></label></li>`).join('')}
+    </ul><div class="foot"><div class="bar" aria-hidden="true"><b style="background:${t.c}"></b></div><p class="progress"></p></div></div>`; }).join('');
+  const upd = box => { const c = [...box.querySelectorAll('input')], k = c.filter(x => x.checked).length;
+    box.querySelector('.bar b').style.width = (k/c.length*100)+'%';
+    box.querySelector('.progress').textContent = k === c.length ? '🎉 Completaste esta lista.' : k+' de '+c.length+' prácticas marcadas.'; };
+  host.querySelectorAll('.tool').forEach(b => { upd(b); b.addEventListener('change', () => { save('cr-'+b.dataset.key, [...b.querySelectorAll('input')].filter(x => x.checked).map(x => +x.dataset.i)); upd(b); }); });
+}
+
+/* ---------- Glosario ---------- */
+function initGloss(){
+  const gl = $('#gloss');
+  gl.innerHTML = GLOSS.map(([t,d],i) => `<div class="fc"><button type="button" aria-pressed="false" aria-label="${esc(t)}. Toca para ver la definición"><span class="face front${GC[i%GC.length]==='#7B4DFF'?' light':''}" style="background:${GC[i%GC.length]}"><span style="font-size:2.2rem" aria-hidden="true">${GE[i]||'⭐'}</span><strong>${esc(t)}</strong><small>Toca para ver 👆</small></span><span class="face back">${esc(d)}</span></button></div>`).join('');
+  gl.querySelectorAll('.fc button').forEach(b => b.addEventListener('click', () => { const f = b.parentElement.classList.toggle('flip'); b.setAttribute('aria-pressed', f); }));
+  const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  $('#gq').addEventListener('input', e => { const q = norm(e.target.value.trim()); let n = 0;
+    gl.querySelectorAll('.fc').forEach(c => { const ok = !q || norm(c.textContent).includes(q); c.classList.toggle('hide', !ok); if(ok) n++; });
+    $('#gEmpty').style.display = n ? 'none' : 'block'; });
+}
+
+/* ---------- Quiz ---------- */
+function initQuiz(){
+  const box = $('#quiz'); let order = shuffle(GAME_Q.map((_,k) => k)).slice(0, 8), i = 0, score = 0;
+  function ask(){
+    const Q = GAME_Q[order[i]];
+    const opts = shuffle(Q.a.map((t,k) => ({t, ok:k===0})));
+    box.innerHTML = '<div class="qbar" aria-hidden="true"><b style="width:'+(i/order.length*100)+'%"></b></div><p class="hint">Pregunta '+(i+1)+' de '+order.length+' · Aciertos: '+score+'</p><span class="who">📚 '+esc(Q.who)+'</span><div class="qq">'+esc(Q.q)+'</div><div id="opts"></div><div id="fb"></div>';
+    const o = box.querySelector('#opts');
+    opts.forEach(op => {
+      const b = document.createElement('button'); b.type='button'; b.className='opt'; b.textContent = op.t;
+      b.onclick = () => {
+        o.querySelectorAll('button').forEach(x => x.disabled = true);
+        if(op.ok) score++;
+        b.classList.add(op.ok ? 'ok' : 'no');
+        if(!op.ok){ [...o.children].forEach(x => { if(opts.find(y => y.t === x.textContent).ok) x.classList.add('ok'); }); }
+        box.querySelector('#fb').innerHTML = '<div class="fb">'+(op.ok?'🎉 ¡Correcto! ':'💦 Casi. ')+esc(Q.why)+'</div><button class="btn small" type="button" id="nx">'+(i===order.length-1?'🏁 Ver resultado':'Siguiente ➡️')+'</button>';
+        const nx = box.querySelector('#nx'); nx.onclick = () => { i++; if(i < order.length) ask(); else end(); }; nx.focus({preventScroll:true});
+      };
+      o.appendChild(b);
+    });
+  }
+  function end(){
+    PASS.quiz = Math.max(PASS.quiz, score); updatePass();
+    const msg = score >= 6 ? '🏅 ¡Ciudadano/a en red! Dominas los conceptos y los autores del blog.' : score >= 4 ? '🐸 ¡Llegaste a la otra orilla! Repasa las entradas que fallaste.' : '🌱 Buen comienzo. Vuelve a leer las entradas y juega otra vez.';
+    box.innerHTML = '<div class="qbar" aria-hidden="true"><b style="width:100%"></b></div><div class="qq">Acertaste '+score+' de '+order.length+'</div><div class="fb">'+msg+'</div><button class="btn" type="button" id="again">🔁 Jugar otra vez</button><a class="btn alt" href="#/cibercultura">📚 Repasar las entradas</a>';
+    box.querySelector('#again').onclick = () => { order = shuffle(GAME_Q.map((_,k) => k)).slice(0, 8); i = 0; score = 0; ask(); };
+  }
+  ask();
+}
+
+/* ---------- Ruteo ---------- */
+function route(){
+  const id = currentId();
+  if(id !== 'inicio' && !PASS.visited.includes(id)) PASS.visited.push(id);
+  renderPage(id); updatePass();
+  document.title = (id==='inicio' ? 'Wiki Ciudadanía en Red' : PAGES.find(p=>p.id===id).t + ' | Wiki Ciudadanía en Red');
+  window.scrollTo(0, 0);
+}
+window.addEventListener('hashchange', route);
+
+/* ---------- Tema ---------- */
+const root = document.documentElement, tb = $('#themeBtn');
+const isDark = () => root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+try{ const t = localStorage.getItem('cr-theme'); if(t) root.dataset.theme = t; }catch(e){}
+tb.textContent = isDark() ? '☀️' : '🌙';
+tb.addEventListener('click', () => { root.dataset.theme = isDark() ? 'light' : 'dark'; tb.textContent = isDark() ? '☀️' : '🌙'; try{ localStorage.setItem('cr-theme', root.dataset.theme); }catch(e){} });
+
+/* ---------- Arranque ---------- */
+route();
+connect();
 </script>
 </body>
 </html>
